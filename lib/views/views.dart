@@ -1,0 +1,11 @@
+export 'auth/auth.dart';
+export 'doctor/doctors.dart';
+export 'home/home.dart';
+export 'national_id/national_id.dart';
+export 'onboarding/onboarding.dart';
+export 'patient/patient.dart';
+export 'patient_details/patient_details.dart';
+export 'pharmacy/pharmacy.dart';
+export 'receptionist/receptionist.dart';
+export 'select_branch/select_branch.dart';
+export 'splash/splash.dart';

@@ -1,0 +1,13 @@
+// coverage:ignore-file
+/// An asset constant class which will hold all the
+/// assets path which are used in the application.
+///
+/// Will be ignored for test since all are static values and would not change.
+class AssetConstants {
+  const AssetConstants._();
+  static const String hospital = 'assets/icons/hospital_svg.svg';
+  static const String filterIcon = 'assets/icons/filter_svg.svg';
+  static const String searchDoctor = 'assets/images/search_doctor.svg';
+  static const String notificationPlaceholder =
+      'assets/icons/notification_placeholder.svg';
+}
