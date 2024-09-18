@@ -29,8 +29,12 @@ class TodayOrderList extends StatelessWidget {
                       ),
                     ),
                     leading: CircleAvatar(
+                      backgroundColor: ColorsValue.primaryColor,
                       radius: Dimens.twenty,
-                      child: const Icon(Icons.person),
+                      child: const Icon(
+                        Icons.person,
+                        color: Colors.white,
+                      ),
                     ),
                     title: Text(
                       'Name : Tony Stark',
@@ -45,7 +49,7 @@ class TodayOrderList extends StatelessWidget {
                       size: Dimens.fifteen,
                     ),
                   ),
-                  Divider(),
+                  const Divider(),
                   Padding(
                     padding: EdgeInsets.all(Dimens.ten),
                     child: Column(
@@ -55,7 +59,7 @@ class TodayOrderList extends StatelessWidget {
                           'Ordered On : 12 Aug 2024, 12:00 AM',
                           style: Styles.black12,
                         ),
-                        Gap(10),
+                        const Gap(10),
                         Row(
                           children: [
                             Column(

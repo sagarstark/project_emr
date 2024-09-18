@@ -16,7 +16,7 @@ class SelectBranchScreen extends StatelessWidget {
         id: 'select-branch',
         initState: (state) async {
           final controller = Get.find<HomeController>();
-          // await controller.getAllBranches();
+          await controller.getAllBranches();
         },
         builder: (controller) {
           return Scaffold(
@@ -27,61 +27,57 @@ class SelectBranchScreen extends StatelessWidget {
             ),
             body: controller.isBranchesLoading
                 ? const CustomLoader()
-                :
-                // controller.allBranchRes?.data == null
-                //     ? Center(
-                //         child: GestureDetector(
-                //             onTap: RouteManagement.goToReceptionistHome,
-                //             child: const Text('No Branches Available.')),
-                //       )
-                //     :
-                Padding(
-                    padding: Dimens.edgeInsets16,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'With which branch do you want to proceed ?',
-                          style: Styles.black16,
-                        ),
-                        const Gap(15),
-                        // Expanded(
-                        //   child: GridView.builder(
-                        //     gridDelegate:
-                        //         const SliverGridDelegateWithFixedCrossAxisCount(
-                        //             crossAxisCount: 2,
-                        //             mainAxisSpacing: 5,
-                        //             crossAxisSpacing: 5),
-                        //     shrinkWrap: true,
-                        //     itemCount:
-                        //         controller.allBranchRes?.data?.length,
-                        //     itemBuilder: (context, index) =>
-                        //         SingleBranchItem(
-                        //       branchName:
-                        //           '${controller.allBranchRes?.data?[index].branchName?.capitalizeFirst}',
-                        //       ontap: RouteManagement.goToReceptionistHome,
-                        //     ),
-                        //   ),
-                        // ),
-                        Expanded(
-                          child: GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    mainAxisSpacing: 5,
-                                    crossAxisSpacing: 5),
-                            shrinkWrap: true,
-                            itemCount: controller.dummyBranchList.length,
-                            itemBuilder: (context, index) => SingleBranchItem(
-                              branchName: controller.dummyBranchList[index],
-                              ontap: RouteManagement.goToReceptionistHome,
+                : controller.allBranchRes?.data == null
+                    ? const Center(
+                        child: Text('No Branches Available.'),
+                      )
+                    : Padding(
+                        padding: Dimens.edgeInsets16,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'With which branch do you want to proceed ?',
+                              style: Styles.black16,
                             ),
-                          ),
+                            const Gap(15),
+                            Expanded(
+                              child: GridView.builder(
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        mainAxisSpacing: 5,
+                                        crossAxisSpacing: 5),
+                                shrinkWrap: true,
+                                itemCount:
+                                    controller.allBranchRes?.data?.length,
+                                itemBuilder: (context, index) =>
+                                    SingleBranchItem(
+                                  branchName:
+                                      '${controller.allBranchRes?.data?[index].branchName?.capitalizeFirst}',
+                                  ontap: RouteManagement.goToReceptionistHome,
+                                ),
+                              ),
+                            ),
+                            // Expanded(
+                            //   child: GridView.builder(
+                            //     gridDelegate:
+                            //         const SliverGridDelegateWithFixedCrossAxisCount(
+                            //             crossAxisCount: 2,
+                            //             mainAxisSpacing: 5,
+                            //             crossAxisSpacing: 5),
+                            //     shrinkWrap: true,
+                            //     itemCount: controller.dummyBranchList.length,
+                            //     itemBuilder: (context, index) => SingleBranchItem(
+                            //       branchName: controller.dummyBranchList[index],
+                            //       ontap: RouteManagement.goToReceptionistHome,
+                            //     ),
+                            //   ),
+                            // ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
+                      ),
           );
         },
       );

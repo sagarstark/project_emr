@@ -7,7 +7,7 @@ class AuthRepository {
   AuthRepository();
   final _apiWrapper = Get.put(ApiWrapper());
 
-  /// Member Login 1st API
+  /// Sign In API
   ///
   Future<ResponseModel> signIn({
     required String userName,
@@ -22,6 +22,39 @@ class AuthRepository {
         payload: {
           'userName': userName,
           'password': password,
+        },
+        showLoader: true,
+      );
+
+  /// Reset Passsword API
+  ///
+  Future<ResponseModel> resetPassword({
+    required String userName,
+    required String password,
+  }) async =>
+      _apiWrapper.makeRequest(
+        Apis.resetPassword,
+        type: RequestType.patch,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        payload: {
+          'userName': userName,
+          'password': password,
+        },
+        showLoader: true,
+      );
+
+  /// Forgot Passsword API
+  ///
+  Future<ResponseModel> forgotpassword({
+    required String email,
+  }) async =>
+      _apiWrapper.makeRequest(
+        '${Apis.forgotPassword}?email=$email',
+        type: RequestType.get,
+        headers: {
+          'Content-Type': 'application/json',
         },
         showLoader: true,
       );
