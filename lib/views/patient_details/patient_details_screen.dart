@@ -132,7 +132,8 @@ class PatientDetailsScreen extends StatelessWidget {
                 hintText: 'Age',
               ),
               const Gap(10),
-              const CustomDropdownField(
+              CustomDropdownField(
+                onChanged: (p0) {},
                 hintText: 'Gender',
                 dropDownList: [
                   DropDownValueModel(name: 'Male', value: '1'),
@@ -146,7 +147,8 @@ class PatientDetailsScreen extends StatelessWidget {
                 hintText: 'Nationality',
               ),
               const Gap(10),
-              const CustomDropdownField(
+              CustomDropdownField(
+                onChanged: (p0) {},
                 hintText: 'Marital Status',
                 dropDownList: [
                   DropDownValueModel(name: 'Married', value: '1'),
@@ -154,7 +156,8 @@ class PatientDetailsScreen extends StatelessWidget {
                 ],
               ),
               const Gap(10),
-              const CustomDropdownField(
+              CustomDropdownField(
+                onChanged: (p0) {},
                 hintText: 'Visa Type',
                 dropDownList: [
                   DropDownValueModel(name: 'Resident', value: '1'),

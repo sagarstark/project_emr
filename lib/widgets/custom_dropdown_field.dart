@@ -7,15 +7,18 @@ class CustomDropdownField extends StatelessWidget {
     super.key,
     required this.dropDownList,
     required this.hintText,
+    required this.onChanged,
   });
 
   final List<DropDownValueModel> dropDownList;
   final String hintText;
+  final Function(dynamic) onChanged;
 
   @override
   Widget build(BuildContext context) {
     return DropDownTextField(
       readOnly: true,
+      onChanged: onChanged,
       textFieldDecoration: InputDecoration(
         // alignLabelWithHint: true,
         labelText: hintText,

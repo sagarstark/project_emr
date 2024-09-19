@@ -26,6 +26,7 @@ dependencies:
   intl: ^0.19.0
   package_info_plus: ^8.0.0
   shared_preferences: ^2.2.3
+  shimmer: ^3.0.0
   syncfusion_flutter_calendar: ^26.1.40+1
   webview_flutter: ^4.8.0
 

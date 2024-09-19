@@ -17,4 +17,15 @@ class HomeRepository {
       showLoader: false,
     );
   }
+
+  Future<ResponseModel> getAllSpecialities() async {
+    return _apiWrapper.makeRequest(
+      Apis.getAllSpecialities,
+      type: RequestType.get,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      showLoader: false,
+    );
+  }
 }

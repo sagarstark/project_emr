@@ -26,7 +26,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
         builder: (controller) {
           return Scaffold(
             appBar: const CustomAppbar(
-              title: 'Check Availability',
+              title: 'Book Appointment',
             ),
             bottomNavigationBar: Padding(
               padding: Dimens.edgeInsets16_0_16_16,

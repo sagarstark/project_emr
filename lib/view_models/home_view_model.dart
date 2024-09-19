@@ -10,7 +10,7 @@ class HomeViewModel {
 
   final HomeRepository _repository;
 
-  /// Sign In API
+  /// Get All Branches API
   ///
   Future<AllBranchRes?> getAllBranches() async {
     var response = await _repository.getAllBranches();
@@ -21,5 +21,18 @@ class HomeViewModel {
       return null;
     }
     return AllBranchRes.fromMap(data);
+  }
+
+  /// Get All Specialities API
+  ///
+  Future<AllSpecialistRes?> getAllSpecialities() async {
+    var response = await _repository.getAllSpecialities();
+    var data = jsonDecode(response.data) as Map<String, dynamic>;
+    var status = '${data['status']}';
+    if (status == 'false') {
+      Utility.showDialog(data['message'].toString());
+      return null;
+    }
+    return AllSpecialistRes.fromJson(data);
   }
 }

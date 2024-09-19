@@ -24,13 +24,13 @@ abstract class RouteManagement {
   }
 
   static void goToSelectBranch() {
-    Get.offAllNamed<void>(
+    Get.toNamed<void>(
       Routes.selectBranch,
     );
   }
 
   static void goToReceptionistHome() {
-    Get.offAllNamed<void>(
+    Get.toNamed<void>(
       Routes.receptionistHome,
     );
   }

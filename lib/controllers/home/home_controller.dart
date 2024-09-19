@@ -51,9 +51,27 @@ class HomeController extends GetxController {
 
   Future<void> getAllBranches() async {
     isBranchesLoading = true;
-    update(['select-branch']);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      update(['select-branch']);
+    });
     allBranchRes = await _viewModel.getAllBranches();
     isBranchesLoading = false;
-    update(['select-branch']);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      update(['select-branch']);
+    });
+  }
+
+  var selectedBranchId = '';
+
+  AllSpecialistRes? allSpecialistRes;
+
+  var isSpecializationLoading = false;
+
+  Future<void> getAllSpecialities() async {
+    isSpecializationLoading = true;
+    update(['filter-availability']);
+    allSpecialistRes = await _viewModel.getAllSpecialities();
+    isSpecializationLoading = false;
+    update(['filter-availability']);
   }
 }

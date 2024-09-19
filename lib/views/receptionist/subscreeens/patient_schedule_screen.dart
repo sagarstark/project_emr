@@ -52,9 +52,10 @@ class PatientScheduleScreen extends StatelessWidget {
                 hintText: 'Email',
               ),
               const Gap(15),
-              const CustomDropdownField(
+              CustomDropdownField(
+                onChanged: (p0) {},
                 hintText: 'Speciality',
-                dropDownList: [
+                dropDownList: const [
                   DropDownValueModel(name: 'Cardiologist', value: '1'),
                   DropDownValueModel(name: 'Gynacologist', value: '1'),
                   DropDownValueModel(name: 'Neurolgist', value: '1'),
@@ -64,9 +65,10 @@ class PatientScheduleScreen extends StatelessWidget {
                 ],
               ),
               const Gap(15),
-              const CustomDropdownField(
+              CustomDropdownField(
+                onChanged: (p0) {},
                 hintText: 'Doctor',
-                dropDownList: [
+                dropDownList: const [
                   DropDownValueModel(name: 'ArulRaj', value: '1'),
                   DropDownValueModel(name: 'Herold', value: '1'),
                   DropDownValueModel(name: 'Abhisekh', value: '1'),
@@ -75,9 +77,10 @@ class PatientScheduleScreen extends StatelessWidget {
                 ],
               ),
               const Gap(15),
-              const CustomDropdownField(
+              CustomDropdownField(
+                onChanged: (p0) {},
                 hintText: 'Branch',
-                dropDownList: [
+                dropDownList: const [
                   DropDownValueModel(name: 'Bengaluru', value: '1'),
                   DropDownValueModel(name: 'Chennai', value: '1'),
                   DropDownValueModel(name: 'Pune', value: '1'),
@@ -86,9 +89,10 @@ class PatientScheduleScreen extends StatelessWidget {
                 ],
               ),
               const Gap(15),
-              const CustomDropdownField(
+              CustomDropdownField(
+                onChanged: (p0) {},
                 hintText: 'No. of slots',
-                dropDownList: [
+                dropDownList: const [
                   DropDownValueModel(name: '1', value: '1'),
                   DropDownValueModel(name: '2', value: '1'),
                   DropDownValueModel(name: '3', value: '1'),

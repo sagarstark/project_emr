@@ -26,7 +26,7 @@ class PatientBookAppointmentView extends StatelessWidget {
                 onTap: () {},
               ),
             ),
-            Gap(10),
+            const Gap(10),
             Expanded(
               child: CustomButton(
                 title: 'Cancel',
@@ -79,9 +79,10 @@ class PatientBookAppointmentView extends StatelessWidget {
                 ],
               ),
               const Gap(15),
-              const CustomDropdownField(
+              CustomDropdownField(
+                onChanged: (p0) {},
                 hintText: 'Location',
-                dropDownList: [
+                dropDownList: const [
                   DropDownValueModel(name: 'Delhui', value: '1'),
                   DropDownValueModel(name: 'Mumbai', value: '1'),
                   DropDownValueModel(name: 'Pune', value: '1'),
@@ -90,9 +91,10 @@ class PatientBookAppointmentView extends StatelessWidget {
                 ],
               ),
               const Gap(15),
-              const CustomDropdownField(
+              CustomDropdownField(
+                onChanged: (p0) {},
                 hintText: 'Speciality',
-                dropDownList: [
+                dropDownList: const [
                   DropDownValueModel(name: 'Cardiologist', value: '1'),
                   DropDownValueModel(name: 'Gynacologist', value: '1'),
                   DropDownValueModel(name: 'Neurolgist', value: '1'),
@@ -102,9 +104,10 @@ class PatientBookAppointmentView extends StatelessWidget {
                 ],
               ),
               const Gap(15),
-              const CustomDropdownField(
+              CustomDropdownField(
+                onChanged: (p0) {},
                 hintText: 'Provider',
-                dropDownList: [
+                dropDownList: const [
                   // DropDownValueModel(name: 'Cardiologist', value: '1'),
                   // DropDownValueModel(name: 'Gynacologist', value: '1'),
                   // DropDownValueModel(name: 'Neurolgist', value: '1'),
@@ -125,7 +128,7 @@ class PatientBookAppointmentView extends StatelessWidget {
                     child: CustomTextfield(
                       onChange: (value) {},
                       isReadOnly: true,
-                      suffixIcon: Icon(Icons.calendar_month),
+                      suffixIcon: const Icon(Icons.calendar_month),
                       onTap: () {
                         showDatePicker(
                             context: context,
@@ -161,7 +164,7 @@ class PatientBookAppointmentView extends StatelessWidget {
                     child: CustomTextfield(
                       onChange: (value) {},
                       isReadOnly: true,
-                      suffixIcon: Icon(Icons.calendar_month),
+                      suffixIcon: const Icon(Icons.calendar_month),
                       onTap: () {
                         showDatePicker(
                             context: context,
@@ -198,7 +201,7 @@ class PatientBookAppointmentView extends StatelessWidget {
               CustomTextfield(
                 onChange: (value) {},
                 hintText: 'Time',
-                suffixIcon: Icon(Icons.schedule_rounded),
+                suffixIcon: const Icon(Icons.schedule_rounded),
                 onTap: () {
                   Future<TimeOfDay?> selectedTime = showTimePicker(
                     initialTime: TimeOfDay.now(),
@@ -248,12 +251,12 @@ class PatientBookAppointmentView extends StatelessWidget {
                     'Attachments',
                     style: Styles.black14,
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Container(
                     width: Get.width / 2,
                     child: ElevatedButton(
                       onPressed: () {},
-                      child: Text('Upload'),
+                      child: const Text('Upload'),
                     ),
                   ),
                 ],

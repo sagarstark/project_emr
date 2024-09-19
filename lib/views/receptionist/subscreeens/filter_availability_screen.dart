@@ -7,6 +7,7 @@ import 'package:project_emr/controllers/controllers.dart';
 import 'package:project_emr/res/res.dart';
 import 'package:project_emr/utils/utils.dart';
 import 'package:project_emr/widgets/widgets.dart';
+import 'package:shimmer/shimmer.dart';
 
 class FilterAvailabilityScreen extends StatelessWidget {
   const FilterAvailabilityScreen({super.key});
@@ -15,6 +16,10 @@ class FilterAvailabilityScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
       id: 'filter-availability',
+      initState: (state) {
+        final controller = Get.find<HomeController>();
+        controller.getAllSpecialities();
+      },
       builder: (controller) {
         return Scaffold(
           appBar: const CustomAppbar(
@@ -82,15 +87,21 @@ class FilterAvailabilityScreen extends StatelessWidget {
                   const Gap(20),
                   const Text('Select one branch to search :'),
                   const Gap(15),
-                  const CustomDropdownField(
+                  CustomDropdownField(
+                    onChanged: (val) {
+                      if (val != null && val is DropDownValueModel) {
+                        controller.selectedBranchId = val.value;
+                        AppLog(controller.selectedBranchId);
+                      }
+                    },
                     hintText: 'Branch',
-                    dropDownList: [
-                      DropDownValueModel(name: 'Bengaluru', value: '1'),
-                      DropDownValueModel(name: 'Chennai', value: '1'),
-                      DropDownValueModel(name: 'Pune', value: '1'),
-                      DropDownValueModel(name: 'Hyderabad', value: '1'),
-                      DropDownValueModel(name: 'Delhi', value: '1'),
-                    ],
+                    dropDownList: controller.allBranchRes?.data?.map((branch) {
+                          return DropDownValueModel(
+                            name: branch.branchName?.capitalizeFirst ?? '',
+                            value: branch.branchId?.toString() ?? '',
+                          );
+                        }).toList() ??
+                        [],
                   ),
                   const Gap(20),
                   const Text('Select one speciality from below :'),
@@ -98,38 +109,60 @@ class FilterAvailabilityScreen extends StatelessWidget {
                   Wrap(
                     runSpacing: 5,
                     spacing: 8,
-                    children: List.generate(
-                      controller.specialList.length,
-                      (index) {
-                        return RawChip(
-                          label: Text(controller.specialList[index]),
-                          labelStyle: controller.selectedSpecialList
-                                  .contains(controller.specialList[index])
-                              ? Styles.white12w500
-                              : Styles.black12,
-                          showCheckmark: false,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(Dimens.fifty),
+                    children: controller.isSpecializationLoading
+                        ? List.generate(
+                            6,
+                            (index) {
+                              return Shimmer.fromColors(
+                                  baseColor: Colors.grey,
+                                  highlightColor: Colors.grey.shade600,
+                                  child: RawChip(
+                                    label: const Text('Shimmer'),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(Dimens.fifty),
+                                    ),
+                                  ));
+                            },
+                          )
+                        : List.generate(
+                            controller.allSpecialistRes!.data!.length,
+                            (index) {
+                              return RawChip(
+                                label: Text(
+                                    '${controller.allSpecialistRes?.data?[index].name}'),
+                                labelStyle: controller.selectedSpecialList
+                                        .contains(controller.allSpecialistRes!
+                                            .data?[index].name)
+                                    ? Styles.white12w500
+                                    : Styles.black12,
+                                showCheckmark: false,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(Dimens.fifty),
+                                ),
+                                selected: controller.selectedSpecialList
+                                    .contains(controller
+                                        .allSpecialistRes!.data?[index].name),
+                                selectedColor: ColorsValue.primaryColor,
+                                backgroundColor: Colors.white,
+                                onPressed: () {
+                                  controller.selectedSpecialList.clear();
+                                  if (controller.selectedSpecialList.contains(
+                                      controller.allSpecialistRes!.data?[index]
+                                          .name)) {
+                                    controller.selectedSpecialList.remove(
+                                        controller.allSpecialistRes!
+                                            .data?[index].name);
+                                  } else {
+                                    controller.selectedSpecialList.add(
+                                        '${controller.allSpecialistRes?.data?[index].name}');
+                                  }
+                                  controller.update(['filter-availability']);
+                                },
+                              );
+                            },
                           ),
-                          selected: controller.selectedSpecialList
-                              .contains(controller.specialList[index]),
-                          selectedColor: ColorsValue.primaryColor,
-                          backgroundColor: Colors.white,
-                          onPressed: () {
-                            controller.selectedSpecialList.clear();
-                            if (controller.selectedSpecialList
-                                .contains(controller.specialList[index])) {
-                              controller.selectedSpecialList
-                                  .remove(controller.specialList[index]);
-                            } else {
-                              controller.selectedSpecialList
-                                  .add(controller.specialList[index]);
-                            }
-                            controller.update(['filter-availability']);
-                          },
-                        );
-                      },
-                    ),
                   ),
                   const Gap(20),
                   const Text(

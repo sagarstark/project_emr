@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'data/data.dart';
 import 'res/res.dart';
-import 'utils/navigators/navigators.dart';
 import 'utils/utils.dart';
 
 void main() async {

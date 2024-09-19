@@ -93,7 +93,8 @@ class PatientDetailsView extends StatelessWidget {
                     onChange: (value) {},
                   ),
                   const Gap(20),
-                  const CustomDropdownField(
+                  CustomDropdownField(
+                    onChanged: (p0) {},
                     hintText: 'Diagnostic',
                     dropDownList: [
                       DropDownValueModel(name: 'Food Poision', value: '1'),

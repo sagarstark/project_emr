@@ -43,9 +43,10 @@ class OrderMedicineView extends StatelessWidget {
               style: Styles.black14,
             ),
             const Gap(10),
-            const CustomDropdownField(
+            CustomDropdownField(
+              onChanged: (p0) {},
               hintText: 'Order Type',
-              dropDownList: [
+              dropDownList: const [
                 DropDownValueModel(name: 'Regular', value: '1'),
                 DropDownValueModel(name: 'STAT', value: '1'),
                 DropDownValueModel(name: 'PRN', value: '1'),
@@ -71,11 +72,12 @@ class OrderMedicineView extends StatelessWidget {
             const Gap(10),
             Row(
               children: [
-                const Expanded(
+                Expanded(
                   flex: 4,
                   child: CustomDropdownField(
+                    onChanged: (p0) {},
                     hintText: 'Dosage',
-                    dropDownList: [
+                    dropDownList: const [
                       DropDownValueModel(name: 'ml', value: '1'),
                       DropDownValueModel(name: 'mcg', value: '1'),
                       DropDownValueModel(name: 'mg', value: '1'),
@@ -101,13 +103,14 @@ class OrderMedicineView extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: CustomDropdownField(
+                    onChanged: (p0) {},
                     hintText: 'Qty',
                     dropDownList: numberList,
                   ),
                 ),
               ],
             ),
-            Gap(15),
+            const Gap(15),
             Card(
               elevation: 5,
               margin: Dimens.edgeInsets0,
@@ -129,7 +132,7 @@ class OrderMedicineView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Gap(10),
+                    const Gap(10),
                     Expanded(
                       child: SizedBox(
                         width: Get.width,
@@ -141,37 +144,37 @@ class OrderMedicineView extends StatelessWidget {
                               'Trade Name :\nREMEDESIVIR 100MG',
                               style: Styles.blackBold14,
                             ),
-                            Gap(10),
+                            const Gap(10),
                             Text(
                               'Ingredient Name : REMEDIGEN 100[REMEDESIVIR 100]',
                               style: Styles.black14w500,
                             ),
-                            Gap(10),
+                            const Gap(10),
                             Text(
                               'Status/Type : Active',
                               style: Styles.black14w500,
                             ),
-                            Gap(10),
+                            const Gap(10),
                             Text(
                               'Drug Form/Order Type :\nInjection Regular',
                               style: Styles.black14w500,
                             ),
-                            Gap(10),
+                            const Gap(10),
                             Text(
                               'Frequency : 1',
                               style: Styles.black14w500,
                             ),
-                            Gap(10),
+                            const Gap(10),
                             Text(
                               'ROA : DEEP SC',
                               style: Styles.black14w500,
                             ),
-                            Gap(10),
+                            const Gap(10),
                             Text(
                               'Duration : 2',
                               style: Styles.black14w500,
                             ),
-                            Gap(15),
+                            const Gap(15),
                             Text(
                               'Remarks',
                               style: Styles.blackBold14,
@@ -185,7 +188,7 @@ class OrderMedicineView extends StatelessWidget {
                       ),
                     ),
                     PopupMenuButton<String>(
-                      icon: Icon(Icons.more_vert), // 3-dot icon
+                      icon: const Icon(Icons.more_vert), // 3-dot icon
                       onSelected: (String value) {
                         // Handle the selected option here
                         print(value);
