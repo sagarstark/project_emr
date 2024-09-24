@@ -1,4 +1,4 @@
-package com.example.project_emr
+package com.emr.app
 
 import io.flutter.embedding.android.FlutterActivity
 
