@@ -35,4 +35,25 @@ class HomeViewModel {
     }
     return AllSpecialistRes.fromJson(data);
   }
+
+  /// Filter Doctors API
+  ///
+  Future<FilterDoctorModel?> getAvailableDoctor({
+    required String date,
+    required String branchId,
+    required String specialityId,
+  }) async {
+    var response = await _repository.getAvailableDoctor(
+      date: date,
+      branchId: branchId,
+      specialityId: specialityId,
+    );
+    var data = jsonDecode(response.data) as Map<String, dynamic>;
+    var status = '${data['status']}';
+    if (status == 'false') {
+      Utility.showDialog(data['message'].toString());
+      return null;
+    }
+    return FilterDoctorModel.fromJson(data);
+  }
 }

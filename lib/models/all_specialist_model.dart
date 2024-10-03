@@ -41,25 +41,25 @@ class AllSpecialistRes {
 }
 
 class AllSpecialistData {
-  final int? specialistId;
+  final int? specialityId;
   final String? name;
   final String? specialization;
 
   AllSpecialistData({
-    this.specialistId,
+    this.specialityId,
     this.name,
     this.specialization,
   });
 
   factory AllSpecialistData.fromJson(Map<String, dynamic> json) =>
       AllSpecialistData(
-        specialistId: json["specialistId"],
+        specialityId: json["specialityId"],
         name: json["name"],
         specialization: json["specialization"],
       );
 
   Map<String, dynamic> toJson() => {
-        "specialistId": specialistId,
+        "specialityId": specialityId,
         "name": name,
         "specialization": specialization,
       };

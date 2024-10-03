@@ -28,4 +28,19 @@ class HomeRepository {
       showLoader: false,
     );
   }
+
+  Future<ResponseModel> getAvailableDoctor({
+    required String date,
+    required String branchId,
+    required String specialityId,
+  }) async {
+    return _apiWrapper.makeRequest(
+      '${Apis.getAvailableDoctor}?date=$date&branchId=$branchId&specialityId=$specialityId',
+      type: RequestType.get,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      showLoader: true,
+    );
+  }
 }

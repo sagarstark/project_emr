@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:project_emr/data/data.dart';
 import 'package:project_emr/models/models.dart';
 
@@ -26,6 +27,8 @@ class HomeController extends GetxController {
 
   var finalSelectedAvailabilityDate = DateTime.now();
 
+  var selectedSpeciality = '';
+
   var isSpecialitySelected = false;
 
   List<String> specialList = [
@@ -43,7 +46,6 @@ class HomeController extends GetxController {
     'Hyderabad',
     'Pune',
   ];
-  List<String> selectedSpecialList = [];
 
   AllBranchRes? allBranchRes;
 
@@ -72,6 +74,27 @@ class HomeController extends GetxController {
     update(['filter-availability']);
     allSpecialistRes = await _viewModel.getAllSpecialities();
     isSpecializationLoading = false;
+    update(['filter-availability']);
+  }
+
+  FilterDoctorModel? filterDoctorModel;
+
+  var isFilterDoctorLoading = false;
+
+  var showAvailableDoctorsList = false;
+
+  Future<void> getAvailableDoctor() async {
+    isFilterDoctorLoading = true;
+    update(['filter-availability']);
+    filterDoctorModel = await _viewModel.getAvailableDoctor(
+      // TODO: Change to actual Date
+      // date: DateFormat('yyyy-MM-dd').format(selectedAvailabilityDate),
+      date: '2024-09-22',
+      branchId: selectedBranchId,
+      specialityId: selectedSpeciality,
+    );
+    isFilterDoctorLoading = false;
+    showAvailableDoctorsList = true;
     update(['filter-availability']);
   }
 }

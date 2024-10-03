@@ -167,13 +167,13 @@ class Utility {
     var backgroundColor = Colors.black;
     switch (type) {
       case MessageType.error:
-        backgroundColor = Colors.red;
+        backgroundColor = ColorsValue.redColor;
         break;
       case MessageType.information:
         backgroundColor = Colors.blue;
         break;
       case MessageType.success:
-        backgroundColor = Colors.green;
+        backgroundColor = ColorsValue.greenColor;
         break;
       default:
         backgroundColor = Colors.black;
@@ -185,14 +185,14 @@ class Utility {
         Get.rawSnackbar(
           messageText: Text(
             message,
-            style: Styles.white16,
+            style: Styles.white16w500,
           ),
           mainButton: actionName != null
               ? TextButton(
                   onPressed: onTap ?? Get.back,
                   child: Text(
                     actionName,
-                    style: Styles.white16,
+                    style: Styles.white16w500,
                   ),
                 )
               : null,

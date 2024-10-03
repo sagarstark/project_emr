@@ -18,6 +18,10 @@ class FilterAvailabilityScreen extends StatelessWidget {
       id: 'filter-availability',
       initState: (state) {
         final controller = Get.find<HomeController>();
+        controller.showAvailableDoctorsList = false;
+        controller.availabilityDateController.clear();
+        controller.selectedBranchId = '';
+        controller.selectedSpeciality = '';
         controller.getAllSpecialities();
       },
       builder: (controller) {
@@ -29,7 +33,7 @@ class FilterAvailabilityScreen extends StatelessWidget {
             padding: Dimens.edgeInsets16,
             child: CustomButton(
               title: 'Apply',
-              isDisable: false,
+              isDisable: true,
               onTap: () {
                 controller.finalSelectedAvailabilityDate =
                     controller.selectedAvailabilityDate;
@@ -48,7 +52,7 @@ class FilterAvailabilityScreen extends StatelessWidget {
                     style: Styles.black14,
                   ),
                   const Gap(15),
-                  const Text('Select a date from the calender :'),
+                  const RequiredText(text: 'Select a date from the calender :'),
                   const Gap(15),
                   CustomTextfield(
                     textEditingController:
@@ -85,13 +89,16 @@ class FilterAvailabilityScreen extends StatelessWidget {
                     hintText: 'Date',
                   ),
                   const Gap(20),
-                  const Text('Select one branch to search :'),
+                  const RequiredText(text: 'Select one branch to search :'),
                   const Gap(15),
                   CustomDropdownField(
                     onChanged: (val) {
                       if (val != null && val is DropDownValueModel) {
                         controller.selectedBranchId = val.value;
                         AppLog(controller.selectedBranchId);
+                      }
+                      if (val == null || val == '') {
+                        controller.selectedBranchId = '';
                       }
                     },
                     hintText: 'Branch',
@@ -104,7 +111,8 @@ class FilterAvailabilityScreen extends StatelessWidget {
                         [],
                   ),
                   const Gap(20),
-                  const Text('Select one speciality from below :'),
+                  const RequiredText(
+                      text: 'Select one speciality from below :'),
                   const Gap(10),
                   Wrap(
                     runSpacing: 5,
@@ -131,9 +139,8 @@ class FilterAvailabilityScreen extends StatelessWidget {
                               return RawChip(
                                 label: Text(
                                     '${controller.allSpecialistRes?.data?[index].name}'),
-                                labelStyle: controller.selectedSpecialList
-                                        .contains(controller.allSpecialistRes!
-                                            .data?[index].name)
+                                labelStyle: controller.selectedSpeciality ==
+                                        '${controller.allSpecialistRes?.data?[index].specialityId}'
                                     ? Styles.white12w500
                                     : Styles.black12,
                                 showCheckmark: false,
@@ -141,57 +148,74 @@ class FilterAvailabilityScreen extends StatelessWidget {
                                   borderRadius:
                                       BorderRadius.circular(Dimens.fifty),
                                 ),
-                                selected: controller.selectedSpecialList
-                                    .contains(controller
-                                        .allSpecialistRes!.data?[index].name),
+                                selected: controller.selectedSpeciality ==
+                                    '${controller.allSpecialistRes!.data?[index].specialityId}',
                                 selectedColor: ColorsValue.primaryColor,
-                                backgroundColor: Colors.white,
+                                backgroundColor: controller
+                                            .selectedSpeciality ==
+                                        '${controller.allSpecialistRes?.data?[index].specialityId}'
+                                    ? ColorsValue.primaryColor
+                                    : Colors.white,
                                 onPressed: () {
-                                  controller.selectedSpecialList.clear();
-                                  if (controller.selectedSpecialList.contains(
-                                      controller.allSpecialistRes!.data?[index]
-                                          .name)) {
-                                    controller.selectedSpecialList.remove(
-                                        controller.allSpecialistRes!
-                                            .data?[index].name);
-                                  } else {
-                                    controller.selectedSpecialList.add(
-                                        '${controller.allSpecialistRes?.data?[index].name}');
-                                  }
+                                  controller.selectedSpeciality =
+                                      '${controller.allSpecialistRes?.data?[index].specialityId}';
                                   controller.update(['filter-availability']);
                                 },
                               );
                             },
                           ),
                   ),
-                  const Gap(20),
-                  const Text(
-                      'Who would you like to choose as your doctor from the following list :'),
-                  const Gap(15),
-                  Card(
-                    margin: EdgeInsets.zero,
-                    child: Padding(
-                      padding: EdgeInsets.all(Dimens.eight),
-                      child: const Column(
-                        children: [
-                          CustomRadioTile(
-                            name: 'Dr. Sagar K',
-                            experience: '7',
-                          ),
-                          const Gap(10),
-                          CustomRadioTile(
-                            name: 'Dr. Abhisek',
-                            experience: '5',
-                          ),
-                          const Gap(10),
-                          CustomRadioTile(
-                            name: 'Dr. Herold',
-                            experience: '3',
-                          ),
-                        ],
+                  const Gap(10),
+                  ElevatedButton(
+                    onPressed: () async {
+                      if (controller.availabilityDateController.text.isEmpty ||
+                          controller.selectedBranchId.isEmpty ||
+                          controller.selectedSpeciality.isEmpty) {
+                        Utility.showMessage(
+                            message:
+                                'Please select all the three fields to find the appropriate Doctor for yourself.',
+                            type: MessageType.error);
+                      } else {
+                        controller.getAvailableDoctor();
+                      }
+                    },
+                    child: SizedBox(
+                      width: Get.width,
+                      child: const Center(
+                        child: Text('Search for Doctors'),
                       ),
                     ),
                   ),
+                  const Gap(10),
+                  const Divider(),
+                  const Gap(20),
+                  if (controller.showAvailableDoctorsList &&
+                      controller.filterDoctorModel != null) ...[
+                    const RequiredText(
+                        text:
+                            'Who would you like to choose as your doctor from the following list :'),
+                    const Gap(15),
+                    Card(
+                      margin: EdgeInsets.zero,
+                      child: Padding(
+                        padding: EdgeInsets.all(Dimens.eight),
+                        child: ListView.separated(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: controller.filterDoctorModel!.data!.length,
+                          itemBuilder: (context, index) => CustomRadioTile(
+                            name:
+                                '${controller.filterDoctorModel?.data?[index].doctor?.name}',
+                            experience:
+                                '${controller.filterDoctorModel?.data?[index].doctor?.experience}',
+                            value: '',
+                            groupValue: '',
+                          ),
+                          separatorBuilder: (context, index) => const Gap(10),
+                        ),
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),
@@ -207,25 +231,29 @@ class CustomRadioTile extends StatelessWidget {
     super.key,
     required this.name,
     required this.experience,
+    required this.value,
+    required this.groupValue,
   });
 
   final String name;
   final String experience;
+  final String value;
+  final String groupValue;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        CircleAvatar(
+        const CircleAvatar(
           backgroundColor: ColorsValue.secondaryColor,
-          child: Icon(Icons.person),
           radius: 30.0,
+          child: Icon(Icons.medication_rounded),
         ),
         Expanded(
           child: RadioListTile(
-            value: 'value',
-            groupValue: 'groupValue',
+            value: value,
+            groupValue: groupValue,
             onChanged: (value) {},
             contentPadding: const EdgeInsets.only(left: 10),
             title: Text(
