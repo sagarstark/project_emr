@@ -87,7 +87,7 @@ class AuthView extends StatelessWidget {
                     width: Get.width,
                     alignment: Alignment.centerLeft,
                     child: ScaleTap(
-                      onPressed: RouteManagement.goToNationalIdView,
+                      onPressed: RouteManagement.goToPatientDetailsForm,
                       child: Text(
                         'Login as a Patient',
                         style: Styles.black14w500

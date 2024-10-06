@@ -8,6 +8,8 @@ class AssetConstants {
   static const String hospital = 'assets/icons/hospital_svg.svg';
   static const String filterIcon = 'assets/icons/filter_svg.svg';
   static const String searchDoctor = 'assets/images/search_doctor.svg';
+  static const String doctorProfilePic =
+      'assets/images/doctors_profile_pic.jpg';
   static const String notificationPlaceholder =
       'assets/icons/notification_placeholder.svg';
 }

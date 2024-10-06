@@ -7,7 +7,6 @@ import 'package:project_emr/controllers/controllers.dart';
 import 'package:project_emr/res/res.dart';
 import 'package:project_emr/utils/utils.dart';
 import 'package:project_emr/widgets/widgets.dart';
-import 'package:shimmer/shimmer.dart';
 
 class FilterAvailabilityScreen extends StatelessWidget {
   const FilterAvailabilityScreen({super.key});
@@ -21,7 +20,7 @@ class FilterAvailabilityScreen extends StatelessWidget {
         controller.showAvailableDoctorsList = false;
         controller.availabilityDateController.clear();
         controller.selectedBranchId = '';
-        controller.selectedSpeciality = '';
+        controller.selectedSpecialityId = '';
         controller.getAllSpecialities();
       },
       builder: (controller) {
@@ -32,8 +31,8 @@ class FilterAvailabilityScreen extends StatelessWidget {
           bottomNavigationBar: Padding(
             padding: Dimens.edgeInsets16,
             child: CustomButton(
-              title: 'Apply',
-              isDisable: true,
+              title: 'Check',
+              isDisable: false,
               onTap: () {
                 controller.finalSelectedAvailabilityDate =
                     controller.selectedAvailabilityDate;
@@ -81,6 +80,7 @@ class FilterAvailabilityScreen extends StatelessWidget {
                                 DateFormat('dd MMMM yyyy, EEEE')
                                     .format(selectedDate);
                             controller.selectedAvailabilityDate = selectedDate;
+                            controller.validateAvailability();
                             controller.update();
                           }
                         },
@@ -100,6 +100,7 @@ class FilterAvailabilityScreen extends StatelessWidget {
                       if (val == null || val == '') {
                         controller.selectedBranchId = '';
                       }
+                      controller.validateAvailability();
                     },
                     hintText: 'Branch',
                     dropDownList: controller.allBranchRes?.data?.map((branch) {
@@ -114,105 +115,59 @@ class FilterAvailabilityScreen extends StatelessWidget {
                   const RequiredText(
                       text: 'Select one speciality from below :'),
                   const Gap(10),
-                  Wrap(
-                    runSpacing: 5,
-                    spacing: 8,
-                    children: controller.isSpecializationLoading
-                        ? List.generate(
-                            6,
-                            (index) {
-                              return Shimmer.fromColors(
-                                  baseColor: Colors.grey,
-                                  highlightColor: Colors.grey.shade600,
-                                  child: RawChip(
-                                    label: const Text('Shimmer'),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(Dimens.fifty),
-                                    ),
-                                  ));
-                            },
-                          )
-                        : List.generate(
-                            controller.allSpecialistRes!.data!.length,
-                            (index) {
-                              return RawChip(
-                                label: Text(
-                                    '${controller.allSpecialistRes?.data?[index].name}'),
-                                labelStyle: controller.selectedSpeciality ==
-                                        '${controller.allSpecialistRes?.data?[index].specialityId}'
-                                    ? Styles.white12w500
-                                    : Styles.black12,
-                                showCheckmark: false,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(Dimens.fifty),
-                                ),
-                                selected: controller.selectedSpeciality ==
-                                    '${controller.allSpecialistRes!.data?[index].specialityId}',
-                                selectedColor: ColorsValue.primaryColor,
-                                backgroundColor: controller
-                                            .selectedSpeciality ==
-                                        '${controller.allSpecialistRes?.data?[index].specialityId}'
-                                    ? ColorsValue.primaryColor
-                                    : Colors.white,
-                                onPressed: () {
-                                  controller.selectedSpeciality =
-                                      '${controller.allSpecialistRes?.data?[index].specialityId}';
-                                  controller.update(['filter-availability']);
-                                },
-                              );
-                            },
-                          ),
-                  ),
-                  const Gap(10),
-                  ElevatedButton(
-                    onPressed: () async {
-                      if (controller.availabilityDateController.text.isEmpty ||
-                          controller.selectedBranchId.isEmpty ||
-                          controller.selectedSpeciality.isEmpty) {
-                        Utility.showMessage(
-                            message:
-                                'Please select all the three fields to find the appropriate Doctor for yourself.',
-                            type: MessageType.error);
-                      } else {
-                        controller.getAvailableDoctor();
+                  CustomDropdownField(
+                    onChanged: (val) {
+                      if (val != null && val is DropDownValueModel) {
+                        controller.selectedSpecialityId = val.value;
+                        AppLog(controller.selectedSpecialityId);
                       }
+                      if (val == null || val == '') {
+                        controller.selectedSpecialityId = '';
+                      }
+                      controller.validateAvailability();
                     },
-                    child: SizedBox(
-                      width: Get.width,
-                      child: const Center(
-                        child: Text('Search for Doctors'),
-                      ),
-                    ),
+                    hintText: 'Speciality',
+                    dropDownList: controller.allSpecialistRes?.data
+                            ?.map((speciality) {
+                          return DropDownValueModel(
+                            name: speciality.name?.capitalizeFirst ?? '',
+                            value: speciality.specialityId?.toString() ?? '',
+                          );
+                        }).toList() ??
+                        [],
                   ),
                   const Gap(10),
-                  const Divider(),
-                  const Gap(20),
+                  const Gap(10),
                   if (controller.showAvailableDoctorsList &&
                       controller.filterDoctorModel != null) ...[
+                    const Divider(),
+                    const Gap(20),
                     const RequiredText(
                         text:
                             'Who would you like to choose as your doctor from the following list :'),
                     const Gap(15),
-                    Card(
-                      margin: EdgeInsets.zero,
-                      child: Padding(
-                        padding: EdgeInsets.all(Dimens.eight),
-                        child: ListView.separated(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: controller.filterDoctorModel!.data!.length,
-                          itemBuilder: (context, index) => CustomRadioTile(
-                            name:
-                                '${controller.filterDoctorModel?.data?[index].doctor?.name}',
-                            experience:
-                                '${controller.filterDoctorModel?.data?[index].doctor?.experience}',
-                            value: '',
-                            groupValue: '',
-                          ),
-                          separatorBuilder: (context, index) => const Gap(10),
+                    Padding(
+                      padding: EdgeInsets.all(Dimens.eight),
+                      child: ListView.separated(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: controller.filterDoctorModel!.data!.length,
+                        itemBuilder: (context, index) => DoctorsTile(
+                          name:
+                              '${controller.filterDoctorModel?.data?[index].doctor?.name}',
+                          experience:
+                              '${controller.filterDoctorModel?.data?[index].doctor?.experience}',
+                          contactNumber:
+                              '${controller.filterDoctorModel?.data?[index].doctor?.contactInfo}',
+                          onTapProfilePic: () {
+                            RouteManagement.goToDoctorsProfile();
+                          },
+                          onTap: () {
+                            controller.selectDoctor(index);
+                          },
+                          isSelected: controller.selectedDoctorIndex == index,
                         ),
+                        separatorBuilder: (context, index) => const Gap(15),
                       ),
                     ),
                   ],
@@ -226,53 +181,77 @@ class FilterAvailabilityScreen extends StatelessWidget {
   }
 }
 
-class CustomRadioTile extends StatelessWidget {
-  const CustomRadioTile({
+class DoctorsTile extends StatelessWidget {
+  const DoctorsTile({
     super.key,
     required this.name,
     required this.experience,
-    required this.value,
-    required this.groupValue,
+    required this.contactNumber,
+    required this.onTapProfilePic,
+    required this.onTap,
+    required this.isSelected,
   });
 
   final String name;
   final String experience;
-  final String value;
-  final String groupValue;
+  final String contactNumber;
+  final Function() onTapProfilePic;
+  final Function() onTap;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const CircleAvatar(
-          backgroundColor: ColorsValue.secondaryColor,
-          radius: 30.0,
-          child: Icon(Icons.medication_rounded),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: isSelected ? ColorsValue.primaryColor : Colors.transparent,
+            width: 2,
+          ),
+          borderRadius: BorderRadius.circular(8),
         ),
-        Expanded(
-          child: RadioListTile(
-            value: value,
-            groupValue: groupValue,
-            onChanged: (value) {},
-            contentPadding: const EdgeInsets.only(left: 10),
-            title: Text(
-              name,
-              style: Styles.black14w500,
-            ),
-            subtitle: Text(
-              'Experience - $experience Yrs',
-              style: Styles.grey12,
-            ),
-            activeColor: ColorsValue.purpleColor,
-            controlAffinity: ListTileControlAffinity.trailing,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            visualDensity: const VisualDensity(vertical: -4),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              InkWell(
+                onTap: onTapProfilePic,
+                child: const CircleAvatar(
+                  backgroundColor: ColorsValue.secondaryColor,
+                  radius: 50.0,
+                  foregroundImage: AssetImage(AssetConstants.doctorProfilePic),
+                ),
+              ),
+              const Gap(15),
+              Expanded(
+                child: SizedBox(
+                  height: Dimens.eighty,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        name,
+                        style: Styles.blackBold16,
+                      ),
+                      Text(
+                        'Experience - $experience Yrs',
+                        style: Styles.black14w500,
+                      ),
+                      const Spacer(),
+                      Text(
+                        'Contact Info - $contactNumber',
+                        style: Styles.black12w500,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-      ],
+      ),
     );
   }
 }

@@ -1,7 +1,6 @@
 export 'auth/auth.dart';
 export 'doctor/doctors.dart';
 export 'home/home.dart';
-export 'national_id/national_id.dart';
 export 'onboarding/onboarding.dart';
 export 'patient/patient.dart';
 export 'patient_details/patient_details.dart';

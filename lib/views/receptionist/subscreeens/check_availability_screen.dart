@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:project_emr/controllers/controllers.dart';
 import 'package:project_emr/res/res.dart';
 import 'package:project_emr/utils/utils.dart';
+import 'package:project_emr/views/doctor/doctors.dart';
 import 'package:project_emr/widgets/widgets.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
@@ -58,122 +59,91 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'Name - Dr. Sagar K',
-                                style: Styles.black14,
-                              ),
-                              Text(
-                                'Experience - 7 Yrs',
-                                style: Styles.black14,
-                              ),
-                              Text(
-                                'Speciality - Cardiologist',
-                                style: Styles.black14,
-                              ),
-                              Text(
-                                'Date - ${DateFormat('dd MMMM yyyy, EEEE').format(controller.finalSelectedAvailabilityDate)}',
-                                style: Styles.black14,
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const CircleAvatar(
+                                      backgroundColor:
+                                          ColorsValue.secondaryColor,
+                                      radius: 50.0,
+                                      foregroundImage: AssetImage(
+                                          AssetConstants.doctorProfilePic),
+                                    ),
+                                    const Gap(15),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Name - Dr. Suresh Joshi',
+                                            style: Styles.blackBold14,
+                                          ),
+                                          Text(
+                                            'Speciality - Haematology',
+                                            style: Styles.black12w500,
+                                          ),
+                                          Text(
+                                            'Date - ${DateFormat('dd MMMM yyyy, EEEE').format(controller.finalSelectedAvailabilityDate)}',
+                                            style: Styles.black12w500,
+                                          ),
+                                          Text(
+                                            'Branch - Chennai',
+                                            style: Styles.black12w500,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
                         ),
                       ),
                       const Gap(15),
-                      // SizedBox(
-                      //   height: Get.height / 1.6,
-                      //   child: Center(
-                      //     child: SvgPicture.asset(
-                      //       AssetConstants.searchDoctor,
-                      //       height: Dimens.twoHundred,
-                      //       width: Dimens.twoHundred,
-                      //       colorFilter: ColorFilter.mode(
-                      //         Colors.grey.shade300,
-                      //         BlendMode.srcIn,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                       Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: ColorsValue.primaryColor),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: GetBuilder<HomeController>(
-                                id: 'calendar',
-                                builder: (controller) {
-                                  return SfCalendar(
-                                    initialDisplayDate: controller
-                                        .finalSelectedAvailabilityDate,
-
-                                    // initialSelectedDate:
-                                    //     controller.finalSelectedAvailabilityDate,
-                                    view: CalendarView.day,
-                                    dataSource: _getCalendarDataSource(),
-                                    viewNavigationMode: ViewNavigationMode.none,
-                                    viewHeaderHeight: 0,
-                                    headerHeight: 0,
-                                    showDatePickerButton: false,
-                                    todayHighlightColor: Colors.red,
-                                    headerDateFormat: 'dd MMMM yyyy, EEEE',
-                                    // headerStyle: CalendarHeaderStyle(
-                                    //     backgroundColor: ColorsValue.secondaryColor),
-                                    timeSlotViewSettings:
-                                        const TimeSlotViewSettings(
-                                      timeInterval: Duration(minutes: 60),
-                                      timeFormat: 'hh:mm aa',
-                                      timeRulerSize: 65,
-                                      timeIntervalHeight: 150,
+                        child: DefaultTabController(
+                          length: 3,
+                          initialIndex: 0,
+                          child: Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.grey.shade300,
+                                    borderRadius: BorderRadius.circular(50)),
+                                child: TabBar(
+                                  dividerColor: Colors.transparent,
+                                  indicatorSize: TabBarIndicatorSize.tab,
+                                  overlayColor: WidgetStateColor.transparent,
+                                  labelColor: Colors.white,
+                                  labelStyle: Styles.white14w500
+                                      .copyWith(fontFamily: 'Poppins'),
+                                  indicator: BoxDecoration(
+                                    color: ColorsValue.primaryColor,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(Dimens.fifty),
                                     ),
-                                    appointmentBuilder: (context, details) {
-                                      final appointment =
-                                          details.appointments.first;
-                                      return Container(
-                                        padding: const EdgeInsets.all(8.0),
-                                        color: ColorsValue.secondaryColor,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              appointment.subject,
-                                              style: const TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Row(
-                                              children: [
-                                                ElevatedButton(
-                                                  onPressed: () {
-                                                    // Add your button action here
-                                                    print(
-                                                        'Button clicked for ${appointment.subject}');
-                                                  },
-                                                  child:
-                                                      const Text('Reschedule'),
-                                                ),
-                                                const Gap(10),
-                                                ElevatedButton(
-                                                  onPressed: () {
-                                                    // Add your button action here
-                                                    print(
-                                                        'Button clicked for ${appointment.subject}');
-                                                  },
-                                                  child: const Text('Cancel'),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  );
-                                }),
+                                  ),
+                                  tabs: const [
+                                    Tab(text: 'Morning'),
+                                    Tab(text: 'Afternoon'),
+                                    Tab(text: 'Evening'),
+                                  ],
+                                ),
+                              ),
+                              const Expanded(
+                                child: TabBarView(
+                                  children: [
+                                    MorningAvailability(),
+                                    AfternoonAvailability(),
+                                    EveningAvailability(),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -185,42 +155,99 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
           );
         });
   }
+}
 
-  _DataSource _getCalendarDataSource() {
-    List<Appointment> appointments = <Appointment>[];
-    DateTime now = DateTime.now();
-    DateTime startOfDay = DateTime(now.year, now.month, now.day, 9, 0);
+class MorningAvailability extends StatelessWidget {
+  const MorningAvailability({super.key});
 
-    appointments.add(Appointment(
-      startTime: startOfDay,
-      endTime: startOfDay.add(Duration(hours: 1)),
-      subject:
-          'Patient Name - Kevin J\nSlotes Booked - 3\nPatient Type - OLD/NEW\n',
-    ));
-    // appointments.add(Appointment(
-    //   startTime: startOfDay.add(Duration(hours: 1)),
-    //   endTime: startOfDay.add(Duration(hours: 2)),
-    //   subject:
-    //       'Patient Name - Kevin J\nSlotes Booked - 3\nPatient Type - OLD/NEW\n',
-    // ));
-    appointments.add(Appointment(
-      startTime: startOfDay.add(Duration(hours: 2)),
-      endTime: startOfDay.add(Duration(hours: 3)),
-      subject:
-          'Patient Name - Kevin J\nSlotes Booked - 3\nPatient Type - OLD/NEW\n',
-    ));
-    appointments.add(Appointment(
-      startTime: startOfDay.add(Duration(hours: 3)),
-      endTime: startOfDay.add(Duration(hours: 4)),
-      subject:
-          'Patient Name - Kevin J\nSlotes Booked - 3\nPatient Type - OLD/NEW\n',
-    ));
-    return _DataSource(appointments);
+  @override
+  Widget build(BuildContext context) {
+    return TimeSlotWidget();
   }
 }
 
-class _DataSource extends CalendarDataSource {
-  _DataSource(List<Appointment> source) {
-    appointments = source;
+class AfternoonAvailability extends StatelessWidget {
+  const AfternoonAvailability({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Afternoon Availability'),
+    );
+  }
+}
+
+class EveningAvailability extends StatelessWidget {
+  const EveningAvailability({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Evening Availability'),
+    );
+  }
+}
+
+class TimeSlotWidget extends StatefulWidget {
+  @override
+  _TimeSlotWidgetState createState() => _TimeSlotWidgetState();
+}
+
+class _TimeSlotWidgetState extends State<TimeSlotWidget> {
+  // List of available time slots (as strings)
+  final List<String> timeSlots = [
+    "09:00 AM - 09:15 AM",
+    "09:15 AM - 09:30 AM",
+    "09:30 AM - 10:00 AM",
+    "10:00 AM - 10:15 AM",
+    "10:15 AM - 10:30 AM",
+    "10:30 AM - 10:00 AM",
+  ];
+
+  // List to store selected time slots
+  List<String> selectedSlots = [];
+
+  // Method to toggle time slot selection
+  void _onSlotSelected(bool? isSelected, String timeSlot) {
+    setState(() {
+      if (isSelected == true) {
+        selectedSlots.add(timeSlot);
+      } else {
+        selectedSlots.remove(timeSlot);
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: Dimens.edgeInsets16,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Select Time Slots:',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 10),
+          Expanded(
+            child: ListView.builder(
+              itemCount: timeSlots.length,
+              itemBuilder: (context, index) {
+                return CheckboxListTile(
+                  activeColor: ColorsValue.primaryColor,
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(timeSlots[index]),
+                  value: selectedSlots.contains(timeSlots[index]),
+                  onChanged: (bool? value) {
+                    _onSlotSelected(value, timeSlots[index]);
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

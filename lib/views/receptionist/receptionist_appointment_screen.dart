@@ -18,7 +18,7 @@ class ReseptionistAppointmentScreen extends StatelessWidget {
       children: [
         const AppointmentItem(
           branchName: 'Patient Scheduling',
-          ontap: RouteManagement.goToFilterAvailability,
+          ontap: RouteManagement.goToReceptionistPatientList,
         ),
         AppointmentItem(
           branchName: 'Patient Schedule List',

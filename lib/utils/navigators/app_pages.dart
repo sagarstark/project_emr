@@ -87,13 +87,6 @@ class AppPages {
       binding: HomeBinding(),
       transition: Transition.rightToLeft,
     ),
-    GetPage<NationalIdView>(
-      name: Routes.nationalIdView,
-      transitionDuration: transitionDuration,
-      page: NationalIdView.new,
-      binding: HomeBinding(),
-      transition: Transition.rightToLeft,
-    ),
     GetPage<PatientHomeView>(
       name: Routes.patientHome,
       transitionDuration: transitionDuration,
@@ -181,6 +174,18 @@ class AppPages {
       name: Routes.pharmacyOrderDetails,
       transitionDuration: transitionDuration,
       page: OrderDetailsView.new,
+      transition: Transition.rightToLeft,
+    ),
+    GetPage<ReceptionistPatientList>(
+      name: Routes.receptionistPatientList,
+      transitionDuration: transitionDuration,
+      page: ReceptionistPatientList.new,
+      transition: Transition.rightToLeft,
+    ),
+    GetPage<DoctorsProfile>(
+      name: Routes.doctorsProfile,
+      transitionDuration: transitionDuration,
+      page: DoctorsProfile.new,
       transition: Transition.rightToLeft,
     ),
   ];

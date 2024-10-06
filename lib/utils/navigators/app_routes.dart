@@ -13,7 +13,6 @@ class Routes {
   static const String patientSchedule = _Paths.patientSchedule;
   static const String checkAvailability = _Paths.checkAvailability;
   static const String filterAvailability = _Paths.filterAvailability;
-  static const String nationalIdView = _Paths.nationalIdView;
   static const String patientHome = _Paths.patientHome;
   static const String patientBookAppointment = _Paths.patientBookAppointment;
   static const String patientDetailsForm = _Paths.patientDetailsForm;
@@ -28,6 +27,8 @@ class Routes {
   static const String pharmacyHome = _Paths.pharmacyHome;
   static const String pharmacyNotification = _Paths.pharmacyNotification;
   static const String pharmacyOrderDetails = _Paths.pharmacyOrderDetails;
+  static const String receptionistPatientList = _Paths.receptionistPatientList;
+  static const String doctorsProfile = _Paths.doctorsProfile;
 }
 
 class _Paths {
@@ -41,7 +42,6 @@ class _Paths {
   static const String patientSchedule = '/patientScheduleScreen';
   static const String checkAvailability = '/checkAvailabilityScreen';
   static const String filterAvailability = '/filterAvailabilityScreen';
-  static const String nationalIdView = '/nationalIdScreen';
   static const String patientHome = '/patientHomeScreen';
   static const String patientBookAppointment = '/patientBookAppointmentScreen';
   static const String patientDetailsForm = '/patientDetailsFormScreen';
@@ -56,4 +56,7 @@ class _Paths {
   static const String pharmacyHome = '/pharmacyHomeScreen';
   static const String pharmacyNotification = '/pharmacyNotificationScreen';
   static const String pharmacyOrderDetails = '/pharmacyOrderDetailsScreen';
+  static const String receptionistPatientList =
+      '/receptionistPatientListScreen';
+  static const String doctorsProfile = '/doctorsProfileScreen';
 }

@@ -59,12 +59,6 @@ abstract class RouteManagement {
     );
   }
 
-  static void goToNationalIdView() {
-    Get.toNamed<void>(
-      Routes.nationalIdView,
-    );
-  }
-
   static void goToPatientHome() {
     Get.offAllNamed<void>(
       Routes.patientHome,
@@ -146,6 +140,18 @@ abstract class RouteManagement {
   static void goToPharmacyOrderDetails() {
     Get.toNamed<void>(
       Routes.pharmacyOrderDetails,
+    );
+  }
+
+  static void goToReceptionistPatientList() {
+    Get.toNamed<void>(
+      Routes.receptionistPatientList,
+    );
+  }
+
+  static void goToDoctorsProfile() {
+    Get.toNamed<void>(
+      Routes.doctorsProfile,
     );
   }
 }

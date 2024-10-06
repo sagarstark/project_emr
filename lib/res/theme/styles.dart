@@ -61,6 +61,12 @@ class Styles {
     fontWeight: FontWeight.bold,
   );
 
+  static TextStyle blackBold20 = GoogleFonts.poppins(
+    color: Colors.black,
+    fontSize: Dimens.twenty,
+    fontWeight: FontWeight.bold,
+  );
+
   static TextStyle black16w500 = GoogleFonts.poppins(
     color: Colors.black,
     fontSize: Dimens.sixteen,

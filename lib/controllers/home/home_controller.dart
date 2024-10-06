@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:project_emr/data/data.dart';
 import 'package:project_emr/models/models.dart';
+import 'package:project_emr/utils/utils.dart';
 
 import '../../view_models/view_models.dart';
 
@@ -26,10 +27,6 @@ class HomeController extends GetxController {
   var selectedAvailabilityDate = DateTime.now();
 
   var finalSelectedAvailabilityDate = DateTime.now();
-
-  var selectedSpeciality = '';
-
-  var isSpecialitySelected = false;
 
   List<String> specialList = [
     'Cardiologist',
@@ -65,6 +62,8 @@ class HomeController extends GetxController {
 
   var selectedBranchId = '';
 
+  var selectedSpecialityId = '';
+
   AllSpecialistRes? allSpecialistRes;
 
   var isSpecializationLoading = false;
@@ -91,10 +90,30 @@ class HomeController extends GetxController {
       // date: DateFormat('yyyy-MM-dd').format(selectedAvailabilityDate),
       date: '2024-09-22',
       branchId: selectedBranchId,
-      specialityId: selectedSpeciality,
+      specialityId: selectedSpecialityId,
     );
     isFilterDoctorLoading = false;
     showAvailableDoctorsList = true;
     update(['filter-availability']);
+  }
+
+  int? selectedDoctorIndex;
+
+  void selectDoctor(int index) {
+    selectedDoctorIndex = index;
+    update(['filter-availability']);
+  }
+
+  void validateAvailability() async {
+    if (availabilityDateController.text.isEmpty ||
+        selectedBranchId.isEmpty ||
+        selectedSpecialityId.isEmpty) {
+      Utility.showMessage(
+          message:
+              'Please select all the three fields to find the appropriate Doctor for yourself.',
+          type: MessageType.error);
+    } else {
+      getAvailableDoctor();
+    }
   }
 }

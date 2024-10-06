@@ -162,8 +162,11 @@ class Utility {
     String? actionName,
   }) {
     if (message == null || message.isEmpty) return;
+
+    // Check if a snackbar is already open
+    if (Get.isSnackbarOpen) return;
+
     closeDialog();
-    closeSnackbar();
     var backgroundColor = Colors.black;
     switch (type) {
       case MessageType.error:
@@ -179,29 +182,25 @@ class Utility {
         backgroundColor = Colors.black;
         break;
     }
-    Future.delayed(
-      const Duration(seconds: 0),
-      () {
-        Get.rawSnackbar(
-          messageText: Text(
-            message,
-            style: Styles.white16w500,
-          ),
-          mainButton: actionName != null
-              ? TextButton(
-                  onPressed: onTap ?? Get.back,
-                  child: Text(
-                    actionName,
-                    style: Styles.white16w500,
-                  ),
-                )
-              : null,
-          backgroundColor: backgroundColor,
-          margin: Dimens.edgeInsets10,
-          borderRadius: Dimens.ten + Dimens.five,
-          snackStyle: SnackStyle.FLOATING,
-        );
-      },
+
+    Get.rawSnackbar(
+      messageText: Text(
+        message,
+        style: Styles.white16w500,
+      ),
+      mainButton: actionName != null
+          ? TextButton(
+              onPressed: onTap ?? Get.back,
+              child: Text(
+                actionName,
+                style: Styles.white16w500,
+              ),
+            )
+          : null,
+      backgroundColor: backgroundColor,
+      margin: Dimens.edgeInsets10,
+      borderRadius: Dimens.ten + Dimens.five,
+      snackStyle: SnackStyle.FLOATING,
     );
   }
 
