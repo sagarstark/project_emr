@@ -29,6 +29,7 @@ class Routes {
   static const String pharmacyOrderDetails = _Paths.pharmacyOrderDetails;
   static const String receptionistPatientList = _Paths.receptionistPatientList;
   static const String doctorsProfile = _Paths.doctorsProfile;
+  static const String patientSearchDoctors = _Paths.patientSearchDoctors;
 }
 
 class _Paths {
@@ -59,4 +60,5 @@ class _Paths {
   static const String receptionistPatientList =
       '/receptionistPatientListScreen';
   static const String doctorsProfile = '/doctorsProfileScreen';
+  static const String patientSearchDoctors = '/patientSearchDoctorsScreen';
 }

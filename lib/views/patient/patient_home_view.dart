@@ -55,34 +55,6 @@ class PatientHomeView extends StatelessWidget {
                 onTap: Get.back,
               ),
               ListTile(
-                leading: const Icon(
-                  Icons.shopping_cart_rounded,
-                  color: Colors.blue,
-                ),
-                title: const Text('Flipkart'),
-                trailing: Icon(Icons.chevron_right_rounded),
-                onTap: () {
-                  Get.to(() => CustomWebView(
-                        appBarTitle: 'Flipkart',
-                        url: 'https://www.flipkart.com/',
-                      ));
-                },
-              ),
-              ListTile(
-                leading: const Icon(
-                  Icons.ondemand_video_rounded,
-                  color: Colors.red,
-                ),
-                title: const Text('Youtube'),
-                trailing: Icon(Icons.chevron_right_rounded),
-                onTap: () {
-                  Get.to(() => CustomWebView(
-                        appBarTitle: 'Youtube',
-                        url: 'https://www.youtube.com/',
-                      ));
-                },
-              ),
-              ListTile(
                 leading: const Icon(Icons.phone_callback_rounded),
                 title: const Text('Audio Call'),
                 trailing: Icon(Icons.chevron_right_rounded),
@@ -123,8 +95,16 @@ class PatientHomeView extends StatelessWidget {
             ontap: RouteManagement.goToPatientBookAppointment,
           ),
           AppointmentItem(
+            branchName: 'Appointment History',
+            ontap: () {},
+          ),
+          AppointmentItem(
             branchName: 'Cancel Appointment',
             ontap: () {},
+          ),
+          const AppointmentItem(
+            branchName: 'Search Doctors',
+            ontap: RouteManagement.goToPatientSearchDoctors,
           ),
         ],
       ),

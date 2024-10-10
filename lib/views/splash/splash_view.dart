@@ -25,7 +25,7 @@ class SplashView extends StatelessWidget {
               ),
               const Gap(20),
               Text(
-                'EMR',
+                'Jazeera',
                 style: Styles.whiteBold16.copyWith(
                   fontSize: Dimens.thirty,
                 ),

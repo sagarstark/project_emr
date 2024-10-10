@@ -22,7 +22,7 @@ class PatientDetailsScreen extends StatelessWidget {
               child: CustomButton(
                 title: 'Save',
                 isDisable: false,
-                onTap: RouteManagement.goToAddDependents,
+                onTap: RouteManagement.goToUploadDocuments,
               ),
             ),
             const Gap(10),
@@ -81,11 +81,6 @@ class PatientDetailsScreen extends StatelessWidget {
               CustomTextfield(
                 onChange: (value) {},
                 hintText: 'National ID',
-              ),
-              const Gap(10),
-              CustomTextfield(
-                onChange: (value) {},
-                hintText: 'MRD Number',
               ),
               const Gap(10),
               CustomTextfield(
@@ -180,37 +175,6 @@ class PatientDetailsScreen extends StatelessWidget {
                 onChange: (value) {},
                 hintText: 'Address',
               ),
-              const Gap(10),
-              Text(
-                'Payment Type',
-                style: Styles.black14,
-              ),
-              const Gap(10),
-              RadioListTile(
-                value: 'value',
-                groupValue: 'groupValue',
-                title: const Text('Cash'),
-                contentPadding: Dimens.edgeInsets0_4,
-                visualDensity: const VisualDensity(vertical: -4),
-                onChanged: (value) {},
-              ),
-              RadioListTile(
-                value: 'value',
-                groupValue: 'groupValue',
-                contentPadding: Dimens.edgeInsets0_4,
-                visualDensity: const VisualDensity(vertical: -4),
-                title: const Text('Card'),
-                onChanged: (value) {},
-              ),
-              RadioListTile(
-                value: 'value',
-                groupValue: 'groupValue',
-                contentPadding: Dimens.edgeInsets0_4,
-                visualDensity: const VisualDensity(vertical: -4),
-                title: const Text('Insurance'),
-                onChanged: (value) {},
-              ),
-              const Gap(15),
             ],
           ),
         ),

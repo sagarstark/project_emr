@@ -157,8 +157,6 @@ class FilterAvailabilityScreen extends StatelessWidget {
                               '${controller.filterDoctorModel?.data?[index].doctor?.name}',
                           experience:
                               '${controller.filterDoctorModel?.data?[index].doctor?.experience}',
-                          contactNumber:
-                              '${controller.filterDoctorModel?.data?[index].doctor?.contactInfo}',
                           onTapProfilePic: () {
                             RouteManagement.goToDoctorsProfile();
                           },
@@ -177,81 +175,6 @@ class FilterAvailabilityScreen extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class DoctorsTile extends StatelessWidget {
-  const DoctorsTile({
-    super.key,
-    required this.name,
-    required this.experience,
-    required this.contactNumber,
-    required this.onTapProfilePic,
-    required this.onTap,
-    required this.isSelected,
-  });
-
-  final String name;
-  final String experience;
-  final String contactNumber;
-  final Function() onTapProfilePic;
-  final Function() onTap;
-  final bool isSelected;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: isSelected ? ColorsValue.primaryColor : Colors.transparent,
-            width: 2,
-          ),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              InkWell(
-                onTap: onTapProfilePic,
-                child: const CircleAvatar(
-                  backgroundColor: ColorsValue.secondaryColor,
-                  radius: 50.0,
-                  foregroundImage: AssetImage(AssetConstants.doctorProfilePic),
-                ),
-              ),
-              const Gap(15),
-              Expanded(
-                child: SizedBox(
-                  height: Dimens.eighty,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        name,
-                        style: Styles.blackBold16,
-                      ),
-                      Text(
-                        'Experience - $experience Yrs',
-                        style: Styles.black14w500,
-                      ),
-                      const Spacer(),
-                      Text(
-                        'Contact Info - $contactNumber',
-                        style: Styles.black12w500,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

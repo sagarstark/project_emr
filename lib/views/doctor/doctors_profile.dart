@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:project_emr/res/res.dart';
 
 class DoctorsProfile extends StatelessWidget {
@@ -22,7 +25,7 @@ class DoctorsProfile extends StatelessWidget {
                     backgroundColor: ColorsValue.secondaryColor,
                     radius: Dimens.eighty,
                     foregroundImage:
-                        AssetImage(AssetConstants.doctorProfilePic),
+                        const AssetImage(AssetConstants.doctorProfilePic),
                   ),
                 )
               ],
@@ -38,24 +41,61 @@ class DoctorsProfile extends StatelessWidget {
                     "Suresh Joshi",
                     style: Styles.blackBold20,
                   ),
-                  const Gap(16),
+                  const Gap(10),
+                  RatingBar(
+                    initialRating: 4,
+                    itemSize: Dimens.twentyFive,
+                    ignoreGestures: true,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 5,
+                    unratedColor: Colors.grey,
+                    ratingWidget: RatingWidget(
+                      full: SvgPicture.asset(
+                        AssetConstants.fullRatingStar,
+                        colorFilter: const ColorFilter.mode(
+                            Colors.orange, BlendMode.srcIn),
+                      ),
+                      half: SvgPicture.asset(
+                        AssetConstants.halfRatingStar,
+                        colorFilter: const ColorFilter.mode(
+                            Colors.orange, BlendMode.srcIn),
+                      ),
+                      empty: SvgPicture.asset(
+                        AssetConstants.emptyRatingStar,
+                        colorFilter: const ColorFilter.mode(
+                            Colors.orange, BlendMode.srcIn),
+                      ),
+                    ),
+                    itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    onRatingUpdate: (rating) {},
+                  ),
+                  const Gap(40),
+                  Text(
+                    'Book an appointment via',
+                    style: Styles.black14w500,
+                  ),
+                  const Gap(10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
                         child: FloatingActionButton.extended(
                           onPressed: () {},
-                          heroTag: 'Message',
+                          heroTag: 'Chat',
                           elevation: 0,
                           backgroundColor: Colors.green.shade100,
                           label: Text(
-                            'Message',
+                            'Chat',
                             style: Styles.black14w500,
                           ),
                           icon: const Icon(Icons.message_rounded),
                         ),
                       ),
-                      const Gap(16),
+                      Text(
+                        '  OR  ',
+                        style: Styles.black14w500,
+                      ),
                       Expanded(
                         child: FloatingActionButton.extended(
                           onPressed: () {},
@@ -71,7 +111,7 @@ class DoctorsProfile extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const Gap(16),
+                  const Gap(20),
                   const SizedBox(
                     height: 80,
                     child: Row(
@@ -84,7 +124,35 @@ class DoctorsProfile extends StatelessWidget {
                         ProfileInfoItem(title: 'Experience', value: '7 Yrs'),
                       ],
                     ),
-                  )
+                  ),
+                  const Gap(20),
+                  SizedBox(
+                    width: Get.width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Specilisation',
+                          style: Styles.blackBold16,
+                        ),
+                        const Gap(10),
+                        Text(
+                          'Haematolgy, General Medicine',
+                          style: Styles.black14,
+                        ),
+                        const Gap(20),
+                        Text(
+                          'Qualification',
+                          style: Styles.blackBold16,
+                        ),
+                        const Gap(10),
+                        Text(
+                          'Physician, Internal Medicine\nFrom : Concord Regional Medical Center, Concord, CA',
+                          style: Styles.black14,
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

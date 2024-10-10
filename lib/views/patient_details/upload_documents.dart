@@ -13,23 +13,23 @@ class UploadDocumentsView extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppbar(
         title: 'Upload Documents',
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: Dimens.sixteen),
-            child: ElevatedButton(
-              style: const ButtonStyle(
-                backgroundColor: WidgetStatePropertyAll(
-                  ColorsValue.secondaryColor,
-                ),
-              ),
-              onPressed: () {},
-              child: Text(
-                '+ Add New',
-                style: Styles.black12,
-              ),
-            ),
-          ),
-        ],
+        // actions: [
+        //   Padding(
+        //     padding: EdgeInsets.only(right: Dimens.sixteen),
+        //     child: ElevatedButton(
+        //       style: const ButtonStyle(
+        //         backgroundColor: WidgetStatePropertyAll(
+        //           ColorsValue.secondaryColor,
+        //         ),
+        //       ),
+        //       onPressed: () {},
+        //       child: Text(
+        //         '+ Add New',
+        //         style: Styles.black12,
+        //       ),
+        //     ),
+        //   ),
+        // ],
       ),
       bottomNavigationBar: Padding(
         padding: Dimens.edgeInsets16,

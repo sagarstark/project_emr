@@ -154,4 +154,10 @@ abstract class RouteManagement {
       Routes.doctorsProfile,
     );
   }
+
+  static void goToPatientSearchDoctors() {
+    Get.toNamed<void>(
+      Routes.patientSearchDoctors,
+    );
+  }
 }

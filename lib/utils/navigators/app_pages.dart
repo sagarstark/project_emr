@@ -188,5 +188,11 @@ class AppPages {
       page: DoctorsProfile.new,
       transition: Transition.rightToLeft,
     ),
+    GetPage<SearchDoctorsView>(
+      name: Routes.patientSearchDoctors,
+      transitionDuration: transitionDuration,
+      page: SearchDoctorsView.new,
+      transition: Transition.rightToLeft,
+    ),
   ];
 }

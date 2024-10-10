@@ -118,96 +118,55 @@ class PatientBookAppointmentView extends StatelessWidget {
               ),
               const Gap(15),
               Text(
-                'Select the Date',
+                'Select the Date and Time',
                 style: Styles.black14,
               ),
               const Gap(10),
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomTextfield(
-                      onChange: (value) {},
-                      isReadOnly: true,
-                      suffixIcon: const Icon(Icons.calendar_month),
-                      onTap: () {
-                        showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime.now(),
-                            lastDate: DateTime(3000),
-                            builder: (context, picker) {
-                              return Theme(
-                                data: ThemeData().copyWith(
-                                  colorScheme: const ColorScheme.light(
-                                    primary: ColorsValue.primaryColor,
-                                  ),
-                                ),
-                                child: picker!,
-                              );
-                            }).then(
-                          (selectedDate) {
-                            if (selectedDate != null) {
-                              // controller.availabilityDateController.text =
-                              //     DateFormat('dd MMMM yyyy, EEEE')
-                              //         .format(selectedDate);
-                              // controller.selectedAvailabilityDate = selectedDate;
-                              // controller.update();
-                            }
-                          },
-                        );
-                      },
-                      hintText: 'From',
-                    ),
-                  ),
-                  const Gap(10),
-                  Expanded(
-                    child: CustomTextfield(
-                      onChange: (value) {},
-                      isReadOnly: true,
-                      suffixIcon: const Icon(Icons.calendar_month),
-                      onTap: () {
-                        showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime.now(),
-                            lastDate: DateTime(3000),
-                            builder: (context, picker) {
-                              return Theme(
-                                data: ThemeData().copyWith(
-                                  colorScheme: const ColorScheme.light(
-                                    primary: ColorsValue.primaryColor,
-                                  ),
-                                ),
-                                child: picker!,
-                              );
-                            }).then(
-                          (selectedDate) {
-                            if (selectedDate != null) {
-                              // controller.availabilityDateController.text =
-                              //     DateFormat('dd MMMM yyyy, EEEE')
-                              //         .format(selectedDate);
-                              // controller.selectedAvailabilityDate = selectedDate;
-                              // controller.update();
-                            }
-                          },
-                        );
-                      },
-                      hintText: 'To',
-                    ),
-                  ),
-                ],
-              ),
-              const Gap(15),
               CustomTextfield(
                 onChange: (value) {},
-                hintText: 'Time',
-                suffixIcon: const Icon(Icons.schedule_rounded),
+                isReadOnly: true,
+                suffixIcon: const Icon(Icons.calendar_month),
                 onTap: () {
-                  Future<TimeOfDay?> selectedTime = showTimePicker(
-                    initialTime: TimeOfDay.now(),
-                    context: context,
+                  showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(3000),
+                      builder: (context, picker) {
+                        return Theme(
+                          data: ThemeData().copyWith(
+                            colorScheme: const ColorScheme.light(
+                              primary: ColorsValue.primaryColor,
+                            ),
+                          ),
+                          child: picker!,
+                        );
+                      }).then(
+                    (selectedDate) {
+                      if (selectedDate != null) {
+                        // controller.availabilityDateController.text =
+                        //     DateFormat('dd MMMM yyyy, EEEE')
+                        //         .format(selectedDate);
+                        // controller.selectedAvailabilityDate = selectedDate;
+                        // controller.update();
+                      }
+                    },
                   );
                 },
+                hintText: 'Date',
+              ),
+              const Gap(10),
+              CustomDropdownField(
+                onChanged: (p0) {},
+                hintText: 'Time',
+                dropDownList: const [
+                  DropDownValueModel(name: '09:00 AM - 09:15 AM', value: '1'),
+                  DropDownValueModel(name: '09:00 AM - 09:15 AM', value: '1'),
+                  DropDownValueModel(name: '09:00 AM - 09:15 AM', value: '1'),
+                  DropDownValueModel(name: '09:00 AM - 09:15 AM', value: '1'),
+                  DropDownValueModel(name: '09:00 AM - 09:15 AM', value: '1'),
+                  DropDownValueModel(name: '09:00 AM - 09:15 AM', value: '1'),
+                ],
               ),
               const Gap(15),
               Text(

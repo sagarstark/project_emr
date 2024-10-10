@@ -28,7 +28,7 @@ class AuthView extends StatelessWidget {
                   ),
                   const Gap(10),
                   Text(
-                    'Welcome to EMR',
+                    'Welcome to Jazeera',
                     style: Styles.blackBold16,
                   ),
                   const Gap(50),

@@ -27,6 +27,20 @@ class DoctorsHomeScreen extends StatelessWidget {
             color: Colors.white,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            tooltip: 'Alerts',
+            style: const ButtonStyle(
+              backgroundColor: WidgetStatePropertyAll(Colors.white),
+            ),
+            icon: const Icon(
+              Icons.notifications_active_rounded,
+              color: ColorsValue.primaryColor,
+            ),
+          ),
+          const Gap(16),
+        ],
       ),
       drawer: Material(
         borderRadius:
@@ -55,9 +69,9 @@ class DoctorsHomeScreen extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: Dimens.thirty,
-                        child: Icon(Icons.person_rounded),
+                        child: const Icon(Icons.person_rounded),
                       ),
-                      Gap(15),
+                      const Gap(15),
                       Text(
                         'Kevin (Doctor)',
                         style: Styles.white16w500,
@@ -109,15 +123,19 @@ class DoctorsHomeScreen extends StatelessWidget {
             ontap: () {},
           ),
           AppointmentItem(
-            branchName: 'Patient Status',
-            ontap: () {},
-          ),
-          AppointmentItem(
             branchName: 'Reports',
             ontap: () {},
           ),
           AppointmentItem(
-            branchName: 'Alerts',
+            branchName: 'Prescriptions',
+            ontap: () {},
+          ),
+          AppointmentItem(
+            branchName: 'Lab Reports',
+            ontap: () {},
+          ),
+          AppointmentItem(
+            branchName: 'My Attachments',
             ontap: () {},
           ),
         ],
