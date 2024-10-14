@@ -46,7 +46,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Check the slot for your appointment here.',
+                        'Check the slot for your appointment here',
                         style: Styles.black14,
                       ),
                       const Gap(15),
@@ -104,6 +104,54 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                         ),
                       ),
                       const Gap(15),
+                      Text(
+                        'Select the slot duration',
+                        style: Styles.black14,
+                      ),
+                      const Gap(10),
+                      GetBuilder<HomeController>(
+                        builder: (controller) {
+                          return Wrap(
+                            runSpacing: 1,
+                            spacing: 10,
+                            children: List.generate(
+                              controller.durationList.length,
+                              (index) => RawChip(
+                                avatar: Icon(
+                                  Icons.access_time_rounded,
+                                  color: controller.selectedDuration ==
+                                          controller.durationList[index]
+                                      ? Colors.black
+                                      : Colors.grey,
+                                ),
+                                label: Text(controller.durationList[index]),
+                                labelStyle: controller.selectedDuration ==
+                                        controller.durationList[index]
+                                    ? Styles.black12w500
+                                    : Styles.grey12w500,
+                                showCheckmark: false,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(Dimens.fifty),
+                                ),
+                                selected: controller.selectedDuration ==
+                                    controller.durationList[index],
+                                selectedColor: controller.selectedDuration ==
+                                        controller.durationList[index]
+                                    ? ColorsValue.secondaryColor
+                                    : Colors.white,
+                                backgroundColor: Colors.white,
+                                onPressed: () {
+                                  controller.selectedDuration =
+                                      controller.durationList[index];
+                                  controller.update();
+                                },
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      const Gap(16),
                       Expanded(
                         child: DefaultTabController(
                           length: 3,
@@ -198,56 +246,58 @@ class _TimeSlotWidgetState extends State<TimeSlotWidget> {
   final List<String> timeSlots = [
     "09:00 AM - 09:15 AM",
     "09:15 AM - 09:30 AM",
-    "09:30 AM - 10:00 AM",
+    "09:30 AM - 09:45 AM",
+    "09:45 AM - 10:00 AM",
     "10:00 AM - 10:15 AM",
     "10:15 AM - 10:30 AM",
-    "10:30 AM - 10:00 AM",
+    "10:30 AM - 10:45 AM",
+    "10:45 AM - 11:00 AM",
   ];
 
   // List to store selected time slots
-  List<String> selectedSlots = [];
+  var selectedSlot = '';
 
   // Method to toggle time slot selection
-  void _onSlotSelected(bool? isSelected, String timeSlot) {
+  void _onSlotSelected(String timeSlot) {
     setState(() {
-      if (isSelected == true) {
-        selectedSlots.add(timeSlot);
-      } else {
-        selectedSlots.remove(timeSlot);
-      }
+      setState(() {
+        selectedSlot = timeSlot;
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: Dimens.edgeInsets16,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Select Time Slots:',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Dimens.boxHeight16,
+        Text(
+          'Select a Slot :',
+          style: Styles.black16w500,
+        ),
+        Dimens.boxHeight10,
+        Expanded(
+          child: ListView.builder(
+            itemCount: timeSlots.length,
+            itemBuilder: (context, index) {
+              return RadioListTile<String>(
+                activeColor: ColorsValue.primaryColor,
+                contentPadding: EdgeInsets.zero,
+                title: Text(timeSlots[index]),
+                controlAffinity: ListTileControlAffinity.trailing,
+                value: timeSlots[index],
+                groupValue: selectedSlot,
+                onChanged: (String? value) {
+                  if (value != null) {
+                    _onSlotSelected(value);
+                  }
+                },
+              );
+            },
           ),
-          SizedBox(height: 10),
-          Expanded(
-            child: ListView.builder(
-              itemCount: timeSlots.length,
-              itemBuilder: (context, index) {
-                return CheckboxListTile(
-                  activeColor: ColorsValue.primaryColor,
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(timeSlots[index]),
-                  value: selectedSlots.contains(timeSlots[index]),
-                  onChanged: (bool? value) {
-                    _onSlotSelected(value, timeSlots[index]);
-                  },
-                );
-              },
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

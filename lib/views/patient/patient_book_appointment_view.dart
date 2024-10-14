@@ -2,6 +2,7 @@ import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:project_emr/controllers/home/home.dart';
 import 'package:project_emr/res/res.dart';
 import 'package:project_emr/utils/utils.dart';
 import 'package:project_emr/widgets/widgets.dart';
@@ -154,6 +155,53 @@ class PatientBookAppointmentView extends StatelessWidget {
                   );
                 },
                 hintText: 'Date',
+              ),
+              const Gap(16),
+              Text(
+                'Select the duration',
+                style: Styles.black14,
+              ),
+              const Gap(10),
+              GetBuilder<HomeController>(
+                builder: (controller) {
+                  return Wrap(
+                    runSpacing: 1,
+                    spacing: 10,
+                    children: List.generate(
+                      controller.durationList.length,
+                      (index) => RawChip(
+                        avatar: Icon(
+                          Icons.access_time_rounded,
+                          color: controller.selectedDuration ==
+                                  controller.durationList[index]
+                              ? Colors.white
+                              : Colors.black,
+                        ),
+                        label: Text(controller.durationList[index]),
+                        labelStyle: controller.selectedDuration ==
+                                controller.durationList[index]
+                            ? Styles.whiteBold12
+                            : Styles.black12,
+                        showCheckmark: false,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(Dimens.fifty),
+                        ),
+                        selected: controller.selectedDuration ==
+                            controller.durationList[index],
+                        selectedColor: controller.selectedDuration ==
+                                controller.durationList[index]
+                            ? ColorsValue.primaryColor
+                            : Colors.white,
+                        backgroundColor: Colors.white,
+                        onPressed: () {
+                          controller.selectedDuration =
+                              controller.durationList[index];
+                          controller.update();
+                        },
+                      ),
+                    ),
+                  );
+                },
               ),
               const Gap(10),
               CustomDropdownField(

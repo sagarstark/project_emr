@@ -157,9 +157,7 @@ class FilterAvailabilityScreen extends StatelessWidget {
                               '${controller.filterDoctorModel?.data?[index].doctor?.name}',
                           experience:
                               '${controller.filterDoctorModel?.data?[index].doctor?.experience}',
-                          onTapProfilePic: () {
-                            RouteManagement.goToDoctorsProfile();
-                          },
+                          onTapProfilePic: () {},
                           onTap: () {
                             controller.selectDoctor(index);
                           },

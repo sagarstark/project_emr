@@ -110,6 +110,12 @@ class Styles {
     fontWeight: FontWeight.w500,
   );
 
+  static TextStyle whiteBold12 = GoogleFonts.poppins(
+    color: Colors.white,
+    fontSize: Dimens.twelve,
+    fontWeight: FontWeight.bold,
+  );
+
   static TextStyle whiteBold16 = GoogleFonts.poppins(
       color: Colors.white,
       fontSize: Dimens.sixteen,

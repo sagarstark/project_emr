@@ -28,6 +28,15 @@ class HomeController extends GetxController {
 
   var finalSelectedAvailabilityDate = DateTime.now();
 
+  var selectedDuration = '15 minutes';
+
+  List<String> durationList = [
+    '15 minutes',
+    '30 minutes',
+    '45 minutes',
+    '60 minutes',
+  ];
+
   List<String> specialList = [
     'Cardiologist',
     'Gynacologist',

@@ -58,11 +58,6 @@ class UploadDocumentsView extends StatelessWidget {
         padding: Dimens.edgeInsets16,
         child: Column(
           children: [
-            CustomTextfield(
-              onChange: (value) {},
-              hintText: 'National ID',
-            ),
-            const Gap(10),
             CustomDropdownField(
               onChanged: (p0) {},
               hintText: 'Type of Document',
