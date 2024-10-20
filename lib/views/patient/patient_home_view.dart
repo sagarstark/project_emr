@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_emr/res/res.dart';
 import 'package:project_emr/utils/utils.dart';
+import 'package:project_emr/views/patient/video_call.dart';
 import 'package:project_emr/widgets/widgets.dart';
 
 class PatientHomeView extends StatelessWidget {
@@ -64,7 +65,10 @@ class PatientHomeView extends StatelessWidget {
                 leading: const Icon(Icons.video_call_rounded),
                 title: const Text('Video Call'),
                 trailing: Icon(Icons.chevron_right_rounded),
-                onTap: Get.back,
+                onTap: () {
+                  Get.back();
+                  Get.to(() => VideoCallScreen());
+                },
               ),
               ListTile(
                 leading: const Icon(Icons.directions_walk_rounded),

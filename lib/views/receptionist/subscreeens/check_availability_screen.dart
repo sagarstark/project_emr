@@ -9,7 +9,6 @@ import 'package:project_emr/res/res.dart';
 import 'package:project_emr/utils/utils.dart';
 import 'package:project_emr/views/doctor/doctors.dart';
 import 'package:project_emr/widgets/widgets.dart';
-import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class CheckAvailabilityScreen extends StatefulWidget {
   const CheckAvailabilityScreen({super.key});
