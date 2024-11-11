@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
+import 'package:pip_view/pip_view.dart';
+import 'package:project_emr/views/patient/patient_home_view.dart';
 import 'package:project_emr/widgets/widgets.dart';
 
 class VideoCallScreen extends StatefulWidget {
@@ -66,41 +68,56 @@ class VideoCallScreenState extends State<VideoCallScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CustomAppbar(
-        title: 'Flutter WebRTC Video Call',
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _inCalling ? _endCall : _startCall,
-        label: Text(
-          _inCalling ? 'End Call' : 'Start Call',
+    return PIPView(
+      builder: (context, isFloating) => Scaffold(
+        appBar: CustomAppbar(
+          title: 'Flutter WebRTC Video Call',
+          autoImplyLeading: false,
+          actions: [
+            IconButton(
+              onPressed: () {
+                PIPView.of(context)?.presentBelow(PatientHomeView());
+                // Navigator.pop(context);
+              },
+              icon: Icon(
+                Icons.picture_in_picture_rounded,
+                color: Colors.white,
+              ),
+            ),
+          ],
         ),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Container(
-              color: Colors.blueAccent,
-              child: RTCVideoView(
-                _localRenderer,
-                objectFit: RTCVideoViewObjectFit.RTCVideoViewObjectFitCover,
-                mirror: true,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: _inCalling ? _endCall : _startCall,
+          label: Text(
+            _inCalling ? 'End Call' : 'Start Call',
+          ),
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: Container(
+                color: Colors.blueAccent,
+                child: RTCVideoView(
+                  _localRenderer,
+                  objectFit: RTCVideoViewObjectFit.RTCVideoViewObjectFitCover,
+                  mirror: true,
+                ),
               ),
             ),
-          ),
-          const Divider(thickness: 10),
-          Expanded(
-            child: Container(
-              color: Colors.blueGrey,
-              child: RTCVideoView(
-                _remoteRenderer,
-                objectFit: RTCVideoViewObjectFit.RTCVideoViewObjectFitCover,
-                mirror: true,
+            const Divider(thickness: 10),
+            Expanded(
+              child: Container(
+                color: Colors.blueGrey,
+                child: RTCVideoView(
+                  _remoteRenderer,
+                  objectFit: RTCVideoViewObjectFit.RTCVideoViewObjectFitCover,
+                  mirror: true,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

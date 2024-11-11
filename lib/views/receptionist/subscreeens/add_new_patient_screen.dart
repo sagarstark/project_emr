@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_emr/res/res.dart';
 import 'package:project_emr/widgets/widgets.dart';
 
 class AddNewPatient extends StatelessWidget {
@@ -8,7 +7,7 @@ class AddNewPatient extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(
+      appBar: const CustomAppbar(
         title: 'Add New Patient',
       ),
       body: SingleChildScrollView(
@@ -44,14 +43,9 @@ class AddNewPatient extends StatelessWidget {
               },
             ),
             const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: () {
-                // Handle save patient information
-              },
-              child: Text('Save Patient Information'),
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 50),
-              ),
+            CustomButton(
+              title: 'Save',
+              onTap: () {},
             ),
           ],
         ),

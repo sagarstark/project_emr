@@ -1,13 +1,9 @@
-import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:project_emr/controllers/controllers.dart';
 import 'package:project_emr/res/res.dart';
-import 'package:project_emr/utils/utils.dart';
-import 'package:project_emr/views/doctor/doctors.dart';
 import 'package:project_emr/widgets/widgets.dart';
 
 class CheckAvailabilityScreen extends StatefulWidget {
@@ -209,7 +205,54 @@ class MorningAvailability extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TimeSlotWidget();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Dimens.boxHeight16,
+        Text(
+          'Select a Slot :',
+          style: Styles.black16w500,
+        ),
+        Dimens.boxHeight10,
+        Expanded(
+          child: GetBuilder<HomeController>(
+            builder: (controller) {
+              return SingleChildScrollView(
+                child: Wrap(
+                  runSpacing: 1,
+                  spacing: 10,
+                  children: List.generate(
+                    controller.timeSlots.length,
+                    (index) => RawChip(
+                      label: Text(controller.timeSlots[index]),
+                      labelStyle:
+                          controller.selectedSlot == controller.timeSlots[index]
+                              ? Styles.whiteBold12
+                              : Styles.black12,
+                      showCheckmark: false,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(Dimens.fifty),
+                      ),
+                      selected: controller.selectedSlot ==
+                          controller.timeSlots[index],
+                      selectedColor:
+                          controller.selectedSlot == controller.timeSlots[index]
+                              ? ColorsValue.primaryColor
+                              : Colors.white,
+                      backgroundColor: Colors.white,
+                      onPressed: () {
+                        controller.selectedSlot = controller.timeSlots[index];
+                        controller.update();
+                      },
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
   }
 }
 
@@ -231,72 +274,6 @@ class EveningAvailability extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: Text('Evening Availability'),
-    );
-  }
-}
-
-class TimeSlotWidget extends StatefulWidget {
-  @override
-  _TimeSlotWidgetState createState() => _TimeSlotWidgetState();
-}
-
-class _TimeSlotWidgetState extends State<TimeSlotWidget> {
-  // List of available time slots (as strings)
-  final List<String> timeSlots = [
-    "09:00 AM - 09:15 AM",
-    "09:15 AM - 09:30 AM",
-    "09:30 AM - 09:45 AM",
-    "09:45 AM - 10:00 AM",
-    "10:00 AM - 10:15 AM",
-    "10:15 AM - 10:30 AM",
-    "10:30 AM - 10:45 AM",
-    "10:45 AM - 11:00 AM",
-  ];
-
-  // List to store selected time slots
-  var selectedSlot = '';
-
-  // Method to toggle time slot selection
-  void _onSlotSelected(String timeSlot) {
-    setState(() {
-      setState(() {
-        selectedSlot = timeSlot;
-      });
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Dimens.boxHeight16,
-        Text(
-          'Select a Slot :',
-          style: Styles.black16w500,
-        ),
-        Dimens.boxHeight10,
-        Expanded(
-          child: ListView.builder(
-            itemCount: timeSlots.length,
-            itemBuilder: (context, index) {
-              return RadioListTile<String>(
-                activeColor: ColorsValue.primaryColor,
-                contentPadding: EdgeInsets.zero,
-                title: Text(timeSlots[index]),
-                controlAffinity: ListTileControlAffinity.trailing,
-                value: timeSlots[index],
-                groupValue: selectedSlot,
-                onChanged: (String? value) {
-                  if (value != null) {
-                    _onSlotSelected(value);
-                  }
-                },
-              );
-            },
-          ),
-        ),
-      ],
     );
   }
 }

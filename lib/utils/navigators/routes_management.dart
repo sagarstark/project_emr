@@ -160,4 +160,10 @@ abstract class RouteManagement {
       Routes.patientSearchDoctors,
     );
   }
+
+  static void goToAddNewPatient() {
+    Get.toNamed<void>(
+      Routes.addNewPatient,
+    );
+  }
 }

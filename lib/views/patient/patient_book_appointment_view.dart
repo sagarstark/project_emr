@@ -158,63 +158,84 @@ class PatientBookAppointmentView extends StatelessWidget {
               ),
               const Gap(16),
               Text(
-                'Select the duration',
+                'Select the slot',
                 style: Styles.black14,
               ),
               const Gap(10),
+              // GetBuilder<HomeController>(
+              //   builder: (controller) {
+              //     return Wrap(
+              //       runSpacing: 1,
+              //       spacing: 10,
+              //       children: List.generate(
+              //         controller.durationList.length,
+              //         (index) => RawChip(
+              //           avatar: Icon(
+              //             Icons.access_time_rounded,
+              //             color: controller.selectedDuration ==
+              //                     controller.durationList[index]
+              //                 ? Colors.white
+              //                 : Colors.black,
+              //           ),
+              //           label: Text(controller.durationList[index]),
+              //           labelStyle: controller.selectedDuration ==
+              //                   controller.durationList[index]
+              //               ? Styles.whiteBold12
+              //               : Styles.black12,
+              //           showCheckmark: false,
+              //           shape: RoundedRectangleBorder(
+              //             borderRadius: BorderRadius.circular(Dimens.fifty),
+              //           ),
+              //           selected: controller.selectedDuration ==
+              //               controller.durationList[index],
+              //           selectedColor: controller.selectedDuration ==
+              //                   controller.durationList[index]
+              //               ? ColorsValue.primaryColor
+              //               : Colors.white,
+              //           backgroundColor: Colors.white,
+              //           onPressed: () {
+              //             controller.selectedDuration =
+              //                 controller.durationList[index];
+              //             controller.update();
+              //           },
+              //         ),
+              //       ),
+              //     );
+              //   },
+              // ),
+              // const Gap(10),
               GetBuilder<HomeController>(
                 builder: (controller) {
                   return Wrap(
                     runSpacing: 1,
                     spacing: 10,
                     children: List.generate(
-                      controller.durationList.length,
+                      controller.timeSlots.length,
                       (index) => RawChip(
-                        avatar: Icon(
-                          Icons.access_time_rounded,
-                          color: controller.selectedDuration ==
-                                  controller.durationList[index]
-                              ? Colors.white
-                              : Colors.black,
-                        ),
-                        label: Text(controller.durationList[index]),
-                        labelStyle: controller.selectedDuration ==
-                                controller.durationList[index]
+                        label: Text(controller.timeSlots[index]),
+                        labelStyle: controller.selectedSlot ==
+                                controller.timeSlots[index]
                             ? Styles.whiteBold12
                             : Styles.black12,
                         showCheckmark: false,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(Dimens.fifty),
                         ),
-                        selected: controller.selectedDuration ==
-                            controller.durationList[index],
-                        selectedColor: controller.selectedDuration ==
-                                controller.durationList[index]
+                        selected: controller.selectedSlot ==
+                            controller.timeSlots[index],
+                        selectedColor: controller.selectedSlot ==
+                                controller.timeSlots[index]
                             ? ColorsValue.primaryColor
                             : Colors.white,
                         backgroundColor: Colors.white,
                         onPressed: () {
-                          controller.selectedDuration =
-                              controller.durationList[index];
+                          controller.selectedSlot = controller.timeSlots[index];
                           controller.update();
                         },
                       ),
                     ),
                   );
                 },
-              ),
-              const Gap(10),
-              CustomDropdownField(
-                onChanged: (p0) {},
-                hintText: 'Time',
-                dropDownList: const [
-                  DropDownValueModel(name: '09:00 AM - 09:15 AM', value: '1'),
-                  DropDownValueModel(name: '09:00 AM - 09:15 AM', value: '1'),
-                  DropDownValueModel(name: '09:00 AM - 09:15 AM', value: '1'),
-                  DropDownValueModel(name: '09:00 AM - 09:15 AM', value: '1'),
-                  DropDownValueModel(name: '09:00 AM - 09:15 AM', value: '1'),
-                  DropDownValueModel(name: '09:00 AM - 09:15 AM', value: '1'),
-                ],
               ),
               const Gap(15),
               Text(

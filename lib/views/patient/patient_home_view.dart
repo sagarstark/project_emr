@@ -52,28 +52,28 @@ class PatientHomeView extends StatelessWidget {
               ListTile(
                 leading: const Icon(Icons.home_outlined),
                 title: const Text('Home'),
-                trailing: Icon(Icons.chevron_right_rounded),
+                trailing: const Icon(Icons.chevron_right_rounded),
                 onTap: Get.back,
               ),
               ListTile(
                 leading: const Icon(Icons.phone_callback_rounded),
                 title: const Text('Audio Call'),
-                trailing: Icon(Icons.chevron_right_rounded),
+                trailing: const Icon(Icons.chevron_right_rounded),
                 onTap: Get.back,
               ),
               ListTile(
                 leading: const Icon(Icons.video_call_rounded),
                 title: const Text('Video Call'),
-                trailing: Icon(Icons.chevron_right_rounded),
+                trailing: const Icon(Icons.chevron_right_rounded),
                 onTap: () {
                   Get.back();
-                  Get.to(() => VideoCallScreen());
+                  Get.offAll(() => const VideoCallScreen());
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.directions_walk_rounded),
                 title: const Text('Clinical Appointment'),
-                trailing: Icon(Icons.chevron_right_rounded),
+                trailing: const Icon(Icons.chevron_right_rounded),
                 onTap: Get.back,
               ),
               const ListTile(

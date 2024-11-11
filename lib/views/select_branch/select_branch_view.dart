@@ -29,8 +29,11 @@ class SelectBranchScreen extends StatelessWidget {
               body: controller.isBranchesLoading
                   ? const CustomLoader()
                   : controller.allBranchRes?.data == null
-                      ? const Center(
-                          child: Text('No Branches Available.'),
+                      ? GestureDetector(
+                          onTap: RouteManagement.goToReceptionistHome,
+                          child: const Center(
+                            child: Text('No Branches Available.'),
+                          ),
                         )
                       : Padding(
                           padding: Dimens.edgeInsets16,

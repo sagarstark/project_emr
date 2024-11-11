@@ -30,11 +30,24 @@ class HomeController extends GetxController {
 
   var selectedDuration = '15 minutes';
 
+  var selectedSlot = '';
+
   List<String> durationList = [
     '15 minutes',
     '30 minutes',
     '45 minutes',
     '60 minutes',
+  ];
+  final List<String> timeSlots = [
+    '09:00 AM - 09:15 AM',
+    '09:15 AM - 09:30 AM',
+    '09:30 AM - 09:45 AM',
+    '09:45 AM - 10:00 AM',
+    '10:00 AM - 10:15 AM',
+    '10:15 AM - 10:30 AM',
+    '10:30 AM - 10:45 AM',
+    '10:45 AM - 11:00 AM',
+    '11:00 AM - 11:15 AM',
   ];
 
   List<String> specialList = [

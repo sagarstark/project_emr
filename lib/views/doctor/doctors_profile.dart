@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:project_emr/res/res.dart';
+import 'package:project_emr/widgets/widgets.dart';
 
 class DoctorsProfile extends StatelessWidget {
   const DoctorsProfile({super.key});
@@ -11,37 +12,39 @@ class DoctorsProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 1,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: CircleAvatar(
-                    backgroundColor: ColorsValue.secondaryColor,
-                    radius: Dimens.eighty,
-                    foregroundImage:
-                        const AssetImage(AssetConstants.doctorProfilePic),
-                  ),
-                )
-              ],
+      bottomNavigationBar: Padding(
+        padding: Dimens.edgeInsets16,
+        child: CustomButton(
+          title: 'Book an Appointment',
+          onTap: () {},
+        ),
+      ),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: Get.height / 3,
+            floating: false,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              background: ClipRRect(
+                borderRadius: BorderRadius.circular(Dimens.twenty),
+                child: Image.asset(
+                  AssetConstants.doctorProfilePic,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
           ),
-          Expanded(
-            flex: 3,
+          SliverToBoxAdapter(
             child: Padding(
               padding: Dimens.edgeInsets16,
               child: Column(
                 children: [
                   Text(
-                    "Suresh Joshi",
+                    "Dr. Suresh Joshi",
                     style: Styles.blackBold20,
                   ),
-                  const Gap(10),
+                  Gap(10),
                   RatingBar(
                     initialRating: 4,
                     itemSize: Dimens.twentyFive,
@@ -70,47 +73,6 @@ class DoctorsProfile extends StatelessWidget {
                     itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                     onRatingUpdate: (rating) {},
                   ),
-                  const Gap(40),
-                  Text(
-                    'Book an appointment via',
-                    style: Styles.black14w500,
-                  ),
-                  const Gap(10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: FloatingActionButton.extended(
-                          onPressed: () {},
-                          heroTag: 'Chat',
-                          elevation: 0,
-                          backgroundColor: Colors.green.shade100,
-                          label: Text(
-                            'Chat',
-                            style: Styles.black14w500,
-                          ),
-                          icon: const Icon(Icons.message_rounded),
-                        ),
-                      ),
-                      Text(
-                        '  OR  ',
-                        style: Styles.black14w500,
-                      ),
-                      Expanded(
-                        child: FloatingActionButton.extended(
-                          onPressed: () {},
-                          heroTag: 'Call',
-                          elevation: 0,
-                          backgroundColor: Colors.blue.shade100,
-                          label: Text(
-                            'Call',
-                            style: Styles.black14w500,
-                          ),
-                          icon: const Icon(Icons.call_rounded),
-                        ),
-                      ),
-                    ],
-                  ),
                   const Gap(20),
                   const SizedBox(
                     height: 80,
@@ -132,12 +94,12 @@ class DoctorsProfile extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Specilisation',
+                          'Specialisation',
                           style: Styles.blackBold16,
                         ),
                         const Gap(10),
                         Text(
-                          'Haematolgy, General Medicine',
+                          'Haematology, General Medicine',
                           style: Styles.black14,
                         ),
                         const Gap(20),

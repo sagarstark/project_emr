@@ -194,5 +194,11 @@ class AppPages {
       page: SearchDoctorsView.new,
       transition: Transition.rightToLeft,
     ),
+    GetPage<AddNewPatient>(
+      name: Routes.addNewPatient,
+      transitionDuration: transitionDuration,
+      page: AddNewPatient.new,
+      transition: Transition.rightToLeft,
+    ),
   ];
 }

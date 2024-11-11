@@ -3,7 +3,7 @@ class Apis {
   const Apis._();
 
   static const String baseUrl =
-      'http://ec2-13-53-87-248.eu-north-1.compute.amazonaws.com:8080/';
+      'http://ec2-16-170-201-240.eu-north-1.compute.amazonaws.com:8080/';
   static const String signIn = 'app/auth/signin';
   static const String forgotPassword = 'app/auth/forgotpassword';
   static const String resetPassword = 'app/auth/resetpassword';

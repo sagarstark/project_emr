@@ -22,7 +22,7 @@ class ReceptionistPatientList extends StatelessWidget {
                   ColorsValue.secondaryColor,
                 ),
               ),
-              onPressed: () {},
+              onPressed: RouteManagement.goToAddNewPatient,
               child: Text(
                 '+ Add New',
                 style: Styles.black12,
