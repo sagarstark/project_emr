@@ -18,6 +18,7 @@ class AppointmentItem extends StatelessWidget {
       onPressed: ontap,
       child: Card(
         elevation: 10,
+        margin: Dimens.edgeInsets0,
         color: ColorsValue.secondaryColor,
         child: Container(
           decoration: BoxDecoration(
@@ -25,7 +26,10 @@ class AppointmentItem extends StatelessWidget {
             gradient: const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [Color(0xFF015D67), Colors.cyan],
+              colors: [
+                ColorsValue.primaryColor,
+                Colors.blueAccent,
+              ],
             ),
           ),
           child: Center(

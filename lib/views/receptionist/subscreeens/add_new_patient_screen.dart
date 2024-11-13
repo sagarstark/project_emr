@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:project_emr/res/res.dart';
 import 'package:project_emr/widgets/widgets.dart';
 
 class AddNewPatient extends StatelessWidget {
@@ -10,6 +12,13 @@ class AddNewPatient extends StatelessWidget {
       appBar: const CustomAppbar(
         title: 'Add New Patient',
       ),
+      bottomNavigationBar: Padding(
+        padding: Dimens.edgeInsets16,
+        child: CustomButton(
+          title: 'Save',
+          onTap: () {},
+        ),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -17,35 +26,56 @@ class AddNewPatient extends StatelessWidget {
           children: [
             CustomTextfield(
               hintText: 'Patient Name',
-              onChange: (value) {
-                // Handle name change
-              },
+              onChange: (value) {},
             ),
-            const SizedBox(height: 16),
+            const Gap(16),
             CustomTextfield(
-              hintText: 'Age',
+              hintText: 'Date of Birth',
               onChange: (value) {
                 // Handle age change
               },
             ),
-            const SizedBox(height: 16),
+            const Gap(16),
             CustomTextfield(
-              hintText: 'Contact Number',
+              hintText: 'Gender',
               onChange: (value) {
                 // Handle contact number change
               },
             ),
-            const SizedBox(height: 16),
+            const Gap(16),
+            CustomTextfield(
+              hintText: 'Phone Number',
+              onChange: (value) {
+                // Handle contact number change
+              },
+            ),
+            const Gap(16),
+            CustomTextfield(
+              hintText: 'Email ID',
+              onChange: (value) {
+                // Handle contact number change
+              },
+            ),
+            const Gap(16),
             CustomTextfield(
               hintText: 'Address',
               onChange: (value) {
-                // Handle address change
+                // Handle contact number change
               },
             ),
-            const SizedBox(height: 24),
-            CustomButton(
-              title: 'Save',
-              onTap: () {},
+            const Gap(16),
+            CustomTextfield(
+              hintText: 'Problem',
+              onChange: (value) {
+                // Handle contact number change
+              },
+            ),
+            const Gap(16),
+            CustomTextfield(
+              hintText: 'Symptoms',
+              onChange: (value) {
+                // Handle contact number change
+              },
             ),
           ],
         ),

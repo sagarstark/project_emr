@@ -39,7 +39,15 @@ class ReceptionistHomeScreen extends StatelessWidget {
                 children: [
                   DrawerHeader(
                     decoration: const BoxDecoration(
-                      color: ColorsValue.primaryColor,
+                      gradient: const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          ColorsValue.primaryColor,
+                          Colors.blueAccent,
+                        ],
+                      ),
+                      // color: ColorsValue.primaryColor,
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(15),
                       ),
@@ -76,47 +84,7 @@ class ReceptionistHomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          body: DefaultTabController(
-            length: 2,
-            child: Padding(
-              padding: Dimens.edgeInsets16_10_16_16,
-              child: Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.grey.shade300,
-                        borderRadius: BorderRadius.circular(50)),
-                    child: TabBar(
-                      dividerColor: Colors.transparent,
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      overlayColor: WidgetStateColor.transparent,
-                      labelColor: Colors.white,
-                      labelStyle:
-                          Styles.white14w500.copyWith(fontFamily: 'Poppins'),
-                      indicator: BoxDecoration(
-                        color: ColorsValue.primaryColor,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(Dimens.fifty),
-                        ),
-                      ),
-                      tabs: const [
-                        Tab(text: 'Appointment'),
-                        Tab(text: 'Registration'),
-                      ],
-                    ),
-                  ),
-                  const Expanded(
-                    child: TabBarView(
-                      children: [
-                        ReseptionistAppointmentScreen(),
-                        ReceptionistRegistrationScreen(),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          body: ReceptionistAppointmentScreen(),
         ),
       );
 }

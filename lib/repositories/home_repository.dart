@@ -43,4 +43,17 @@ class HomeRepository {
       showLoader: true,
     );
   }
+
+  Future<ResponseModel> getPatientList({
+    required String searchText,
+  }) async {
+    return _apiWrapper.makeRequest(
+      '${Apis.getPatientList}${searchText.isNotEmpty ? '?searchKey=$searchText' : ''}',
+      type: RequestType.get,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      showLoader: false,
+    );
+  }
 }

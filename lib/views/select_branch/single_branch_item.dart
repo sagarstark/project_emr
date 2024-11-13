@@ -20,22 +20,35 @@ class SingleBranchItem extends StatelessWidget {
       onPressed: ontap,
       child: Card(
         color: ColorsValue.secondaryColor,
-        child: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(
-              AssetConstants.hospital,
-              height: Dimens.sixty,
-              width: Dimens.sixty,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(Dimens.ten),
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                ColorsValue.primaryColor,
+                Colors.blueAccent,
+              ],
             ),
-            const Gap(15),
-            Text(
-              branchName,
-              style: Styles.black16w500,
-            ),
-          ],
-        )),
+          ),
+          child: Center(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset(
+                AssetConstants.hospital,
+                height: Dimens.sixty,
+                width: Dimens.sixty,
+              ),
+              const Gap(15),
+              Text(
+                branchName,
+                style: Styles.white16w500,
+              ),
+            ],
+          )),
+        ),
       ),
     );
   }

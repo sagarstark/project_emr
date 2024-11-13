@@ -3,17 +3,17 @@ import 'package:project_emr/res/res.dart';
 import 'package:project_emr/utils/navigators/navigators.dart';
 import 'package:project_emr/widgets/widgets.dart';
 
-class ReseptionistAppointmentScreen extends StatelessWidget {
-  const ReseptionistAppointmentScreen({super.key});
+class ReceptionistAppointmentScreen extends StatelessWidget {
+  const ReceptionistAppointmentScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GridView.count(
-      padding: EdgeInsets.only(top: Dimens.ten),
+      padding: Dimens.edgeInsets16,
       shrinkWrap: true,
       crossAxisCount: 2,
-      mainAxisSpacing: 5,
-      crossAxisSpacing: 5,
+      mainAxisSpacing: 10,
+      crossAxisSpacing: 10,
       childAspectRatio: 1.5,
       children: [
         const AppointmentItem(

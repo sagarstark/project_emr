@@ -36,7 +36,14 @@ class PatientHomeView extends StatelessWidget {
             children: [
               DrawerHeader(
                 decoration: const BoxDecoration(
-                  color: ColorsValue.primaryColor,
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      ColorsValue.primaryColor,
+                      Colors.blueAccent,
+                    ],
+                  ),
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(15),
                   ),
@@ -90,8 +97,8 @@ class PatientHomeView extends StatelessWidget {
         padding: EdgeInsets.all(Dimens.sixteen),
         shrinkWrap: true,
         crossAxisCount: 2,
-        mainAxisSpacing: 5,
-        crossAxisSpacing: 5,
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
         childAspectRatio: 1.5,
         children: [
           const AppointmentItem(

@@ -13,6 +13,7 @@ class AssetConstants {
   static const String fullRatingStar = 'assets/icons/full_rating_star.svg';
   static const String doctorProfilePic =
       'assets/images/doctors_profile_pic.jpg';
+  static const String doctorPic = 'assets/images/doctor_pic.png';
   static const String notificationPlaceholder =
       'assets/icons/notification_placeholder.svg';
 }

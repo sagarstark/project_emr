@@ -38,7 +38,10 @@ class CustomButton extends StatelessWidget {
                 ? const LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: [Color(0xFF015D67), ColorsValue.primaryColor],
+                    colors: [
+                      ColorsValue.primaryColor,
+                      ColorsValue.secondaryColor
+                    ],
                   )
                 : null,
             color: buttonType == ButtonType.continued

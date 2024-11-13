@@ -56,4 +56,17 @@ class HomeViewModel {
     }
     return FilterDoctorModel.fromJson(data);
   }
+
+  /// Get Patient List API
+  ///
+  Future<PatientResponseModel?> getPatientList({String searchText = ''}) async {
+    var response = await _repository.getPatientList(searchText: searchText);
+    var data = jsonDecode(response.data) as Map<String, dynamic>;
+    var status = '${data['status']}';
+    if (status == 'false') {
+      // Utility.showDialog(data['message'].toString());
+      return null;
+    }
+    return PatientResponseModel.fromJson(data);
+  }
 }

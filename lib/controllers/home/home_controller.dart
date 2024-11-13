@@ -138,4 +138,19 @@ class HomeController extends GetxController {
       getAvailableDoctor();
     }
   }
+
+  PatientResponseModel? patientResponseModel;
+
+  var isPatientListLoading = false;
+
+  var searchPatientTextController = TextEditingController();
+
+  Future<void> getPatientList([String searchText = '']) async {
+    isPatientListLoading = true;
+    update();
+    patientResponseModel = await _viewModel.getPatientList(
+        searchText: searchPatientTextController.text);
+    isPatientListLoading = false;
+    update();
+  }
 }

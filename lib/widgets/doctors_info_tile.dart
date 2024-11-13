@@ -28,7 +28,7 @@ class DoctorsTile extends StatelessWidget {
             color: isSelected ? ColorsValue.primaryColor : Colors.transparent,
             width: 2,
           ),
-          color: ColorsValue.secondaryColor.withOpacity(1),
+          color: Colors.blueAccent.withOpacity(0.5),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Padding(

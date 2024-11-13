@@ -15,7 +15,7 @@ class DoctorsProfile extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: Dimens.edgeInsets16,
         child: CustomButton(
-          title: 'Book an Appointment',
+          title: 'Book Now',
           onTap: () {},
         ),
       ),
@@ -26,28 +26,30 @@ class DoctorsProfile extends StatelessWidget {
             floating: false,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              background: ClipRRect(
-                borderRadius: BorderRadius.circular(Dimens.twenty),
-                child: Image.asset(
-                  AssetConstants.doctorProfilePic,
-                  fit: BoxFit.cover,
-                ),
+              background: Image.asset(
+                AssetConstants.doctorPic,
+                fit: BoxFit.cover,
               ),
             ),
           ),
           SliverToBoxAdapter(
-            child: Padding(
-              padding: Dimens.edgeInsets16,
+            child: Container(
+              padding: Dimens.edgeInsets10,
+              color: ColorsValue.primaryColor,
               child: Column(
                 children: [
                   Text(
-                    "Dr. Suresh Joshi",
-                    style: Styles.blackBold20,
+                    "Dr. Shree Joshi",
+                    style: Styles.whiteBold20,
                   ),
-                  Gap(10),
+                  Text(
+                    'Haematology, General Medicine',
+                    style: Styles.white14w500,
+                  ),
+                  const Gap(10),
                   RatingBar(
                     initialRating: 4,
-                    itemSize: Dimens.twentyFive,
+                    itemSize: Dimens.fifteen,
                     ignoreGestures: true,
                     direction: Axis.horizontal,
                     allowHalfRating: true,
@@ -73,36 +75,35 @@ class DoctorsProfile extends StatelessWidget {
                     itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                     onRatingUpdate: (rating) {},
                   ),
-                  const Gap(20),
+                ],
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: Dimens.edgeInsets16_0_16_0,
+              child: Column(
+                children: [
+                  Gap(5),
                   const SizedBox(
-                    height: 80,
+                    height: 50,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         ProfileInfoItem(title: 'Age', value: '35'),
                         VerticalDivider(),
-                        ProfileInfoItem(title: 'Gender', value: 'Male'),
+                        ProfileInfoItem(title: 'Gender', value: 'Female'),
                         VerticalDivider(),
                         ProfileInfoItem(title: 'Experience', value: '7 Yrs'),
                       ],
                     ),
                   ),
-                  const Gap(20),
+                  const Gap(10),
                   SizedBox(
                     width: Get.width,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Specialisation',
-                          style: Styles.blackBold16,
-                        ),
-                        const Gap(10),
-                        Text(
-                          'Haematology, General Medicine',
-                          style: Styles.black14,
-                        ),
-                        const Gap(20),
                         Text(
                           'Qualification',
                           style: Styles.blackBold16,
@@ -141,12 +142,9 @@ class ProfileInfoItem extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: Dimens.edgeInsets8,
-            child: Text(
-              value,
-              style: Styles.blackBold16,
-            ),
+          Text(
+            value,
+            style: Styles.blackBold14,
           ),
           Text(
             title,

@@ -47,7 +47,8 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                       const Gap(15),
                       Card(
                         margin: EdgeInsets.zero,
-                        color: ColorsValue.secondaryColor,
+                        elevation: 0,
+                        color: Colors.blueAccent.withOpacity(0.5),
                         child: Container(
                           width: Get.width,
                           padding: Dimens.edgeInsets10,
@@ -116,14 +117,14 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                                   Icons.access_time_rounded,
                                   color: controller.selectedDuration ==
                                           controller.durationList[index]
-                                      ? Colors.black
-                                      : Colors.grey,
+                                      ? Colors.white
+                                      : Colors.black,
                                 ),
                                 label: Text(controller.durationList[index]),
                                 labelStyle: controller.selectedDuration ==
                                         controller.durationList[index]
-                                    ? Styles.black12w500
-                                    : Styles.grey12w500,
+                                    ? Styles.white12w500
+                                    : Styles.black12w500,
                                 showCheckmark: false,
                                 shape: RoundedRectangleBorder(
                                   borderRadius:
