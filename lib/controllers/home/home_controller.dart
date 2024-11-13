@@ -153,4 +153,42 @@ class HomeController extends GetxController {
     isPatientListLoading = false;
     update();
   }
+
+  final nameController = TextEditingController();
+  final dobController = TextEditingController();
+  final genderController = TextEditingController();
+  final phoneController = TextEditingController();
+  final emailController = TextEditingController();
+  final addressController = TextEditingController();
+  final problemController = TextEditingController();
+  final symptomsController = TextEditingController();
+
+  DateTime? newPatientDOB;
+
+  Future<void> createPatient() async {
+    await _viewModel.createNewPatient(
+      name: nameController.text,
+      dob: DateFormat('yyyy-MM-dd').format(newPatientDOB!),
+      age: DateTime.now().year - newPatientDOB!.year,
+      gender: genderController.text,
+      phoneNo: phoneController.text,
+      emailId: emailController.text,
+      address: addressController.text,
+      problem: problemController.text,
+      symptoms: symptomsController.text,
+    );
+  }
+
+  void clearAllFields() {
+    nameController.clear();
+    dobController.clear();
+    genderController.clear();
+    phoneController.clear();
+    emailController.clear();
+    addressController.clear();
+    problemController.clear();
+    symptomsController.clear();
+    newPatientDOB = null;
+    update(['add-new-patient']);
+  }
 }

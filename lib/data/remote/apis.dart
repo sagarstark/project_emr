@@ -23,4 +23,5 @@ class Apis {
   static const String getAllSpecialities = 'app/doctor/getAllSpecialities';
   static const String getAvailableDoctor = 'app/doctor/getAvailableDoctor';
   static const String getPatientList = 'app/patient/searchPatients';
+  static const String createNewPatient = 'app/patient/createNewPatient';
 }

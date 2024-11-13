@@ -56,4 +56,38 @@ class HomeRepository {
       showLoader: false,
     );
   }
+
+  Future<ResponseModel> createNewPatient({
+    required String name,
+    required String dob,
+    required int age,
+    required String gender,
+    required String emailId,
+    required String address,
+    required String phoneNo,
+    required String problem,
+    required String symptoms,
+  }) async {
+    final body = {
+      "name": name,
+      "dob": dob,
+      "age": age,
+      "gender": gender,
+      "emailId": emailId,
+      "address": address,
+      "phoneNo": phoneNo,
+      "problem": problem,
+      "symptoms": symptoms,
+    };
+
+    return _apiWrapper.makeRequest(
+      Apis.createNewPatient, // Make sure to add this endpoint in your Apis class
+      type: RequestType.post,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      payload: body,
+      showLoader: true,
+    );
+  }
 }

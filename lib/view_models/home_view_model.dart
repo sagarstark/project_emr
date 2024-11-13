@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:get/get.dart';
 import 'package:project_emr/models/models.dart';
 import 'package:project_emr/utils/utils.dart';
 
@@ -68,5 +69,38 @@ class HomeViewModel {
       return null;
     }
     return PatientResponseModel.fromJson(data);
+  }
+
+  Future<ResponseModel?> createNewPatient({
+    required String name,
+    required String dob,
+    required int age,
+    required String gender,
+    required String emailId,
+    required String address,
+    required String phoneNo,
+    required String problem,
+    required String symptoms,
+  }) async {
+    final response = await _repository.createNewPatient(
+      name: name,
+      dob: dob,
+      age: age,
+      gender: gender,
+      emailId: emailId,
+      address: address,
+      phoneNo: phoneNo,
+      problem: problem,
+      symptoms: symptoms,
+    );
+    var data = jsonDecode(response.data) as Map<String, dynamic>;
+
+    if (data['status'] == true) {
+      Get.back();
+      Utility.showDialog(data['message'].toString());
+      return response;
+    } else {
+      return null;
+    }
   }
 }
