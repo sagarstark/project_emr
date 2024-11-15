@@ -14,6 +14,7 @@ class ReceptionistPatientList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
+      id: 'receptionist-patient-list',
       initState: (state) async {
         final controller = Get.find<HomeController>();
         await controller.getPatientList();
@@ -54,7 +55,7 @@ class ReceptionistPatientList extends StatelessWidget {
                     onChange: (value) {},
                     hintText: 'Search Patient By Name',
                     suffixIcon: Padding(
-                      padding: const EdgeInsets.only(right: 1),
+                      padding: const EdgeInsets.only(right: 2),
                       child: IconButton(
                         style: IconButton.styleFrom(
                           backgroundColor: ColorsValue.primaryColor,

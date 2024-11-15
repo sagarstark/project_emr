@@ -40,7 +40,7 @@ class HomeRepository {
       headers: {
         'Content-Type': 'application/json',
       },
-      showLoader: true,
+      showLoader: false,
     );
   }
 
@@ -87,6 +87,84 @@ class HomeRepository {
         'Content-Type': 'application/json',
       },
       payload: body,
+      showLoader: true,
+    );
+  }
+
+  Future<ResponseModel> getDoctorAvailableSlots({
+    required int? doctorId,
+    String? interval,
+    String? selectedDate,
+  }) async {
+    return _apiWrapper.makeRequest(
+      '${Apis.getDoctorAvailableSlots}?'
+      '${doctorId != null ? 'doctorId=$doctorId' : ''}'
+      '${interval?.isNotEmpty == true ? '&interval=$interval' : ''}'
+      '${selectedDate?.isNotEmpty == true ? '&selectedDate=$selectedDate' : ''}',
+      type: RequestType.get,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      showLoader: false,
+    );
+  }
+
+  Future<ResponseModel> receptionistBookAppointment({
+    required int patientId,
+    required int docId,
+    required int specialityId,
+    required int branchId,
+    required String appointmentDate,
+    required String appointmentTime,
+    required String timeInterval,
+    required String scheduleType,
+  }) async {
+    final body = {
+      "patientId": patientId,
+      "docId": docId,
+      "specialityId": specialityId,
+      "branchId": branchId,
+      "appointmentDate": appointmentDate,
+      "appointmentTime": appointmentTime,
+      "timeInterval": timeInterval,
+      "scheduleType": scheduleType,
+    };
+
+    return _apiWrapper.makeRequest(
+      Apis.receptionistBookAppointment,
+      type: RequestType.post,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      payload: body,
+      showLoader: true,
+    );
+  }
+
+  Future<ResponseModel> getDoctorsAppointment({
+    required int doctorId,
+    required String filters,
+  }) async {
+    return _apiWrapper.makeRequest(
+      '${Apis.getDoctorSchedule}?doctorId=$doctorId&filters=$filters',
+      type: RequestType.get,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      showLoader: true,
+    );
+  }
+
+  Future<ResponseModel> getPatientsByDoctors({
+    required int doctorId,
+    required String filters,
+  }) async {
+    return _apiWrapper.makeRequest(
+      '${Apis.getPatientsByDoctors}?doctorId=$doctorId&filters=$filters',
+      type: RequestType.get,
+      headers: {
+        'Content-Type': 'application/json',
+      },
       showLoader: true,
     );
   }

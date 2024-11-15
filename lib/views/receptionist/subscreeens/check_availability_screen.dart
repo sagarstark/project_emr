@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:project_emr/controllers/controllers.dart';
 import 'package:project_emr/res/res.dart';
+import 'package:project_emr/utils/utils.dart';
 import 'package:project_emr/widgets/widgets.dart';
 
 class CheckAvailabilityScreen extends StatefulWidget {
@@ -27,9 +28,15 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
           bottomNavigationBar: Padding(
             padding: Dimens.edgeInsets16_0_16_16,
             child: CustomButton(
-              title: 'Apply',
+              title: 'Book',
               isDisable: false,
-              onTap: () {},
+              onTap: () {
+                Utility.showMessage(
+                  message: 'Appointment booked successfully.',
+                  type: MessageType.success,
+                );
+                RouteManagement.goToReceptionistHome();
+              },
             ),
           ),
           body: GetBuilder<HomeController>(

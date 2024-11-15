@@ -52,9 +52,12 @@ class DoctorsHomeScreen extends StatelessWidget {
               DrawerHeader(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [Color(0xFF015D67), ColorsValue.primaryColor],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      ColorsValue.primaryColor,
+                      Colors.blueAccent,
+                    ],
                   ),
                   color: ColorsValue.primaryColor,
                   borderRadius: BorderRadius.only(
@@ -106,8 +109,8 @@ class DoctorsHomeScreen extends StatelessWidget {
         padding: EdgeInsets.all(Dimens.sixteen),
         shrinkWrap: true,
         crossAxisCount: 2,
-        mainAxisSpacing: 5,
-        crossAxisSpacing: 5,
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
         childAspectRatio: 1.5,
         children: [
           const AppointmentItem(

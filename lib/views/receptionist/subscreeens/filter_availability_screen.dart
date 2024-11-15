@@ -18,7 +18,7 @@ class FilterAvailabilityScreen extends StatelessWidget {
       initState: (state) {
         final controller = Get.find<HomeController>();
         controller.showAvailableDoctorsList = false;
-        controller.availabilityDateController.clear();
+        controller.availabilityDateController.text = '';
         controller.selectedBranchId = '';
         controller.selectedSpecialityId = '';
         controller.getAllSpecialities();

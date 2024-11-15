@@ -92,10 +92,15 @@ class HomeController extends GetxController {
 
   Future<void> getAllSpecialities() async {
     isSpecializationLoading = true;
-    update(['filter-availability']);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      update(['filter-availability']);
+    });
+
     allSpecialistRes = await _viewModel.getAllSpecialities();
     isSpecializationLoading = false;
-    update(['filter-availability']);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      update(['filter-availability']);
+    });
   }
 
   FilterDoctorModel? filterDoctorModel;
@@ -133,7 +138,7 @@ class HomeController extends GetxController {
       Utility.showMessage(
           message:
               'Please select all the three fields to find the appropriate Doctor for yourself.',
-          type: MessageType.error);
+          type: MessageType.information);
     } else {
       getAvailableDoctor();
     }
@@ -147,11 +152,15 @@ class HomeController extends GetxController {
 
   Future<void> getPatientList([String searchText = '']) async {
     isPatientListLoading = true;
-    update();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      update(['receptionist-patient-list']);
+    });
     patientResponseModel = await _viewModel.getPatientList(
         searchText: searchPatientTextController.text);
     isPatientListLoading = false;
-    update();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      update(['receptionist-patient-list']);
+    });
   }
 
   final nameController = TextEditingController();

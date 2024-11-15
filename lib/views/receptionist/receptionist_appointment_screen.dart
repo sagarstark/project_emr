@@ -25,19 +25,7 @@ class ReceptionistAppointmentScreen extends StatelessWidget {
           ontap: () {},
         ),
         AppointmentItem(
-          branchName: 'Facility Scheduling',
-          ontap: () {},
-        ),
-        AppointmentItem(
-          branchName: 'Facility Schedule List',
-          ontap: () {},
-        ),
-        AppointmentItem(
           branchName: 'Schedule Followup',
-          ontap: () {},
-        ),
-        AppointmentItem(
-          branchName: 'Vaccination Schedules',
           ontap: () {},
         ),
       ],
