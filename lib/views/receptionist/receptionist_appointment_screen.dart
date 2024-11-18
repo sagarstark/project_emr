@@ -24,10 +24,6 @@ class ReceptionistAppointmentScreen extends StatelessWidget {
           branchName: 'Patient Schedule List',
           ontap: () {},
         ),
-        AppointmentItem(
-          branchName: 'Schedule Followup',
-          ontap: () {},
-        ),
       ],
     );
   }

@@ -28,15 +28,18 @@ class HomeController extends GetxController {
 
   var finalSelectedAvailabilityDate = DateTime.now();
 
-  var selectedDuration = '15 minutes';
+  var selectedDuration = '15';
 
   var selectedSlot = '';
 
+  int? selectedPatientId;
+  int? selectedDocId;
+
   List<String> durationList = [
-    '15 minutes',
-    '30 minutes',
-    '45 minutes',
-    '60 minutes',
+    '15',
+    '30',
+    '45',
+    '60',
   ];
   final List<String> timeSlots = [
     '09:00 AM - 09:15 AM',
@@ -50,21 +53,20 @@ class HomeController extends GetxController {
     '11:00 AM - 11:15 AM',
   ];
 
-  List<String> specialList = [
-    'Cardiologist',
-    'Gynacologist',
-    'Neurolgist',
-    'General',
-    'Medicine Specialist',
-    'Dentist',
-  ];
-
-  List<String> dummyBranchList = [
-    'Chennai',
-    'Bengaluru',
-    'Hyderabad',
-    'Pune',
-  ];
+  String getDurationInterval(String duration) {
+    switch (duration) {
+      case '15':
+        return 'FIFTEEN_MINUTES';
+      case '30':
+        return 'THIRTY_MINUTES';
+      case '45':
+        return 'FORTY_FIVE_MINUTES';
+      case '60':
+        return 'SIXTY_MINUTES';
+      default:
+        return 'FIFTEEN_MINUTES';
+    }
+  }
 
   AllBranchRes? allBranchRes;
 
@@ -113,9 +115,7 @@ class HomeController extends GetxController {
     isFilterDoctorLoading = true;
     update(['filter-availability']);
     filterDoctorModel = await _viewModel.getAvailableDoctor(
-      // TODO: Change to actual Date
-      // date: DateFormat('yyyy-MM-dd').format(selectedAvailabilityDate),
-      date: '2024-09-22',
+      date: DateFormat('yyyy-MM-dd').format(selectedAvailabilityDate),
       branchId: selectedBranchId,
       specialityId: selectedSpecialityId,
     );
@@ -199,5 +199,42 @@ class HomeController extends GetxController {
     symptomsController.clear();
     newPatientDOB = null;
     update(['add-new-patient']);
+  }
+
+  var slotCurrentTab = 'Morning';
+
+  DoctorsAvailableSlot? doctorsAvailableSlot;
+
+  var isGetDoctorSlotLoading = false;
+
+  Future<void> getDoctorAvailableSlots({
+    required String doctorId,
+    required String interval,
+    required String selectedDate,
+  }) async {
+    selectedSlot = '';
+    isGetDoctorSlotLoading = true;
+    update(['check-availability']);
+    doctorsAvailableSlot = await _viewModel.getDoctorAvailableSlots(
+      doctorId: doctorId,
+      interval: interval,
+      selectedDate: selectedDate,
+    );
+    isGetDoctorSlotLoading = false;
+    update(['check-availability']);
+  }
+
+  Future<void> receptionistBookAppointment() async {
+    await _viewModel.receptionistBookAppointment(
+      patientId: selectedPatientId ?? 0,
+      docId: selectedDocId ?? 0,
+      specialityId: int.parse(selectedSpecialityId),
+      branchId: int.parse(selectedBranchId),
+      appointmentDate:
+          DateFormat('yyyy-MM-dd').format(finalSelectedAvailabilityDate),
+      appointmentTime: selectedSlot,
+      timeInterval: getDurationInterval(selectedDuration),
+      scheduleType: slotCurrentTab,
+    );
   }
 }

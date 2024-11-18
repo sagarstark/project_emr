@@ -14,7 +14,7 @@ class DoctorsTile extends StatelessWidget {
 
   final String name;
   final String experience;
-  final Function() onTapProfilePic;
+  final Function()? onTapProfilePic;
   final Function() onTap;
   final bool isSelected;
 

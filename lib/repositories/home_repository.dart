@@ -92,15 +92,12 @@ class HomeRepository {
   }
 
   Future<ResponseModel> getDoctorAvailableSlots({
-    required int? doctorId,
-    String? interval,
-    String? selectedDate,
+    required String doctorId,
+    required String interval,
+    required String selectedDate,
   }) async {
     return _apiWrapper.makeRequest(
-      '${Apis.getDoctorAvailableSlots}?'
-      '${doctorId != null ? 'doctorId=$doctorId' : ''}'
-      '${interval?.isNotEmpty == true ? '&interval=$interval' : ''}'
-      '${selectedDate?.isNotEmpty == true ? '&selectedDate=$selectedDate' : ''}',
+      '${Apis.getDoctorAvailableSlots}?doctorId=$doctorId&interval=$interval&selectedDate=$selectedDate',
       type: RequestType.get,
       headers: {
         'Content-Type': 'application/json',
@@ -155,12 +152,12 @@ class HomeRepository {
     );
   }
 
-  Future<ResponseModel> getPatientsByDoctors({
+  Future<ResponseModel> getPatientsByDoctorsId({
     required int doctorId,
     required String filters,
   }) async {
     return _apiWrapper.makeRequest(
-      '${Apis.getPatientsByDoctors}?doctorId=$doctorId&filters=$filters',
+      '${Apis.getPatientsByDoctorsId}?doctorId=$doctorId&filters=$filters',
       type: RequestType.get,
       headers: {
         'Content-Type': 'application/json',

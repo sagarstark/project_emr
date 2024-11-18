@@ -23,8 +23,8 @@ class Apis {
   /// Doctor's Flow APIs---------------------------------------------------------------------------------------
   static const String getDoctorsAppointment =
       'app/doctorappointment/getAppointsByDocWithFilters';
-  static const String getPatientsByDoctors =
-      'app/doctorappointment/getAppointsByDocWithFilters?doctorId=4&filters=past';
+  static const String getPatientsByDoctorsId =
+      'app/doctorappointment/getPatientsByDocIdWithFilters';
 
   ///  APIs---------------------------------------------------------------------------------------
   static const String getDoctorSchedule = 'app/admin/getDoctorSchedule';

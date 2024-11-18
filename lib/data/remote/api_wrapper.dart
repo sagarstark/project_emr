@@ -285,8 +285,9 @@ class ApiWrapper {
         }
         return res;
       case 500:
-        var res = ResponseModel.message(
-          'Server error',
+        var res = ResponseModel(
+          data: utf8.decode(response.bodyBytes),
+          hasError: true,
           statusCode: response.statusCode,
         );
         if (showDialog) {

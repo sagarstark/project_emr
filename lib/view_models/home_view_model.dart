@@ -103,4 +103,57 @@ class HomeViewModel {
       return null;
     }
   }
+
+  Future<DoctorsAvailableSlot?> getDoctorAvailableSlots({
+    required String doctorId,
+    required String interval,
+    required String selectedDate,
+  }) async {
+    final response = await _repository.getDoctorAvailableSlots(
+      doctorId: doctorId,
+      interval: interval,
+      selectedDate: selectedDate,
+    );
+    var data = jsonDecode(response.data) as Map<String, dynamic>;
+
+    if (response.statusCode == 200) {
+      return DoctorsAvailableSlot.fromJson(data);
+    } else {
+      return null;
+    }
+  }
+
+  Future<ResponseModel?> receptionistBookAppointment({
+    required int patientId,
+    required int docId,
+    required int specialityId,
+    required int branchId,
+    required String appointmentDate,
+    required String appointmentTime,
+    required String timeInterval,
+    required String scheduleType,
+  }) async {
+    final response = await _repository.receptionistBookAppointment(
+      patientId: patientId,
+      docId: docId,
+      specialityId: specialityId,
+      branchId: branchId,
+      appointmentDate: appointmentDate,
+      appointmentTime: appointmentTime,
+      timeInterval: timeInterval,
+      scheduleType: scheduleType,
+    );
+    var data = jsonDecode(response.data) as Map<String, dynamic>;
+
+    if (response.statusCode == 200) {
+      RouteManagement.goToReceptionistHome();
+      Utility.showMessage(
+        message: 'Appointment booked successfully.',
+        type: MessageType.success,
+      );
+      return response;
+    } else {
+      return null;
+    }
+  }
 }

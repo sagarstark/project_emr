@@ -15,11 +15,23 @@ class CheckAvailabilityScreen extends StatefulWidget {
       _CheckAvailabilityScreenState();
 }
 
+final controller = Get.find<HomeController>();
+var arguments = {};
+
 class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
       id: 'check-availability',
+      initState: (state) async {
+        arguments = Get.arguments;
+        await controller.getDoctorAvailableSlots(
+          doctorId: arguments['doctorId'],
+          interval: controller.getDurationInterval(controller.selectedDuration),
+          selectedDate: DateFormat('yyyy-MM-dd')
+              .format(controller.finalSelectedAvailabilityDate),
+        );
+      },
       builder: (controller) {
         return Scaffold(
           appBar: const CustomAppbar(
@@ -29,13 +41,9 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
             padding: Dimens.edgeInsets16_0_16_16,
             child: CustomButton(
               title: 'Book',
-              isDisable: false,
-              onTap: () {
-                Utility.showMessage(
-                  message: 'Appointment booked successfully.',
-                  type: MessageType.success,
-                );
-                RouteManagement.goToReceptionistHome();
+              isDisable: controller.selectedSlot.isEmpty,
+              onTap: () async {
+                await controller.receptionistBookAppointment();
               },
             ),
           ),
@@ -80,19 +88,19 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Name - Dr. Suresh Joshi',
+                                          'Name : ${arguments['doctorName']}',
                                           style: Styles.blackBold14,
                                         ),
                                         Text(
-                                          'Speciality - Haematology',
+                                          'Contact : ${arguments['contactInfo']}',
                                           style: Styles.black12w500,
                                         ),
                                         Text(
-                                          'Date - ${DateFormat('dd MMMM yyyy, EEEE').format(controller.finalSelectedAvailabilityDate)}',
+                                          'Branch : ${arguments['branch']}',
                                           style: Styles.black12w500,
                                         ),
                                         Text(
-                                          'Branch - Chennai',
+                                          'Date : ${DateFormat('dd MMMM yyyy, EEEE').format(controller.finalSelectedAvailabilityDate)}',
                                           style: Styles.black12w500,
                                         ),
                                       ],
@@ -128,7 +136,8 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                                     ? Colors.white
                                     : Colors.black,
                               ),
-                              label: Text(controller.durationList[index]),
+                              label: Text(
+                                  '${controller.durationList[index]} minutes'),
                               labelStyle: controller.selectedDuration ==
                                       controller.durationList[index]
                                   ? Styles.white12w500
@@ -142,13 +151,21 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                                   controller.durationList[index],
                               selectedColor: controller.selectedDuration ==
                                       controller.durationList[index]
-                                  ? ColorsValue.secondaryColor
+                                  ? Colors.blueAccent
                                   : Colors.white,
                               backgroundColor: Colors.white,
-                              onPressed: () {
+                              onPressed: () async {
                                 controller.selectedDuration =
                                     controller.durationList[index];
-                                controller.update();
+
+                                await controller.getDoctorAvailableSlots(
+                                  doctorId: '4',
+                                  interval: controller.getDurationInterval(
+                                      controller.selectedDuration),
+                                  selectedDate: DateFormat('yyyy-MM-dd').format(
+                                      controller.finalSelectedAvailabilityDate),
+                                );
+                                controller.update(['check-availability']);
                               },
                             ),
                           ),
@@ -167,43 +184,56 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                       child: DefaultTabController(
                         length: 3,
                         initialIndex: 0,
-                        child: Column(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.grey.shade300,
-                                  borderRadius: BorderRadius.circular(50)),
-                              child: TabBar(
-                                dividerColor: Colors.transparent,
-                                indicatorSize: TabBarIndicatorSize.tab,
-                                overlayColor: WidgetStateColor.transparent,
-                                labelColor: Colors.white,
-                                labelStyle: Styles.white14w500
-                                    .copyWith(fontFamily: 'Poppins'),
-                                indicator: BoxDecoration(
-                                  color: ColorsValue.primaryColor,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(Dimens.fifty),
+                        child: Builder(builder: (context) {
+                          TabController tabController =
+                              DefaultTabController.of(context);
+                          tabController.addListener(() {
+                            if (!tabController.indexIsChanging) {
+                              controller.slotCurrentTab = [
+                                'Morning',
+                                'Afternoon',
+                                'Evening'
+                              ][tabController.index];
+                            }
+                          });
+                          return Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.grey.shade300,
+                                    borderRadius: BorderRadius.circular(50)),
+                                child: TabBar(
+                                  dividerColor: Colors.transparent,
+                                  indicatorSize: TabBarIndicatorSize.tab,
+                                  overlayColor: WidgetStateColor.transparent,
+                                  labelColor: Colors.white,
+                                  labelStyle: Styles.white14w500
+                                      .copyWith(fontFamily: 'Poppins'),
+                                  indicator: BoxDecoration(
+                                    color: ColorsValue.primaryColor,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(Dimens.fifty),
+                                    ),
                                   ),
+                                  tabs: const [
+                                    Tab(text: 'Morning'),
+                                    Tab(text: 'Afternoon'),
+                                    Tab(text: 'Evening'),
+                                  ],
                                 ),
-                                tabs: const [
-                                  Tab(text: 'Morning'),
-                                  Tab(text: 'Afternoon'),
-                                  Tab(text: 'Evening'),
-                                ],
                               ),
-                            ),
-                            const Expanded(
-                              child: TabBarView(
-                                children: [
-                                  MorningAvailability(),
-                                  AfternoonAvailability(),
-                                  EveningAvailability(),
-                                ],
+                              const Expanded(
+                                child: TabBarView(
+                                  children: [
+                                    MorningAvailability(),
+                                    AfternoonAvailability(),
+                                    EveningAvailability(),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
+                            ],
+                          );
+                        }),
                       ),
                     ),
                   ],
@@ -222,48 +252,66 @@ class MorningAvailability extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Dimens.boxHeight10,
-        Expanded(
-          child: GetBuilder<HomeController>(
-            builder: (controller) {
-              return SingleChildScrollView(
-                child: Wrap(
-                  runSpacing: 1,
-                  spacing: 10,
-                  children: List.generate(
-                    controller.timeSlots.length,
-                    (index) => RawChip(
-                      label: Text(controller.timeSlots[index]),
-                      labelStyle:
-                          controller.selectedSlot == controller.timeSlots[index]
-                              ? Styles.whiteBold12
-                              : Styles.black12,
-                      showCheckmark: false,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(Dimens.fifty),
+    return GetBuilder<HomeController>(
+      id: 'check-availability',
+      builder: (context) {
+        return controller.isGetDoctorSlotLoading
+            ? const CustomLoader()
+            : controller.doctorsAvailableSlot == null ||
+                    controller.doctorsAvailableSlot!.morning!.available!.isEmpty
+                ? const Center(
+                    child: Text('No Slots Available.'),
+                  )
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Dimens.boxHeight10,
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Wrap(
+                            runSpacing: 1,
+                            spacing: 10,
+                            children: List.generate(
+                              controller.doctorsAvailableSlot!.morning!
+                                          .available ==
+                                      null
+                                  ? 0
+                                  : controller.doctorsAvailableSlot!.morning!
+                                      .available!.length,
+                              (index) {
+                                var slotList = controller
+                                    .doctorsAvailableSlot!.morning!.available;
+                                return RawChip(
+                                  label: Text(
+                                      '${slotList![index].start!} - ${slotList[index].end!}'),
+                                  labelStyle: controller.selectedSlot ==
+                                          '${slotList[index].start}'
+                                      ? Styles.whiteBold12
+                                      : Styles.black12,
+                                  showCheckmark: false,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(Dimens.fifty),
+                                  ),
+                                  selected: controller.selectedSlot ==
+                                      '${slotList[index].start}',
+                                  selectedColor: Colors.blueAccent,
+                                  backgroundColor: Colors.white,
+                                  onPressed: () {
+                                    controller.selectedSlot =
+                                        '${slotList[index].start}';
+                                    AppLog(controller.selectedSlot);
+                                    controller.update(['check-availability']);
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ),
                       ),
-                      selected: controller.selectedSlot ==
-                          controller.timeSlots[index],
-                      selectedColor:
-                          controller.selectedSlot == controller.timeSlots[index]
-                              ? ColorsValue.primaryColor
-                              : Colors.white,
-                      backgroundColor: Colors.white,
-                      onPressed: () {
-                        controller.selectedSlot = controller.timeSlots[index];
-                        controller.update();
-                      },
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
-      ],
+                    ],
+                  );
+      },
     );
   }
 }
@@ -273,8 +321,67 @@ class AfternoonAvailability extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Afternoon Availability'),
+    return GetBuilder<HomeController>(
+      id: 'check-availability',
+      builder: (controller) {
+        return controller.isGetDoctorSlotLoading
+            ? const CustomLoader()
+            : controller.doctorsAvailableSlot == null ||
+                    controller
+                        .doctorsAvailableSlot!.afternoon!.available!.isEmpty
+                ? const Center(
+                    child: Text('No Slots Available.'),
+                  )
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Dimens.boxHeight10,
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Wrap(
+                            runSpacing: 1,
+                            spacing: 10,
+                            children: List.generate(
+                              controller.doctorsAvailableSlot!.afternoon!
+                                          .available ==
+                                      null
+                                  ? 0
+                                  : controller.doctorsAvailableSlot!.afternoon!
+                                      .available!.length,
+                              (index) {
+                                var slotList = controller
+                                    .doctorsAvailableSlot!.afternoon!.available;
+                                return RawChip(
+                                  label: Text(
+                                      '${slotList![index].start!} - ${slotList[index].end!}'),
+                                  labelStyle: controller.selectedSlot ==
+                                          '${slotList[index].start}'
+                                      ? Styles.whiteBold12
+                                      : Styles.black12,
+                                  showCheckmark: false,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(Dimens.fifty),
+                                  ),
+                                  selected: controller.selectedSlot ==
+                                      '${slotList[index].start}',
+                                  selectedColor: Colors.blueAccent,
+                                  backgroundColor: Colors.white,
+                                  onPressed: () {
+                                    controller.selectedSlot =
+                                        '${slotList[index].start}';
+                                    AppLog(controller.selectedSlot);
+                                    controller.update(['check-availability']);
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+      },
     );
   }
 }
@@ -284,8 +391,66 @@ class EveningAvailability extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Evening Availability'),
-    );
+    return GetBuilder<HomeController>(
+        id: 'check-availability',
+        builder: (controller) {
+          return controller.isGetDoctorSlotLoading
+              ? const CustomLoader()
+              : controller.doctorsAvailableSlot == null ||
+                      controller
+                          .doctorsAvailableSlot!.evening!.available!.isEmpty
+                  ? const Center(
+                      child: Text('No Slots Available.'),
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Dimens.boxHeight10,
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Wrap(
+                              runSpacing: 1,
+                              spacing: 10,
+                              children: List.generate(
+                                controller.doctorsAvailableSlot!.evening!
+                                            .available ==
+                                        null
+                                    ? 0
+                                    : controller.doctorsAvailableSlot!.evening!
+                                        .available!.length,
+                                (index) {
+                                  var slotList = controller
+                                      .doctorsAvailableSlot!.evening!.available;
+                                  return RawChip(
+                                    label: Text(
+                                        '${slotList![index].start!} - ${slotList[index].end!}'),
+                                    labelStyle: controller.selectedSlot ==
+                                            '${slotList[index].start}'
+                                        ? Styles.whiteBold12
+                                        : Styles.black12,
+                                    showCheckmark: false,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(Dimens.fifty),
+                                    ),
+                                    selected: controller.selectedSlot ==
+                                        '${slotList[index].start}',
+                                    selectedColor: Colors.blueAccent,
+                                    backgroundColor: Colors.white,
+                                    onPressed: () {
+                                      controller.selectedSlot =
+                                          '${slotList[index].start}';
+                                      AppLog(controller.selectedSlot);
+                                      controller.update(['check-availability']);
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+        });
   }
 }

@@ -21,6 +21,7 @@ class FilterAvailabilityScreen extends StatelessWidget {
         controller.availabilityDateController.text = '';
         controller.selectedBranchId = '';
         controller.selectedSpecialityId = '';
+        controller.selectedDoctorIndex = null;
         controller.getAllSpecialities();
       },
       builder: (controller) {
@@ -32,11 +33,20 @@ class FilterAvailabilityScreen extends StatelessWidget {
             padding: Dimens.edgeInsets16,
             child: CustomButton(
               title: 'Check',
-              isDisable: false,
+              isDisable: controller.selectedDoctorIndex == null,
               onTap: () {
                 controller.finalSelectedAvailabilityDate =
                     controller.selectedAvailabilityDate;
-                RouteManagement.goToCheckAvailability();
+                RouteManagement.goToCheckAvailability(
+                  doctorId:
+                      '${controller.filterDoctorModel?.data?[controller.selectedDoctorIndex!].doctor?.doctorId}',
+                  doctorName:
+                      '${controller.filterDoctorModel?.data?[controller.selectedDoctorIndex!].doctor?.name}',
+                  contactInfo:
+                      '${controller.filterDoctorModel?.data?[controller.selectedDoctorIndex!].doctor?.contactInfo}',
+                  branch:
+                      '${controller.filterDoctorModel?.data?[controller.selectedDoctorIndex!].doctor?.branchMaster?.branchName}',
+                );
               },
             ),
           ),
@@ -157,9 +167,14 @@ class FilterAvailabilityScreen extends StatelessWidget {
                               '${controller.filterDoctorModel?.data?[index].doctor?.name}',
                           experience:
                               '${controller.filterDoctorModel?.data?[index].doctor?.experience}',
-                          onTapProfilePic: () {},
+                          onTapProfilePic: null,
                           onTap: () {
                             controller.selectDoctor(index);
+                            controller.selectedDocId = controller
+                                .filterDoctorModel
+                                ?.data?[index]
+                                .doctor
+                                ?.doctorId;
                           },
                           isSelected: controller.selectedDoctorIndex == index,
                         ),

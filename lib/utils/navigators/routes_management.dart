@@ -47,9 +47,20 @@ abstract class RouteManagement {
     );
   }
 
-  static void goToCheckAvailability() {
+  static void goToCheckAvailability({
+    required String doctorId,
+    required String doctorName,
+    required String contactInfo,
+    required String branch,
+  }) {
     Get.toNamed<void>(
       Routes.checkAvailability,
+      arguments: {
+        'doctorId': doctorId,
+        'doctorName': doctorName,
+        'contactInfo': contactInfo,
+        'branch': branch,
+      },
     );
   }
 

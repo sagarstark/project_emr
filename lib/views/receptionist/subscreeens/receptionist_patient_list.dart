@@ -97,7 +97,7 @@ class ReceptionistPatientList extends StatelessWidget {
                           ))
                       : controller.patientResponseModel == null ||
                               controller.patientResponseModel!.data.isEmpty
-                          ? Center(
+                          ? const Center(
                               child: Text('No Patient Found.'),
                             )
                           : ListView.separated(
@@ -105,19 +105,24 @@ class ReceptionistPatientList extends StatelessWidget {
                                   controller.patientResponseModel!.data.length,
                               shrinkWrap: true,
                               itemBuilder: (context, index) => PatientCard(
-                                name:
-                                    '${controller.patientResponseModel!.data[index].name}',
-                                profilePic: '',
-                                mrdNo:
-                                    '${controller.patientResponseModel!.data[index].mrdNo}',
-                                contact:
-                                    '${controller.patientResponseModel!.data[index].phoneNo}',
-                                gender:
-                                    '${controller.patientResponseModel!.data[index].gender}',
-                                nationality:
-                                    '${controller.patientResponseModel!.data[index].nationality}',
-                                onTap: RouteManagement.goToFilterAvailability,
-                              ),
+                                  name:
+                                      '${controller.patientResponseModel!.data[index].name}',
+                                  profilePic: '',
+                                  mrdNo:
+                                      '${controller.patientResponseModel!.data[index].mrdNo}',
+                                  contact:
+                                      '${controller.patientResponseModel!.data[index].phoneNo}',
+                                  gender:
+                                      '${controller.patientResponseModel!.data[index].gender}',
+                                  nationality:
+                                      '${controller.patientResponseModel!.data[index].nationality}',
+                                  onTap: () {
+                                    controller.selectedPatientId = controller
+                                        .patientResponseModel!
+                                        .data[index]
+                                        .patientId;
+                                    RouteManagement.goToFilterAvailability();
+                                  }),
                               separatorBuilder: (context, index) =>
                                   const Gap(10),
                             ),
@@ -185,7 +190,7 @@ class PatientCard extends StatelessWidget {
                         style: Styles.black14,
                       ),
                       // Spacer(),
-                      Gap(10),
+                      const Gap(10),
                       Text(
                         'Contact : $contact',
                         style: Styles.black12,
