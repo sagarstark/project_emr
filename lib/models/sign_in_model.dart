@@ -1,24 +1,30 @@
+// To parse this JSON data, do
+//
+//     final signInModel = signInModelFromJson(jsonString);
+
 import 'dart:convert';
 
-SignInResponse signInResponseFromJson(String str) =>
-    SignInResponse.fromJson(json.decode(str));
+import 'package:project_emr/models/models.dart';
 
-String signInResponseToJson(SignInResponse data) => json.encode(data.toJson());
+SignInModel signInModelFromJson(String str) =>
+    SignInModel.fromJson(json.decode(str));
 
-class SignInResponse {
+String signInModelToJson(SignInModel data) => json.encode(data.toJson());
+
+class SignInModel {
   final bool? status;
   final String? message;
   final SignInData? data;
-  final int? statusCode;
+  final dynamic statusCode;
 
-  SignInResponse({
+  SignInModel({
     this.status,
     this.message,
     this.data,
     this.statusCode,
   });
 
-  factory SignInResponse.fromJson(Map<String, dynamic> json) => SignInResponse(
+  factory SignInModel.fromJson(Map<String, dynamic> json) => SignInModel(
         status: json["status"],
         message: json["message"],
         data: json["data"] == null ? null : SignInData.fromJson(json["data"]),
@@ -39,7 +45,9 @@ class SignInData {
   final String? email;
   final String? phoneNo;
   final String? password;
+  final dynamic resetToken;
   final RoleMaster? roleMaster;
+  final BranchMaster? branchMaster;
 
   SignInData({
     this.id,
@@ -47,7 +55,9 @@ class SignInData {
     this.email,
     this.phoneNo,
     this.password,
+    this.resetToken,
     this.roleMaster,
+    this.branchMaster,
   });
 
   factory SignInData.fromJson(Map<String, dynamic> json) => SignInData(
@@ -56,9 +66,13 @@ class SignInData {
         email: json["email"],
         phoneNo: json["phoneNo"],
         password: json["password"],
+        resetToken: json["resetToken"],
         roleMaster: json["roleMaster"] == null
             ? null
             : RoleMaster.fromJson(json["roleMaster"]),
+        branchMaster: json["branchMaster"] == null
+            ? null
+            : BranchMaster.fromJson(json["branchMaster"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -67,7 +81,9 @@ class SignInData {
         "email": email,
         "phoneNo": phoneNo,
         "password": password,
+        "resetToken": resetToken,
         "roleMaster": roleMaster?.toJson(),
+        "branchMaster": branchMaster?.toJson(),
       };
 }
 

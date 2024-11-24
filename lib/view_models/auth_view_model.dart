@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:get/get.dart';
 import 'package:project_emr/data/data.dart';
 import 'package:project_emr/models/models.dart';
 import 'package:project_emr/utils/utils.dart';
@@ -12,11 +11,9 @@ class AuthViewModel {
 
   final AuthRepository _repository;
 
-  var dbWrapper = Get.find<DBWrapper>();
-
   /// Sign In API
   ///
-  Future<SignInResponse?> signIn({
+  Future<SignInModel?> signIn({
     required String userName,
     required String password,
   }) async {
@@ -25,21 +22,38 @@ class AuthViewModel {
       password: password,
     );
     var data = jsonDecode(response.data) as Map<String, dynamic>;
-    var status = '${data['status']}';
-    dbWrapper.saveValue(LocalKeys.isLoggedIn, status);
-    if (status == 'false') {
+    var status = '${data['status']}' == 'true' ? true : false;
+    if (status == false) {
       Utility.showDialog(data['message'].toString());
       return null;
     } else {
-      dbWrapper.saveValue(LocalKeys.fullName, '${data['data']['fullName']}');
-      RouteManagement.goToSelectBranch();
+      await HiveManager.saveData(LocalKeys.isLoggedIn, status);
+      final signInModel = SignInModel.fromJson(data);
+      await HiveManager.saveData(
+          LocalKeys.userSigninData, jsonEncode(signInModel.toJson()));
+      final roleId = SignInModel.fromJson(data).data?.roleMaster?.roleId;
+      switch (roleId) {
+        case 1: // Receptionist
+          RouteManagement.goToSelectBranch();
+          break;
+        case 2: // Doctor
+          RouteManagement.goToSelectBranch();
+          break;
+        case 8: // Patient
+          RouteManagement.goToPatientDetailsForm();
+          break;
+        default:
+          // Handle unknown role or error
+          Utility.showDialog('Invalid Login Credentials.');
+          break;
+      }
     }
-    return SignInResponse.fromJson(data);
+    return SignInModel.fromJson(data);
   }
 
   /// Reset Password API
   ///
-  Future<SignInResponse?> resetPassword({
+  Future<SignInModel?> resetPassword({
     required String userName,
     required String password,
   }) async {
@@ -49,7 +63,7 @@ class AuthViewModel {
     );
     var data = jsonDecode(response.data) as Map<String, dynamic>;
     var status = '${data['status']}';
-    dbWrapper.saveValue(LocalKeys.isLoggedIn, status);
+    HiveManager.saveData(LocalKeys.isLoggedIn, status);
     if (status == 'false') {
       Utility.showDialog(data['message'].toString());
       return null;
@@ -57,12 +71,12 @@ class AuthViewModel {
       // dbWrapper.saveValue(LocalKeys.fullName, '${data['data']['fullName']}');
       // RouteManagement.goToSelectBranch();
     }
-    return SignInResponse.fromJson(data);
+    return SignInModel.fromJson(data);
   }
 
   /// Forgot Password API
   ///
-  Future<SignInResponse?> forgotPassword({
+  Future<SignInModel?> forgotPassword({
     required String email,
   }) async {
     var response = await _repository.forgotpassword(
@@ -70,7 +84,7 @@ class AuthViewModel {
     );
     var data = jsonDecode(response.data) as Map<String, dynamic>;
     var status = '${data['status']}';
-    dbWrapper.saveValue(LocalKeys.isLoggedIn, status);
+    HiveManager.saveData(LocalKeys.isLoggedIn, status);
     if (status == 'false') {
       Utility.showDialog(data['message'].toString());
       return null;
@@ -78,6 +92,6 @@ class AuthViewModel {
       // dbWrapper.saveValue(LocalKeys.fullName, '${data['data']['fullName']}');
       // RouteManagement.goToSelectBranch();
     }
-    return SignInResponse.fromJson(data);
+    return SignInModel.fromJson(data);
   }
 }

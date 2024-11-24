@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:project_emr/controllers/controllers.dart';
 import 'package:project_emr/res/res.dart';
 import 'package:project_emr/utils/navigators/navigators.dart';
+import 'package:project_emr/utils/utils.dart';
 import 'package:project_emr/views/views.dart';
 import 'package:project_emr/widgets/widgets.dart';
 import 'package:shimmer/shimmer.dart';
@@ -23,7 +24,7 @@ class SelectBranchScreen extends StatelessWidget {
             onWillPop: () async => false,
             child: Scaffold(
               appBar: CustomAppbar(
-                title: 'Hi! ${controller.fullName}',
+                title: 'Hi! ${controller.signInData?.data?.userName}',
                 autoImplyLeading: false,
                 titleSpacing: Dimens.sixteen,
               ),
@@ -56,11 +57,8 @@ class SelectBranchScreen extends StatelessWidget {
                               ),
                             ))
                         : controller.allBranchRes?.data == null
-                            ? GestureDetector(
-                                onTap: RouteManagement.goToReceptionistHome,
-                                child: const Center(
-                                  child: Text('No Branches Available.'),
-                                ),
+                            ? const Center(
+                                child: Text('No Branches Available.'),
                               )
                             : Expanded(
                                 child: GridView.builder(
@@ -76,7 +74,26 @@ class SelectBranchScreen extends StatelessWidget {
                                       SingleBranchItem(
                                     branchName:
                                         '${controller.allBranchRes?.data?[index].branchName?.capitalizeFirst}',
-                                    ontap: RouteManagement.goToReceptionistHome,
+                                    ontap: () {
+                                      switch (controller.signInData?.data
+                                          ?.roleMaster?.roleId) {
+                                        case 1: // Receptionist
+                                          RouteManagement
+                                              .goToReceptionistHome();
+                                          break;
+                                        case 2: // Doctor
+                                          RouteManagement.goToDoctorsHome();
+                                          break;
+                                        case 8: // Patient
+                                          RouteManagement.goToPatientHome();
+                                          break;
+                                        default:
+                                          // Handle unknown role or error
+                                          Utility.showDialog(
+                                              'Invalid Login Credentials.');
+                                          break;
+                                      }
+                                    },
                                   ),
                                 ),
                               ),

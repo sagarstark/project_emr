@@ -15,7 +15,7 @@ void main() async {
 Future<void> _setup() async {
   WidgetsFlutterBinding.ensureInitialized();
   Get.put(DeviceConfig()).init();
-  Get.lazyPut(SharedPreferencesManager.new);
+  await HiveManager.initHive();
   await Future.wait([
     AppConfig.init(
       const EnvConfig(
@@ -23,7 +23,6 @@ Future<void> _setup() async {
         appFlavor: AppFlavor.dev,
       ),
     ),
-    Get.put<DBWrapper>(DBWrapper()).init(),
   ]);
   Get.put<ApiWrapper>(ApiWrapper());
 }

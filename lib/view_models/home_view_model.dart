@@ -156,4 +156,21 @@ class HomeViewModel {
       return null;
     }
   }
+
+  Future<DoctorsAppointmentModel?> getDoctorsAppointment({
+    required String doctorId,
+    required String filters,
+  }) async {
+    final response = await _repository.getDoctorsAppointment(
+      doctorId: doctorId,
+      filters: filters,
+    );
+    var data = jsonDecode(response.data) as Map<String, dynamic>;
+
+    if (response.statusCode == 200) {
+      return DoctorsAppointmentModel.fromJson(data);
+    } else {
+      return null;
+    }
+  }
 }

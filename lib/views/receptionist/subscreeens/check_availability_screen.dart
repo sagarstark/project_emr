@@ -27,7 +27,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
         arguments = Get.arguments;
         await controller.getDoctorAvailableSlots(
           doctorId: arguments['doctorId'],
-          interval: controller.getDurationInterval(controller.selectedDuration),
+          interval: '${controller.selectedDuration}',
           selectedDate: DateFormat('yyyy-MM-dd')
               .format(controller.finalSelectedAvailabilityDate),
         );
@@ -159,9 +159,8 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                                     controller.durationList[index];
 
                                 await controller.getDoctorAvailableSlots(
-                                  doctorId: '4',
-                                  interval: controller.getDurationInterval(
-                                      controller.selectedDuration),
+                                  doctorId: arguments['doctorId'],
+                                  interval: '${controller.selectedDuration}',
                                   selectedDate: DateFormat('yyyy-MM-dd').format(
                                       controller.finalSelectedAvailabilityDate),
                                 );

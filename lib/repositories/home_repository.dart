@@ -139,16 +139,16 @@ class HomeRepository {
   }
 
   Future<ResponseModel> getDoctorsAppointment({
-    required int doctorId,
+    required String doctorId,
     required String filters,
   }) async {
     return _apiWrapper.makeRequest(
-      '${Apis.getDoctorSchedule}?doctorId=$doctorId&filters=$filters',
+      '${Apis.getDoctorsAppointment}?doctorId=$doctorId&filters=$filters',
       type: RequestType.get,
       headers: {
         'Content-Type': 'application/json',
       },
-      showLoader: true,
+      showLoader: false,
     );
   }
 

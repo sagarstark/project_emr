@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:project_emr/data/data.dart';
 import 'package:project_emr/res/res.dart';
 import 'package:project_emr/utils/navigators/navigators.dart';
+import 'package:project_emr/utils/utils.dart';
 import 'package:project_emr/widgets/widgets.dart';
 
 class ReceptionistAppointmentScreen extends StatelessWidget {
@@ -22,7 +24,10 @@ class ReceptionistAppointmentScreen extends StatelessWidget {
         ),
         AppointmentItem(
           branchName: 'Patient Schedule List',
-          ontap: () {},
+          ontap: () async {
+            var isLoggedIn = await HiveManager.getData(LocalKeys.isLoggedIn);
+            AppLog.success(isLoggedIn);
+          },
         ),
       ],
     );

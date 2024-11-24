@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:project_emr/controllers/home/home.dart';
 import 'package:project_emr/res/res.dart';
 import 'package:project_emr/utils/navigators/navigators.dart';
 import 'package:project_emr/widgets/widgets.dart';
@@ -9,13 +10,14 @@ class DoctorsHomeScreen extends StatelessWidget {
   DoctorsHomeScreen({super.key});
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final controller = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
       appBar: CustomAppbar(
-        title: 'Hello! Doctor',
+        title: 'Hello! ${controller.signInData?.data?.userName}',
         autoImplyLeading: false,
         leading: IconButton(
           onPressed: () {

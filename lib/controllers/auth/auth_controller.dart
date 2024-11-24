@@ -14,11 +14,10 @@ class AuthController extends GetxController {
   var usernameTextController = TextEditingController();
   var passwordTextController = TextEditingController();
 
-  void signIn() {
-    // _viewModel.signIn(
-    //   userName: usernameTextController.text,
-    //   password: passwordTextController.text,
-    // );
-    RouteManagement.goToSelectBranch();
+  void signIn() async {
+    await _viewModel.signIn(
+      userName: usernameTextController.text,
+      password: passwordTextController.text,
+    );
   }
 }

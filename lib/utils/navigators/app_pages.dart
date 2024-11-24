@@ -126,6 +126,7 @@ class AppPages {
       name: Routes.doctorsHome,
       transitionDuration: transitionDuration,
       page: DoctorsHomeScreen.new,
+      binding: HomeBinding(),
       transition: Transition.rightToLeft,
     ),
     GetPage<DoctorsAppointmentView>(

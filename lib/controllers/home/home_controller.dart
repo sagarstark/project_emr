@@ -12,15 +12,14 @@ class HomeController extends GetxController {
 
   final HomeViewModel _viewModel;
 
-  var dbWrapper = Get.find<DBWrapper>();
-
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    fullName = dbWrapper.getStringValue(LocalKeys.fullName);
+    var data = await HiveManager.getData(LocalKeys.userSigninData);
+    signInData = signInModelFromJson(data);
   }
 
-  var fullName = '';
+  SignInModel? signInData;
 
   var availabilityDateController = TextEditingController();
 
@@ -28,19 +27,15 @@ class HomeController extends GetxController {
 
   var finalSelectedAvailabilityDate = DateTime.now();
 
-  var selectedDuration = '15';
+  var selectedDuration = 15;
 
   var selectedSlot = '';
 
   int? selectedPatientId;
   int? selectedDocId;
 
-  List<String> durationList = [
-    '15',
-    '30',
-    '45',
-    '60',
-  ];
+  List<int> durationList = [15, 30, 45, 60];
+
   final List<String> timeSlots = [
     '09:00 AM - 09:15 AM',
     '09:15 AM - 09:30 AM',
@@ -52,21 +47,6 @@ class HomeController extends GetxController {
     '10:45 AM - 11:00 AM',
     '11:00 AM - 11:15 AM',
   ];
-
-  String getDurationInterval(String duration) {
-    switch (duration) {
-      case '15':
-        return 'FIFTEEN_MINUTES';
-      case '30':
-        return 'THIRTY_MINUTES';
-      case '45':
-        return 'FORTY_FIVE_MINUTES';
-      case '60':
-        return 'SIXTY_MINUTES';
-      default:
-        return 'FIFTEEN_MINUTES';
-    }
-  }
 
   AllBranchRes? allBranchRes;
 
@@ -233,8 +213,23 @@ class HomeController extends GetxController {
       appointmentDate:
           DateFormat('yyyy-MM-dd').format(finalSelectedAvailabilityDate),
       appointmentTime: selectedSlot,
-      timeInterval: getDurationInterval(selectedDuration),
+      timeInterval: '$selectedDuration',
       scheduleType: slotCurrentTab,
     );
+  }
+
+  DoctorsAppointmentModel? doctorsAppointmentModel;
+
+  var isAppointmentLoading = false;
+
+  Future<void> getDoctorsAppointment(
+      {required String filters, required String updateId}) async {
+    isAppointmentLoading = true;
+    doctorsAppointmentModel = await _viewModel.getDoctorsAppointment(
+      doctorId: '1',
+      filters: filters,
+    );
+    isAppointmentLoading = false;
+    update([updateId]);
   }
 }
