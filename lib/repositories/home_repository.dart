@@ -153,7 +153,7 @@ class HomeRepository {
   }
 
   Future<ResponseModel> getPatientsByDoctorsId({
-    required int doctorId,
+    required String doctorId,
     required String filters,
   }) async {
     return _apiWrapper.makeRequest(
@@ -162,7 +162,7 @@ class HomeRepository {
       headers: {
         'Content-Type': 'application/json',
       },
-      showLoader: true,
+      showLoader: false,
     );
   }
 }

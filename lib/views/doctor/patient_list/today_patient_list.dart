@@ -1,120 +1,54 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_tap/flutter_scale_tap.dart';
 import 'package:gap/gap.dart';
-import 'package:project_emr/res/res.dart';
+import 'package:get/get.dart';
+import 'package:project_emr/controllers/controllers.dart';
 import 'package:project_emr/utils/utils.dart';
+import 'package:project_emr/views/views.dart';
+import 'package:project_emr/widgets/widgets.dart';
 
 class TodayPatientListView extends StatelessWidget {
   const TodayPatientListView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ScaleTap(
-          onPressed: RouteManagement.goToPatientDetails,
-          child: Card(
-            elevation: 5,
-            margin: Dimens.edgeInsets16_0_16_0,
-            child: Padding(
-              padding: Dimens.edgeInsets10,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: Dimens.hundred,
-                    width: Dimens.hundred,
-                    decoration: BoxDecoration(
-                      color: ColorsValue.secondaryColor,
-                      borderRadius: BorderRadius.circular(10),
+    return GetBuilder<HomeController>(
+      id: 'today-patient-list',
+      initState: (state) async {
+        final controller = Get.find<HomeController>();
+        await controller.getPatientsByDoctorsId(
+            filters: 'today', updateId: 'today-patient-list');
+      },
+      builder: (controller) {
+        return controller.isDoctorsPatientList
+            ? const CustomLoader()
+            : controller.doctorsPatientListModel == null ||
+                    controller.doctorsPatientListModel!.data!.isEmpty
+                ? const Center(
+                    child: Text('No Patients Available.'),
+                  )
+                : ListView.separated(
+                    shrinkWrap: true,
+                    itemCount:
+                        controller.doctorsPatientListModel?.data?.length ?? 0,
+                    separatorBuilder: (context, index) => const Gap(12),
+                    itemBuilder: (context, index) => PatientCardInDoctorsList(
+                      name: controller.doctorsPatientListModel?.data?[index]
+                              .patientName ??
+                          'N/A',
+                      problem: controller
+                              .doctorsPatientListModel?.data?[index].problem ??
+                          'No diagnosis',
+                      time: controller.doctorsPatientListModel?.data?[index]
+                              .appointmentTime ??
+                          'N/A',
+                      location: controller
+                              .doctorsPatientListModel?.data?[index].location ??
+                          'N/A',
+                      imageAsset: 'assets/images/patient.png',
+                      onPressed: RouteManagement.goToPatientDetails,
                     ),
-                    child: Image.asset('assets/images/patient.png'),
-                  ),
-                  const Gap(15),
-                  SizedBox(
-                    height: Dimens.hundred,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Name : Kevin Nash',
-                          style: Styles.black14w500,
-                        ),
-                        Text(
-                          'Problem : Dengue',
-                          style: Styles.black14,
-                        ),
-                        Spacer(),
-                        Text(
-                          'Time : 26/07/2024 - 10:00 AM',
-                          style: Styles.black12,
-                        ),
-                        Text(
-                          'Location : Chennai',
-                          style: Styles.black12,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Gap(15),
-        ScaleTap(
-          onPressed: RouteManagement.goToPatientDetails,
-          child: Card(
-            elevation: 5,
-            margin: Dimens.edgeInsets16_0_16_0,
-            child: Padding(
-              padding: Dimens.edgeInsets10,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: Dimens.hundred,
-                    width: Dimens.hundred,
-                    decoration: BoxDecoration(
-                      color: ColorsValue.secondaryColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Image.asset('assets/images/patient.png'),
-                  ),
-                  const Gap(15),
-                  SizedBox(
-                    height: Dimens.hundred,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Name : Kevin Nash',
-                          style: Styles.black14w500,
-                        ),
-                        Text(
-                          'Problem : Dengue',
-                          style: Styles.black14,
-                        ),
-                        Spacer(),
-                        Text(
-                          'Time : 26/07/2024 - 10:00 AM',
-                          style: Styles.black12,
-                        ),
-                        Text(
-                          'Location : Chennai',
-                          style: Styles.black12,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
+                  );
+      },
     );
   }
 }

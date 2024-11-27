@@ -24,7 +24,7 @@ class Apis {
   static const String getDoctorsAppointment =
       'app/doctorappointment/getAppointsByDocWithFilters';
   static const String getPatientsByDoctorsId =
-      'app/doctorappointment/getPatientsByDocIdWithFilters';
+      'app/patient/getPatientsByDocIdWithFilters';
 
   ///  APIs---------------------------------------------------------------------------------------
   static const String getDoctorSchedule = 'app/admin/getDoctorSchedule';

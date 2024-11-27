@@ -201,5 +201,11 @@ class AppPages {
       page: AddNewPatient.new,
       transition: Transition.rightToLeft,
     ),
+    GetPage<PrescriptionsView>(
+      name: Routes.prescriptionsList,
+      transitionDuration: transitionDuration,
+      page: PrescriptionsView.new,
+      transition: Transition.rightToLeft,
+    ),
   ];
 }

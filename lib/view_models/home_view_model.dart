@@ -173,4 +173,21 @@ class HomeViewModel {
       return null;
     }
   }
+
+  Future<DoctorsPatientListModel?> getPatientsByDoctorsId({
+    required String doctorId,
+    required String filters,
+  }) async {
+    final response = await _repository.getPatientsByDoctorsId(
+      doctorId: doctorId,
+      filters: filters,
+    );
+    var data = jsonDecode(response.data) as Map<String, dynamic>;
+
+    if (response.statusCode == 200) {
+      return DoctorsPatientListModel.fromJson(data);
+    } else {
+      return null;
+    }
+  }
 }

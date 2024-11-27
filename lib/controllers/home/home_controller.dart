@@ -226,10 +226,26 @@ class HomeController extends GetxController {
       {required String filters, required String updateId}) async {
     isAppointmentLoading = true;
     doctorsAppointmentModel = await _viewModel.getDoctorsAppointment(
-      doctorId: '1',
+      doctorId: '${signInData?.data?.id}',
       filters: filters,
     );
     isAppointmentLoading = false;
+    update([updateId]);
+  }
+
+  var isDoctorsPatientList = false;
+
+  DoctorsPatientListModel? doctorsPatientListModel;
+
+  Future<void> getPatientsByDoctorsId(
+      {required String filters, required String updateId}) async {
+    doctorsPatientListModel = null;
+    isDoctorsPatientList = true;
+    doctorsPatientListModel = await _viewModel.getPatientsByDoctorsId(
+      doctorId: '4',
+      filters: filters,
+    );
+    isDoctorsPatientList = false;
     update([updateId]);
   }
 }

@@ -101,7 +101,7 @@ abstract class RouteManagement {
   }
 
   static void goToDoctorsHome() {
-    Get.offAllNamed<void>(
+    Get.toNamed<void>(
       Routes.doctorsHome,
     );
   }
@@ -175,6 +175,12 @@ abstract class RouteManagement {
   static void goToAddNewPatient() {
     Get.toNamed<void>(
       Routes.addNewPatient,
+    );
+  }
+
+  static void goToPrescriptionsList() {
+    Get.toNamed<void>(
+      Routes.prescriptionsList,
     );
   }
 }
