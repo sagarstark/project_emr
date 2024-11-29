@@ -29,7 +29,8 @@ class AddNewPatient extends StatelessWidget {
             bottomNavigationBar: Padding(
               padding: Dimens.edgeInsets16,
               child: CustomButton(
-                title: 'Create Patient',
+                isDisable: !controller.isValidForm(),
+                title: 'Continue',
                 onTap: controller.createPatient,
               ),
             ),
@@ -46,7 +47,9 @@ class AddNewPatient extends StatelessWidget {
                   CustomTextfield(
                     textEditingController: controller.nameController,
                     hintText: 'Patient Name',
-                    onChange: (value) {},
+                    onChange: (value) {
+                      controller.update(['add-new-patient']); // Add update call
+                    },
                   ),
                   const Gap(16),
                   CustomTextfield(
@@ -90,6 +93,7 @@ class AddNewPatient extends StatelessWidget {
                       if (val != null && val is DropDownValueModel) {
                         controller.genderController.text = val.value;
                       }
+                      controller.update(['add-new-patient']);
                     },
                     hintText: 'Gender',
                     dropDownList: const [
@@ -105,6 +109,7 @@ class AddNewPatient extends StatelessWidget {
                     textInputType: TextInputType.phone,
                     onChange: (value) {
                       // Handle contact number change
+                      controller.update(['add-new-patient']);
                     },
                   ),
                   const Gap(16),
@@ -114,6 +119,7 @@ class AddNewPatient extends StatelessWidget {
                     textInputType: TextInputType.emailAddress,
                     onChange: (value) {
                       // Handle contact number change
+                      controller.update(['add-new-patient']);
                     },
                   ),
                   const Gap(16),
@@ -122,6 +128,7 @@ class AddNewPatient extends StatelessWidget {
                     hintText: 'Address',
                     onChange: (value) {
                       // Handle contact number change
+                      controller.update(['add-new-patient']);
                     },
                   ),
                   const Gap(16),
@@ -130,6 +137,7 @@ class AddNewPatient extends StatelessWidget {
                     hintText: 'Problem',
                     onChange: (value) {
                       // Handle contact number change
+                      controller.update(['add-new-patient']);
                     },
                   ),
                   const Gap(16),
@@ -138,6 +146,7 @@ class AddNewPatient extends StatelessWidget {
                     hintText: 'Symptoms',
                     onChange: (value) {
                       // Handle contact number change
+                      controller.update(['add-new-patient']);
                     },
                   ),
                 ],

@@ -183,4 +183,10 @@ abstract class RouteManagement {
       Routes.prescriptionsList,
     );
   }
+
+  static void goToPrescriptionPdfList() {
+    Get.toNamed<void>(
+      Routes.prescriptionPdfList,
+    );
+  }
 }

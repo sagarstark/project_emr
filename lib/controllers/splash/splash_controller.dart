@@ -17,11 +17,13 @@ class SplashController extends GetxController {
 
   void startOnInit() async {
     isLoggedIn = await HiveManager.getData(LocalKeys.isLoggedIn) ?? false;
-    var data = await HiveManager.getData(LocalKeys.userSigninData);
-    signInData = signInModelFromJson(data);
+    // var data = await HiveManager.getData(LocalKeys.userSigninData);
+    // signInData = signInModelFromJson(data);
     await Future.delayed(const Duration(seconds: 3));
 
     if (isLoggedIn) {
+      var data = await HiveManager.getData(LocalKeys.userSigninData);
+      signInData = signInModelFromJson(data);
       switch (signInData?.data?.roleMaster?.roleId) {
         case 1: // Receptionist
           RouteManagement.goToSelectBranch();

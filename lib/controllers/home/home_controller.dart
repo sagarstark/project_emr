@@ -168,6 +168,17 @@ class HomeController extends GetxController {
     );
   }
 
+  bool isValidForm() {
+    return nameController.text.isNotEmpty &&
+        dobController.text.isNotEmpty &&
+        genderController.text.isNotEmpty &&
+        phoneController.text.isNotEmpty &&
+        emailController.text.isNotEmpty &&
+        addressController.text.isNotEmpty &&
+        problemController.text.isNotEmpty &&
+        symptomsController.text.isNotEmpty;
+  }
+
   void clearAllFields() {
     nameController.clear();
     dobController.clear();
@@ -242,7 +253,7 @@ class HomeController extends GetxController {
     doctorsPatientListModel = null;
     isDoctorsPatientList = true;
     doctorsPatientListModel = await _viewModel.getPatientsByDoctorsId(
-      doctorId: '4',
+      doctorId: '${signInData?.data?.id}',
       filters: filters,
     );
     isDoctorsPatientList = false;

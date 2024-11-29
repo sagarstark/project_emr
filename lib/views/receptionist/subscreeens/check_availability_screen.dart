@@ -183,56 +183,60 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                       child: DefaultTabController(
                         length: 3,
                         initialIndex: 0,
-                        child: Builder(builder: (context) {
-                          TabController tabController =
-                              DefaultTabController.of(context);
-                          tabController.addListener(() {
-                            if (!tabController.indexIsChanging) {
-                              controller.slotCurrentTab = [
-                                'Morning',
-                                'Afternoon',
-                                'Evening'
-                              ][tabController.index];
-                            }
-                          });
-                          return Column(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.grey.shade300,
-                                    borderRadius: BorderRadius.circular(50)),
-                                child: TabBar(
-                                  dividerColor: Colors.transparent,
-                                  indicatorSize: TabBarIndicatorSize.tab,
-                                  overlayColor: WidgetStateColor.transparent,
-                                  labelColor: Colors.white,
-                                  labelStyle: Styles.white14w500
-                                      .copyWith(fontFamily: 'Poppins'),
-                                  indicator: BoxDecoration(
-                                    color: ColorsValue.primaryColor,
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(Dimens.fifty),
+                        child: Builder(
+                          builder: (context) {
+                            TabController tabController =
+                                DefaultTabController.of(context);
+                            tabController.addListener(
+                              () {
+                                if (!tabController.indexIsChanging) {
+                                  controller.slotCurrentTab = [
+                                    'Morning',
+                                    'Afternoon',
+                                    'Evening'
+                                  ][tabController.index];
+                                }
+                              },
+                            );
+                            return Column(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey.shade300,
+                                      borderRadius: BorderRadius.circular(50)),
+                                  child: TabBar(
+                                    dividerColor: Colors.transparent,
+                                    indicatorSize: TabBarIndicatorSize.tab,
+                                    overlayColor: WidgetStateColor.transparent,
+                                    labelColor: Colors.white,
+                                    labelStyle: Styles.white14w500
+                                        .copyWith(fontFamily: 'Poppins'),
+                                    indicator: BoxDecoration(
+                                      color: ColorsValue.primaryColor,
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(Dimens.fifty),
+                                      ),
                                     ),
+                                    tabs: const [
+                                      Tab(text: 'Morning'),
+                                      Tab(text: 'Afternoon'),
+                                      Tab(text: 'Evening'),
+                                    ],
                                   ),
-                                  tabs: const [
-                                    Tab(text: 'Morning'),
-                                    Tab(text: 'Afternoon'),
-                                    Tab(text: 'Evening'),
-                                  ],
                                 ),
-                              ),
-                              const Expanded(
-                                child: TabBarView(
-                                  children: [
-                                    MorningAvailability(),
-                                    AfternoonAvailability(),
-                                    EveningAvailability(),
-                                  ],
+                                const Expanded(
+                                  child: TabBarView(
+                                    children: [
+                                      MorningAvailability(),
+                                      AfternoonAvailability(),
+                                      EveningAvailability(),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
-                          );
-                        }),
+                              ],
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ],
@@ -253,7 +257,7 @@ class MorningAvailability extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
       id: 'check-availability',
-      builder: (context) {
+      builder: (controller) {
         return controller.isGetDoctorSlotLoading
             ? const CustomLoader()
             : controller.doctorsAvailableSlot == null ||

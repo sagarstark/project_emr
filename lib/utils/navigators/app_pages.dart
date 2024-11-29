@@ -207,5 +207,11 @@ class AppPages {
       page: PrescriptionsView.new,
       transition: Transition.rightToLeft,
     ),
+    GetPage<PrescriptionPdfListView>(
+      name: Routes.prescriptionPdfList,
+      transitionDuration: transitionDuration,
+      page: PrescriptionPdfListView.new,
+      transition: Transition.rightToLeft,
+    ),
   ];
 }

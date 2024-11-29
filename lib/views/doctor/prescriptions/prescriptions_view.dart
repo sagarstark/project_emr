@@ -21,7 +21,7 @@ class PrescriptionsView extends StatelessWidget {
       },
       builder: (controller) {
         return Scaffold(
-          appBar: CustomAppbar(
+          appBar: const CustomAppbar(
             title: 'Prescriptions',
           ),
           body: controller.isDoctorsPatientList
@@ -54,7 +54,7 @@ class PrescriptionsView extends StatelessWidget {
                                   ?.data?[index].location ??
                               'N/A',
                           imageAsset: 'assets/images/patient.png',
-                          onPressed: RouteManagement.goToPatientDetails,
+                          onPressed: RouteManagement.goToPrescriptionPdfList,
                         ),
                       ),
                     ),

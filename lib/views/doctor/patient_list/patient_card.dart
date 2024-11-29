@@ -45,30 +45,32 @@ class PatientCardInDoctorsList extends StatelessWidget {
                 child: Image.asset(imageAsset),
               ),
               const Gap(15),
-              SizedBox(
-                height: Dimens.hundred,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Name : $name',
-                      style: Styles.black14w500,
-                    ),
-                    Text(
-                      'Problem : $problem',
-                      style: Styles.black14,
-                    ),
-                    Spacer(),
-                    Text(
-                      'Time : $time',
-                      style: Styles.black12,
-                    ),
-                    Text(
-                      'Location : $location',
-                      style: Styles.black12,
-                    ),
-                  ],
+              Expanded(
+                child: SizedBox(
+                  height: Dimens.hundred,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Name : $name',
+                        style: Styles.black14w500,
+                      ),
+                      Text(
+                        'Problem : $problem',
+                        style: Styles.black14,
+                      ),
+                      Spacer(),
+                      Text(
+                        'Time : $time',
+                        style: Styles.black12,
+                      ),
+                      Text(
+                        'Location : $location',
+                        style: Styles.black12,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
