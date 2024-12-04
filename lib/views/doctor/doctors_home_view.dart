@@ -128,21 +128,21 @@ class DoctorsHomeScreen extends StatelessWidget {
               branchName: 'Patient List',
               ontap: RouteManagement.goToPatientList,
             ),
-            AppointmentItem(
+            const AppointmentItem(
               branchName: 'Revenue Info',
-              ontap: () {},
+              ontap: RouteManagement.goToRevenueInfo,
             ),
-            AppointmentItem(
+            const AppointmentItem(
               branchName: 'Reports',
-              ontap: () {},
+              ontap: RouteManagement.goToReportsList,
             ),
             const AppointmentItem(
               branchName: 'Prescriptions',
               ontap: RouteManagement.goToPrescriptionsList,
             ),
-            AppointmentItem(
+            const AppointmentItem(
               branchName: 'Lab Reports',
-              ontap: () {},
+              ontap: RouteManagement.goToLabReportsList,
             ),
             AppointmentItem(
               branchName: 'My Attachments',

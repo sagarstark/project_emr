@@ -253,7 +253,7 @@ class HomeController extends GetxController {
     doctorsPatientListModel = null;
     isDoctorsPatientList = true;
     doctorsPatientListModel = await _viewModel.getPatientsByDoctorsId(
-      doctorId: '${signInData?.data?.id}',
+      doctorId: '4',
       filters: filters,
     );
     isDoctorsPatientList = false;

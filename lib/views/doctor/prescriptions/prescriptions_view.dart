@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:project_emr/controllers/controllers.dart';
+import 'package:project_emr/res/res.dart';
 import 'package:project_emr/utils/utils.dart';
 import 'package:project_emr/views/views.dart';
 import 'package:project_emr/widgets/widgets.dart';
@@ -31,32 +32,44 @@ class PrescriptionsView extends StatelessWidget {
                   ? const Center(
                       child: Text('No Patients Available.'),
                     )
-                  : Padding(
-                      padding: EdgeInsets.only(top: 16),
-                      child: ListView.separated(
-                        shrinkWrap: true,
-                        itemCount:
-                            controller.doctorsPatientListModel?.data?.length ??
-                                0,
-                        separatorBuilder: (context, index) => const Gap(12),
-                        itemBuilder: (context, index) =>
-                            PatientCardInDoctorsList(
-                          name: controller.doctorsPatientListModel?.data?[index]
-                                  .patientName ??
-                              'N/A',
-                          problem: controller.doctorsPatientListModel
-                                  ?.data?[index].problem ??
-                              'No diagnosis',
-                          time: controller.doctorsPatientListModel?.data?[index]
-                                  .appointmentTime ??
-                              'N/A',
-                          location: controller.doctorsPatientListModel
-                                  ?.data?[index].location ??
-                              'N/A',
-                          imageAsset: 'assets/images/patient.png',
-                          onPressed: RouteManagement.goToPrescriptionPdfList,
+                  : Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: Dimens.edgeInsets16,
+                          child: CustomTextfield(
+                            onChange: (value) {},
+                            hintText: 'Search by Patient\'s Name',
+                          ),
                         ),
-                      ),
+                        Expanded(
+                          child: ListView.separated(
+                            shrinkWrap: true,
+                            itemCount: controller
+                                    .doctorsPatientListModel?.data?.length ??
+                                0,
+                            separatorBuilder: (context, index) => const Gap(12),
+                            itemBuilder: (context, index) =>
+                                PatientCardInDoctorsList(
+                              name: controller.doctorsPatientListModel
+                                      ?.data?[index].patientName ??
+                                  'N/A',
+                              problem: controller.doctorsPatientListModel
+                                      ?.data?[index].problem ??
+                                  'No diagnosis',
+                              time: controller.doctorsPatientListModel
+                                      ?.data?[index].appointmentTime ??
+                                  'N/A',
+                              location: controller.doctorsPatientListModel
+                                      ?.data?[index].location ??
+                                  'N/A',
+                              imageAsset: 'assets/images/patient.png',
+                              onPressed:
+                                  RouteManagement.goToPrescriptionPdfList,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
         );
       },

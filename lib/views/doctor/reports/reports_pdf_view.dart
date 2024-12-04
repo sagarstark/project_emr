@@ -3,14 +3,14 @@ import 'package:gap/gap.dart';
 import 'package:project_emr/res/res.dart';
 import 'package:project_emr/widgets/widgets.dart';
 
-class PrescriptionPdfListView extends StatelessWidget {
-  const PrescriptionPdfListView({super.key});
+class ReportsPdfListView extends StatelessWidget {
+  const ReportsPdfListView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppbar(
-        title: 'Prescriptions',
+        title: 'Reports',
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -18,7 +18,7 @@ class PrescriptionPdfListView extends StatelessWidget {
             const Gap(16),
             ListView.separated(
               shrinkWrap: true,
-              itemCount: 30,
+              itemCount: 5,
               physics: const NeverScrollableScrollPhysics(),
               separatorBuilder: (context, index) => const Gap(12),
               itemBuilder: (context, index) => Card(
@@ -36,7 +36,7 @@ class PrescriptionPdfListView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Prescription$index.pdf',
+                          'X-Ray Report_$index.pdf',
                           style: Styles.black14w500,
                         ),
                         const Gap(5),

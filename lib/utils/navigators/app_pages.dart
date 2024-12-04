@@ -213,5 +213,35 @@ class AppPages {
       page: PrescriptionPdfListView.new,
       transition: Transition.rightToLeft,
     ),
+    GetPage<RevenueInfoView>(
+      name: Routes.revenueInfo,
+      transitionDuration: transitionDuration,
+      page: RevenueInfoView.new,
+      transition: Transition.rightToLeft,
+    ),
+    GetPage<MyAttachmentsView>(
+      name: Routes.myAttachments,
+      transitionDuration: transitionDuration,
+      page: MyAttachmentsView.new,
+      transition: Transition.rightToLeft,
+    ),
+    GetPage<ReportsView>(
+      name: Routes.reportsList,
+      transitionDuration: transitionDuration,
+      page: ReportsView.new,
+      transition: Transition.rightToLeft,
+    ),
+    GetPage<ReportsPdfListView>(
+      name: Routes.reportsPdfList,
+      transitionDuration: transitionDuration,
+      page: ReportsPdfListView.new,
+      transition: Transition.rightToLeft,
+    ),
+    GetPage<LabReportsView>(
+      name: Routes.labReportsList,
+      transitionDuration: transitionDuration,
+      page: LabReportsView.new,
+      transition: Transition.rightToLeft,
+    ),
   ];
 }

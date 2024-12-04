@@ -33,6 +33,11 @@ class Routes {
   static const String addNewPatient = _Paths.addNewPatient;
   static const String prescriptionsList = _Paths.prescriptionsList;
   static const String prescriptionPdfList = _Paths.prescriptionPdfList;
+  static const String revenueInfo = _Paths.revenueInfo;
+  static const String myAttachments = _Paths.myAttachments;
+  static const String reportsList = _Paths.reportsList;
+  static const String reportsPdfList = _Paths.reportsPdfList;
+  static const String labReportsList = _Paths.labReportsList;
 }
 
 class _Paths {
@@ -67,4 +72,9 @@ class _Paths {
   static const String addNewPatient = '/addNewPatientScreen';
   static const String prescriptionsList = '/prescriptionsListScreen';
   static const String prescriptionPdfList = '/prescriptionPdfListScreen';
+  static const String revenueInfo = '/revenueInfoScreen';
+  static const String myAttachments = '/myAttachmentsScreen';
+  static const String reportsList = '/reportsListScreen';
+  static const String reportsPdfList = '/reportsPdfListScreen';
+  static const String labReportsList = '/labReportsListScreen';
 }

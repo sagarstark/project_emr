@@ -189,4 +189,34 @@ abstract class RouteManagement {
       Routes.prescriptionPdfList,
     );
   }
+
+  static void goToRevenueInfo() {
+    Get.toNamed<void>(
+      Routes.revenueInfo,
+    );
+  }
+
+  static void goToMyAttachments() {
+    Get.toNamed<void>(
+      Routes.myAttachments,
+    );
+  }
+
+  static void goToReportsList() {
+    Get.toNamed<void>(
+      Routes.reportsList,
+    );
+  }
+
+  static void goToReportsPdfList() {
+    Get.toNamed<void>(
+      Routes.reportsPdfList,
+    );
+  }
+
+  static void goToLabReportsList() {
+    Get.toNamed<void>(
+      Routes.labReportsList,
+    );
+  }
 }

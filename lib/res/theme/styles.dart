@@ -24,6 +24,11 @@ class Styles {
     color: Colors.black,
     fontSize: Dimens.twelve,
   );
+  static TextStyle blackBold12 = GoogleFonts.poppins(
+    color: Colors.black,
+    fontSize: Dimens.twelve,
+    fontWeight: FontWeight.bold,
+  );
   static TextStyle black12w500 = GoogleFonts.poppins(
     color: Colors.black,
     fontSize: Dimens.twelve,

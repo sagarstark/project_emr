@@ -109,7 +109,7 @@ class CustomTextfield extends StatelessWidget {
           hintStyle: hintStyle ?? Styles.grey14,
           suffixIcon: suffixIcon,
           suffixIconColor: ColorsValue.primaryColor,
-          labelText: hintText,
+          labelText: labelText ?? hintText,
           labelStyle: hintStyle ?? Styles.grey14,
           floatingLabelStyle:
               Styles.black14.copyWith(color: ColorsValue.primaryColor),
