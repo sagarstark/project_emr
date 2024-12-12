@@ -1,6 +1,7 @@
 export 'future_patient_list.dart';
-export 'order_lab_test.dart';
+export 'order_lab_test_view.dart';
 export 'order_medicine.dart';
+export 'order_radiology_view.dart';
 export 'past_patient_list.dart';
 export 'patient_card.dart';
 export 'patient_details_view.dart';

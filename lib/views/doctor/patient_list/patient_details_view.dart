@@ -27,7 +27,7 @@ class PatientDetailsView extends StatelessWidget {
                 height: Get.height * 0.25,
                 width: Get.width,
                 decoration: BoxDecoration(
-                  color: ColorsValue.secondaryColor,
+                  color: Colors.blueAccent,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Image.asset('assets/images/patient.png'),
@@ -96,7 +96,7 @@ class PatientDetailsView extends StatelessWidget {
                   CustomDropdownField(
                     onChanged: (p0) {},
                     hintText: 'Diagnostic',
-                    dropDownList: [
+                    dropDownList: const [
                       DropDownValueModel(name: 'Food Poision', value: '1'),
                       DropDownValueModel(name: 'Gastritis', value: '1'),
                       DropDownValueModel(
@@ -123,15 +123,15 @@ class PatientDetailsView extends StatelessWidget {
                         color: Colors.amber,
                         ontap: RouteManagement.goToOrderMedicine,
                       ),
-                      PatientOptions(
+                      const PatientOptions(
                         title: 'Order Lab Test',
                         color: Colors.red,
-                        ontap: () {},
+                        ontap: RouteManagement.goToOrderLabTest,
                       ),
-                      PatientOptions(
+                      const PatientOptions(
                         title: 'Order Radiology Test',
                         color: Colors.green,
-                        ontap: () {},
+                        ontap: RouteManagement.goToOrderRadiology,
                       ),
                     ],
                   ),

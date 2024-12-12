@@ -3,7 +3,7 @@ export 'doctor/doctors.dart';
 export 'home/home.dart';
 export 'onboarding/onboarding.dart';
 export 'patient/patient.dart';
-export 'patient_details/patient_details.dart';
+export 'patient/patient_details/patient_details.dart';
 export 'pharmacy/pharmacy.dart';
 export 'receptionist/receptionist.dart';
 export 'select_branch/select_branch.dart';

@@ -24,6 +24,7 @@ class Routes {
   static const String patientDetails = _Paths.patientDetails;
   static const String orderMedicine = _Paths.orderMedicine;
   static const String orderLabTest = _Paths.orderLabTest;
+  static const String orderRadiology = _Paths.orderRadiology;
   static const String pharmacyHome = _Paths.pharmacyHome;
   static const String pharmacyNotification = _Paths.pharmacyNotification;
   static const String pharmacyOrderDetails = _Paths.pharmacyOrderDetails;
@@ -62,6 +63,7 @@ class _Paths {
   static const String patientDetails = '/patientDetailsScreen';
   static const String orderMedicine = '/orderMedicineScreen';
   static const String orderLabTest = '/orderLabTestScreen';
+  static const String orderRadiology = '/orderRadiologyScreen';
   static const String pharmacyHome = '/pharmacyHomeScreen';
   static const String pharmacyNotification = '/pharmacyNotificationScreen';
   static const String pharmacyOrderDetails = '/pharmacyOrderDetailsScreen';

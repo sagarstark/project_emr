@@ -39,4 +39,8 @@ class Apis {
   static const String getAllDoctors = 'app/doctor/getAllDoctors';
   static const String getDoctorById = 'app/doctor/getDoctorById';
   static const String getDoctorsByBranch = 'app/doctor/getDoctorsByBranch';
+
+  /// Patient APIs---------------------------------------------------------------------------------------
+  static const String patientRegistration =
+      'app/patient/mobPatientRegistration';
 }

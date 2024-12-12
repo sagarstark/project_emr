@@ -190,4 +190,53 @@ class HomeViewModel {
       return null;
     }
   }
+
+  // ---------------------------------------------------------------------------------------------
+  // Patient Registration API
+  // ---------------------------------------------------------------------------------------------
+  Future<ResponseModel?> patientRegistration({
+    required String nationalId,
+    required String name,
+    required String dob,
+    required int age,
+    required String gender,
+    required String emailId,
+    required String nationality,
+    required String maritalStatus,
+    required String visaType,
+    required String otherId,
+    required String occupation,
+    required String address,
+    required String phoneNo,
+    required String problem,
+    required String symptoms,
+  }) async {
+    final response = await _repository.patientRegistration(
+      nationalId: nationalId,
+      name: name,
+      dob: dob,
+      age: age,
+      gender: gender,
+      emailId: emailId,
+      nationality: nationality,
+      maritalStatus: maritalStatus,
+      visaType: visaType,
+      otherId: otherId,
+      occupation: occupation,
+      address: address,
+      phoneNo: phoneNo,
+      problem: problem,
+      symptoms: symptoms,
+    );
+
+    var data = jsonDecode(response.data) as Map<String, dynamic>;
+
+    if (data['status'] == true) {
+      Get.back();
+      Utility.showDialog(data['message'].toString());
+      return response;
+    } else {
+      return null;
+    }
+  }
 }

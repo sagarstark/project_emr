@@ -159,6 +159,12 @@ class AppPages {
       page: OrderLabTestView.new,
       transition: Transition.rightToLeft,
     ),
+    GetPage<OrderRadiologyView>(
+      name: Routes.orderRadiology,
+      transitionDuration: transitionDuration,
+      page: OrderRadiologyView.new,
+      transition: Transition.rightToLeft,
+    ),
     GetPage<PharmacyHomeScreen>(
       name: Routes.pharmacyHome,
       transitionDuration: transitionDuration,

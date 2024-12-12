@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:project_emr/data/data.dart';
 import 'package:project_emr/models/models.dart';
@@ -163,6 +165,53 @@ class HomeRepository {
         'Content-Type': 'application/json',
       },
       showLoader: false,
+    );
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  Future<ResponseModel> patientRegistration({
+    required String nationalId,
+    required String name,
+    required String dob,
+    required int age,
+    required String gender,
+    required String emailId,
+    required String nationality,
+    required String maritalStatus,
+    required String visaType,
+    required String otherId,
+    required String occupation,
+    required String address,
+    required String phoneNo,
+    required String problem,
+    required String symptoms,
+  }) async {
+    final body = {
+      "nationalId": nationalId,
+      "name": name,
+      "dob": dob,
+      "age": age,
+      "gender": gender,
+      "emailId": emailId,
+      "nationality": nationality,
+      "maritalStatus": maritalStatus,
+      "visaType": visaType,
+      "otherId": otherId,
+      "occupation": occupation,
+      "address": address,
+      "phoneNo": phoneNo,
+      "problem": problem,
+      "symptoms": symptoms,
+    };
+
+    return _apiWrapper.makeRequest(
+      Apis.patientRegistration,
+      type: RequestType.post,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      payload: jsonEncode(body),
+      showLoader: true,
     );
   }
 }

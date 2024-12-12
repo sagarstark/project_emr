@@ -136,6 +136,12 @@ abstract class RouteManagement {
     );
   }
 
+  static void goToOrderRadiology() {
+    Get.toNamed<void>(
+      Routes.orderRadiology,
+    );
+  }
+
   static void goToPharmacyNotification() {
     Get.toNamed<void>(
       Routes.pharmacyNotification,

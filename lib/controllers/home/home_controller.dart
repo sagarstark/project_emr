@@ -229,6 +229,38 @@ class HomeController extends GetxController {
     );
   }
 
+  // ---------------------------------------------------------------------------------------------
+  // Doctor API
+  // ---------------------------------------------------------------------------------------------
+  // Radiology Controllers
+  final radiologySearchController = TextEditingController();
+  final radiologyLabTestController = TextEditingController();
+  final radiologyNormalRateController = TextEditingController();
+  final radiologyQuantityController = TextEditingController();
+  final radiologyPriceController = TextEditingController();
+  final radiologyDiscountController = TextEditingController();
+  final radiologyCoInsuranceController = TextEditingController();
+  final radiologyServiceByController = TextEditingController();
+  final radiologyServiceDateController = TextEditingController();
+  final radiologyRemarksController = TextEditingController();
+
+  // Lab Test Controllers
+  final labTestSearchController = TextEditingController();
+  final labTestNameController = TextEditingController();
+  final labTestNormalRateController = TextEditingController();
+  final labTestQuantityController = TextEditingController();
+  final labTestPriceController = TextEditingController();
+  final labTestDiscountController = TextEditingController();
+  final labTestCoInsuranceController = TextEditingController();
+  final labTestServiceByController = TextEditingController();
+  final labTestServiceDateController = TextEditingController();
+  final labTestRemarksController = TextEditingController();
+
+  final isCovered = false.obs;
+  final selectedServiceProvider = Rxn<String>();
+  final serviceProviders =
+      <String>['Provider 1', 'Provider 2', 'Provider 3'].obs;
+
   DoctorsAppointmentModel? doctorsAppointmentModel;
 
   var isAppointmentLoading = false;
@@ -258,5 +290,83 @@ class HomeController extends GetxController {
     );
     isDoctorsPatientList = false;
     update([updateId]);
+  }
+
+  // ---------------------------------------------------------------------------------------------
+  // Patient  API
+  // ---------------------------------------------------------------------------------------------
+  final patientNationalIdController = TextEditingController();
+  final patientNameController = TextEditingController();
+  final patientDobController = TextEditingController();
+  final patientGenderController = TextEditingController();
+  final patientNationalityController = TextEditingController();
+  final patientMaritalStatusController = TextEditingController();
+  final patientVisaTypeController = TextEditingController();
+  final patientOtherIdController = TextEditingController();
+  final patientOccupationController = TextEditingController();
+  final patientAddressController = TextEditingController();
+  final patientPhoneController = TextEditingController();
+  final patientEmailController = TextEditingController();
+  final patientProblemController = TextEditingController();
+  final patientSymptomsController = TextEditingController();
+
+  Future<void> patientRegistration() async {
+    await _viewModel.patientRegistration(
+      nationalId: patientNationalIdController.text,
+      name: patientNameController.text,
+      dob: DateFormat('yyyy-MM-dd').format(newPatientDOB!),
+      age: DateTime.now().year - newPatientDOB!.year,
+      gender: patientGenderController.text,
+      emailId: patientEmailController.text,
+      nationality: patientNationalityController.text,
+      maritalStatus: patientMaritalStatusController.text,
+      visaType: patientVisaTypeController.text,
+      otherId: patientOtherIdController.text,
+      occupation: patientOccupationController.text,
+      address: patientAddressController.text,
+      phoneNo: patientPhoneController.text,
+      problem: patientProblemController.text,
+      symptoms: patientSymptomsController.text,
+    );
+  }
+
+  void clearPatientFields() {
+    patientNationalIdController.clear();
+    patientNameController.clear();
+    patientDobController.clear();
+    patientGenderController.clear();
+    patientNationalityController.clear();
+    patientMaritalStatusController.clear();
+    patientVisaTypeController.clear();
+    patientOtherIdController.clear();
+    patientOccupationController.clear();
+    patientAddressController.clear();
+    patientPhoneController.clear();
+    patientEmailController.clear();
+    patientProblemController.clear();
+    patientSymptomsController.clear();
+
+    newPatientDOB = null;
+    update(['add-new-patient']);
+  }
+
+  @override
+  void onClose() {
+    // Dispose all controllers
+    patientNationalIdController.dispose();
+    patientNameController.dispose();
+    patientDobController.dispose();
+    patientGenderController.dispose();
+    patientNationalityController.dispose();
+    patientMaritalStatusController.dispose();
+    patientVisaTypeController.dispose();
+    patientOtherIdController.dispose();
+    patientOccupationController.dispose();
+    patientAddressController.dispose();
+    patientPhoneController.dispose();
+    patientEmailController.dispose();
+    patientProblemController.dispose();
+    patientSymptomsController.dispose();
+    super.onClose();
   }
 }

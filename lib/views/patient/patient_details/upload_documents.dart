@@ -83,15 +83,13 @@ class UploadDocumentsView extends StatelessWidget {
                 ),
                 const Gap(10),
                 ElevatedButton(
-                  style: const ButtonStyle(
-                    backgroundColor: WidgetStatePropertyAll(
-                      ColorsValue.secondaryColor,
-                    ),
-                  ),
                   onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: ColorsValue.secondaryColor,
+                  ),
                   child: Text(
                     'Upload',
-                    style: Styles.black12,
+                    style: Styles.white14,
                   ),
                 ),
               ],
